@@ -338,6 +338,67 @@
       pointer-events:none;
     }
 
+    /* ============================================================  JOB TIMELINE  */
+    /* Company colors */
+    .pg-job-row{
+      display:grid;
+      min-height:3rem;
+      align-items:center;
+      border-bottom:1px solid var(--divider);
+      position:relative;
+      background:var(--surface-off);
+      opacity:.85;
+    }
+    
+    /* S-connector curves */
+    .pg-job-connector{
+      position:absolute;
+      width:20px;
+      height:40px;
+      left:-20px;
+      top:50%;
+      transform:translateY(-50%);
+      pointer-events:none;
+      z-index:2;
+    }
+    .pg-job-connector-start{
+      fill:none;
+      stroke:var(--border);
+      stroke-width:2.2px;
+      opacity:.7;
+    }
+    
+    /* Job bar - will be colored by company */
+    .pg-job-bar{
+      position:absolute;
+      height:10px;
+      border-radius:5px;
+      top:50%;
+      transform:translateY(-50%);
+      cursor:pointer;
+      opacity:.7;
+      transition:opacity var(--tr),filter var(--tr);
+      filter:drop-shadow(0 1px 2px rgba(0,0,0,.12));
+    }
+    .pg-job-bar:hover{
+      opacity:1;
+      filter:drop-shadow(0 2px 4px rgba(0,0,0,.18));
+    }
+    
+    /* Job label */
+    .pg-job-label{
+      position:absolute;
+      transform:translateX(-50%);
+      white-space:nowrap;
+      font-size:8.5px;
+      font-weight:600;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      color:var(--muted);
+      pointer-events:none;
+      bottom:calc(100% + 4px);
+    }
+
     /* ============================================================  TOOLTIP  */
     .tooltip{
       position:fixed;z-index:999;
@@ -628,6 +689,13 @@ const TYPE_COLORS = {
   world:     '#8c3a2a',
   job:       '#1a6e3c',  // tamno zelena — posao
   rocket:    '#0d47a1',  // duboko plava — raketa/startup
+};
+
+// Company colors for Boris's job timeline
+const COMPANY_COLORS = {
+  'gisdata':  '#00A86B',  // sveža zelena
+  'b4b':      '#3D5A80',  // mornarska plava
+  'freelance':'#FF6B35',  // jarko narančasta
 };
 const TYPE_LABELS = {
   birth:     'Rođenje',
@@ -953,6 +1021,82 @@ function buildTimeline() {
     });
 
     wrap.appendChild(row);
+
+    // ── BORIS JOB TIMELINE (parallel timeline for jobs)
+    if (m.id === 'boris') {
+      const jobRow = document.createElement('div');
+      jobRow.className = 'pg-job-row';
+      jobRow.dataset.member = 'boris-jobs';
+      jobRow.style.height = '52px';
+
+      // Row label
+      const jobLbl = document.createElement('div');
+      jobLbl.className = 'pg-row-label';
+      jobLbl.innerHTML = '<div class="pg-row-avatar" style="background:#666;font-size:7.5px;line-height:1">WORK</div>';
+      jobRow.appendChild(jobLbl);
+
+      // Year lines
+      drawYearLines(jobRow);
+
+      // S-connector at start
+      const svgStart = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      svgStart.setAttribute('class', 'pg-job-connector');
+      svgStart.setAttribute('viewBox', '0 0 20 40');
+      svgStart.innerHTML = `<path class="pg-job-connector-start" d="M 20 0 Q 10 20, 20 40"/>`;
+      jobRow.appendChild(svgStart);
+
+      // Get Boris's job events
+      const borisJobs = EVENTS.filter(e => !e.world && e.yearEnd && e.members && e.members.includes('boris') && (e.type === 'job' || e.type === 'rocket'));
+      
+      // Map jobs to company IDs for coloring
+      borisJobs.forEach(job => {
+        const x1 = xOfYear(job.year, job.frac || 0);
+        const x2 = xOfYear(job.yearEnd, job.yearEndFrac !== undefined ? job.yearEndFrac : .99);
+        
+        // Determine company color
+        let companyColor = COMPANY_COLORS.freelance; // default
+        if (job.id.includes('gisdata')) companyColor = COMPANY_COLORS.gisdata;
+        else if (job.id.includes('b4b')) companyColor = COMPANY_COLORS.b4b;
+        else if (job.id.includes('freelance')) companyColor = COMPANY_COLORS.freelance;
+        
+        const jobBar = document.createElement('div');
+        jobBar.className = 'pg-job-bar';
+        jobBar.style.background = companyColor;
+        jobBar.style.left = x1 + 'px';
+        jobBar.style.width = (x2 - x1) + 'px';
+        
+        // Add tooltip
+        attachTooltip(jobBar, job);
+        jobBar.style.pointerEvents = 'auto';
+        jobRow.appendChild(jobBar);
+
+        // Add job label
+        const jobLabel = document.createElement('div');
+        jobLabel.className = 'pg-job-label';
+        jobLabel.style.left = ((x1 + x2) / 2) + 'px';
+        
+        // Extract company name from title
+        let companyName = '';
+        if (job.id.includes('gisdata')) companyName = 'Gisdata';
+        else if (job.id.includes('b4b')) companyName = 'B4B';
+        else if (job.id.includes('freelance')) companyName = 'Freelance';
+        
+        jobLabel.textContent = companyName;
+        jobLabel.style.color = companyColor;
+        jobRow.appendChild(jobLabel);
+      });
+
+      // S-connector at end
+      const svgEnd = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      svgEnd.setAttribute('class', 'pg-job-connector');
+      svgEnd.setAttribute('viewBox', '0 0 20 40');
+      svgEnd.style.left = 'auto';
+      svgEnd.style.right = '-20px';
+      svgEnd.innerHTML = `<path class="pg-job-connector-start" d="M 0 0 Q 10 20, 0 40"/>`;
+      jobRow.appendChild(svgEnd);
+
+      wrap.appendChild(jobRow);
+    }
   });
 
   // ── WAR SPAN OVERLAYS — samo po jedna linija na pocetku i na kraju
