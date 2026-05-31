@@ -319,10 +319,13 @@
       top:50%;transform:translate(-50%,-50%);
       cursor:pointer;
       z-index:5;
-      transition:transform var(--tr),filter var(--tr);
+      transition:transform var(--tr),filter var(--tr),top var(--tr);
       filter:drop-shadow(0 1px 2px rgba(0,0,0,.18));
     }
     .pg-event-dot:hover{transform:translate(-50%,-50%) scale(1.5);filter:drop-shadow(0 2px 6px rgba(0,0,0,.28))}
+    .pg-event-dot.grouped-hover{
+      /* Će biti postavljeno dinamički */
+    }
     .pg-event-dot svg{width:100%;height:100%;display:block}
 
     /* Event label above/below dot */
@@ -1224,11 +1227,72 @@ function addDot(row, ev, year, frac, color) {
   const dot = document.createElement('div');
   dot.className = 'pg-event-dot';
   dot.style.left = xOfYear(year, frac) + 'px';
+  dot.dataset.eventX = xOfYear(year, frac);
   const type = ev.world ? 'world' : (ev.type || 'general');
   dot.innerHTML = getIcon(type, color);
   attachTooltip(dot, ev);
   row.appendChild(dot);
   return dot;
+}
+
+function setupOverlapHandling() {
+  // Pronađi sve event dot-ove po redovima i detektuj preklapanja
+  document.querySelectorAll('.pg-member-row, .pg-world-row').forEach(row => {
+    const dots = [...row.querySelectorAll('.pg-event-dot')];
+    
+    // Pronađi grupe bliskos ikona (unutar 30px)
+    const groups = [];
+    const processed = new Set();
+    
+    dots.forEach((dot, idx) => {
+      if (processed.has(idx)) return;
+      
+      const x = parseFloat(dot.dataset.eventX || dot.style.left);
+      const group = [dot];
+      processed.add(idx);
+      
+      // Pronađi sve dot-ove blizu ovog
+      dots.forEach((otherDot, otherIdx) => {
+        if (processed.has(otherIdx)) return;
+        const otherX = parseFloat(otherDot.dataset.eventX || otherDot.style.left);
+        if (Math.abs(x - otherX) < 30) {
+          group.push(otherDot);
+          processed.add(otherIdx);
+        }
+      });
+      
+      // Ako grupa ima više od 1 elementa, postavi hover handler
+      if (group.length > 1) {
+        groups.push(group);
+      }
+    });
+    
+    // Za svaku grupu, postavi hover event listener-e
+    groups.forEach(group => {
+      group.forEach((dot, idx) => {
+        dot.addEventListener('mouseenter', () => {
+          // Razdvoji grupu
+          group.forEach((item, itemIdx) => {
+            const offset = (itemIdx - (group.length - 1) / 2) * 28; // 28px razmak između ikona
+            item.style.top = (50 + offset) + '%';
+            item.style.zIndex = 10 + itemIdx;
+          });
+        });
+        
+        dot.addEventListener('mouseleave', () => {
+          // Provjeri da li su svi članovi grupe napustili hover
+          const anyHovered = group.some(item => item.matches(':hover'));
+          if (!anyHovered && !group.some(item => item.querySelector(':hover'))) {
+            // Vrati sve u originalni položaj
+            group.forEach((item) => {
+              item.style.top = '50%';
+              item.style.zIndex = '';
+            });
+          }
+        });
+      });
+    });
+  });
 }
 
 /* ============================================================
@@ -1390,7 +1454,7 @@ function renderProfiles() {
   const sun  = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>`;
   const upd = () => t.innerHTML = d === 'dark' ? sun : moon;
   upd();
-  t.addEventListener('click', () => { d = d==='dark'?'light':'dark'; r.setAttribute('data-theme',d); upd(); buildTimeline(); });
+  t.addEventListener('click', () => { d = d==='dark'?'light':'dark'; r.setAttribute('data-theme',d); upd(); buildTimeline(); setupOverlapHandling(); });
 })();
 
 /* ============================================================
@@ -1419,6 +1483,7 @@ function applyZoom(newVal, preserveYear) {
   zoomLabel.textContent = COL_W + ' px/god';
 
   buildTimeline();
+  setupOverlapHandling();
 
   // Restore scroll so same year stays centred
   requestAnimationFrame(() => {
@@ -1612,6 +1677,7 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeWarMo
    INIT — scroll to 1955 on load
 ============================================================ */
 buildTimeline();
+setupOverlapHandling();
 renderProfiles();
 renderTypeLegend();
 
