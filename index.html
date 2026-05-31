@@ -1356,9 +1356,6 @@ document.querySelectorAll('.ml-pill').forEach(pill => {
   });
 });
 
-// Renderaj type legend na početku
-renderTypeLegend();
-
 /* ============================================================
    PROFILES
 ============================================================ */
@@ -1616,6 +1613,7 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeWarMo
 ============================================================ */
 buildTimeline();
 renderProfiles();
+renderTypeLegend();
 
 // Scroll so 1955 is near the left edge after load
 requestAnimationFrame(() => {
