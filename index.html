@@ -542,7 +542,30 @@
     .wm-event-who{display:flex;gap:.2rem;flex-wrap:wrap;margin-top:.25rem;}
     .wm-badge{font-size:8px;font-weight:700;padding:1px 5px;border-radius:99px;color:#fff;}
     .wm-empty{font-size:var(--xs);color:var(--faint);font-style:italic;}
-    @media(max-width:580px){.wm-quarters{grid-template-columns:repeat(2,1fr)}}
+    
+    /* ============================================================  MOBILE TOOLTIP  */
+    @media(max-width:768px){
+      .tooltip{
+        max-width:90vw;min-width:160px;
+        padding:.65rem .75rem;
+        border-radius:var(--r-md);
+      }
+      .tt-title{font-size:var(--xs);margin-bottom:.2rem}
+      .tt-date{font-size:8px}
+      .tt-tag{font-size:8px;padding:1px 5px}
+      .tt-desc{font-size:10px;max-height:60px}
+      .tt-badge{font-size:8px;padding:1px 4px}
+    }
+    @media(max-width:580px){
+      .wm-quarters{grid-template-columns:repeat(2,1fr)}
+      .tooltip{
+        max-width:95vw;padding:.5rem .65rem
+      }
+      .tt-meta{margin-bottom:.2rem}
+      .tt-title{font-size:10px}
+      .tt-loc{font-size:9px;margin-bottom:.15rem}
+      .tt-desc{font-size:9px;max-height:50px}
+    }
   </style>
 </head>
 <body>
@@ -1255,14 +1278,43 @@ function attachTooltip(el, ev) {
 }
 
 function positionTooltip(e) {
-  const x = e.clientX + 14;
-  const y = e.clientY + 14;
   const w = ttEl.offsetWidth  || 280;
   const h = ttEl.offsetHeight || 160;
   const vw = window.innerWidth;
   const vh = window.innerHeight;
-  ttEl.style.left = (x + w > vw - 8 ? e.clientX - w - 8 : x) + 'px';
-  ttEl.style.top  = (y + h > vh - 8 ? e.clientY - h - 8 : y) + 'px';
+  const isMobile = vw <= 768;
+  
+  let x, y;
+  
+  if (isMobile) {
+    // Na mobilnom: centrira horizontalno, pozicija iznad ili ispod
+    x = Math.max(8, Math.min(vw - w - 8, (vw - w) / 2));
+    // Ako je dovoljan prostor, prikaži iznad; inače ispod
+    const spaceAbove = e.clientY;
+    const spaceBelow = vh - e.clientY;
+    
+    if (spaceAbove > h + 20) {
+      // Ima prostora iznad — prikaži iznad
+      y = Math.max(8, e.clientY - h - 12);
+    } else if (spaceBelow > h + 20) {
+      // Ima prostora ispod — prikaži ispod
+      y = Math.min(vh - h - 8, e.clientY + 12);
+    } else {
+      // Nema dovoljno prostora — centrira vertikalno
+      y = Math.max(8, Math.min(vh - h - 8, (vh - h) / 2));
+    }
+  } else {
+    // Na desktopu: koristi stari pristup sa offset-om od kursora
+    x = e.clientX + 14;
+    y = e.clientY + 14;
+    // Ako preskače desnu stranu — pomakni ulevo
+    if (x + w > vw - 8) x = Math.max(8, e.clientX - w - 8);
+    // Ako preskače donju stranu — pomakni gore
+    if (y + h > vh - 8) y = Math.max(8, e.clientY - h - 8);
+  }
+  
+  ttEl.style.left = x + 'px';
+  ttEl.style.top  = y + 'px';
 }
 
 /* ============================================================
