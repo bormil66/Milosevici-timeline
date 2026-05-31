@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="hr" data-theme="light">
 <head>
   <meta charset="UTF-8" />
@@ -166,12 +166,24 @@
 
     /* ============================================================  TYPE LEGEND  */
     .type-legend{
-      display:flex;flex-wrap:wrap;gap:.75rem;justify-content:center;
-      padding:.625rem 1.5rem;background:var(--surface-off);border-bottom:1px solid var(--divider);
+      display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;align-items:center;
+      padding:.75rem 1.5rem;background:var(--surface-off);border-bottom:1px solid var(--divider);
       font-size:var(--xs);color:var(--muted);
     }
-    .tl-item{display:flex;align-items:center;gap:.3rem}
-    .tl-dot{width:9px;height:9px;border-radius:50%}
+    .tl-item{display:flex;align-items:center;gap:.3rem;white-space:nowrap}
+    .tl-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+    .tl-icon{width:14px;height:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .tl-icon svg{width:100%;height:100%;display:block}
+    @media(max-width:1024px){
+      .type-legend{gap:.4rem;padding:.6rem 1rem;font-size:10px}
+      .tl-dot{width:8px;height:8px}
+      .tl-icon{width:12px;height:12px}
+    }
+    @media(max-width:768px){
+      .type-legend{gap:.3rem;padding:.5rem .75rem;font-size:9px}
+      .tl-dot{width:7px;height:7px}
+      .tl-icon{width:11px;height:11px}
+    }
 
     /* ============================================================  SCROLL WRAPPER  */
     .scroll-outer{
@@ -626,13 +638,8 @@
 </div>
 
 <!-- TYPE LEGEND -->
-<div class="type-legend">
-  <div class="tl-item"><span class="tl-dot" style="background:var(--c-birth)"></span>Rođenje</div>
-  <div class="tl-item"><span class="tl-dot" style="background:var(--c-marriage)"></span>Vjenčanje</div>
-  <div class="tl-item"><span class="tl-dot" style="background:var(--c-war)"></span>Rat / Kriza</div>
-  <div class="tl-item"><span class="tl-dot" style="background:var(--c-milestone)"></span>Prekretnica</div>
-  <div class="tl-item"><span class="tl-dot" style="background:var(--c-general)"></span>Događaj</div>
-  <div class="tl-item"><span class="tl-dot" style="background:var(--c-death)"></span>Smrt</div>
+<div class="type-legend" id="typeLegend">
+  <!-- JS će popuniti sve dostupne tipove -->
 </div>
 
 <!-- NOTE -->
@@ -856,8 +863,8 @@ const EVENTS = [
 
   // ── SMRT VERE
   { id:'vera-smrt', year:2023, frac:.67, type:'death', members:['vera','goranka','boris'],
-    title:'Vera Milošević umire', date:'Август 2023.', loc:'Sarajevo, BiH',
-    desc:'Vera Milošević umire u sierpnia 2023. u 90. godini života. Rodila se u Derventi 1933., preživjela je Drugi svjetski rat, izgradnju Jugoslavije, njezin raspad i sarajevsku opsadu. Ostavlja djecu Goranku i Borisa.' },
+    title:'Vera Milošević umire', date:'Kolovoz 2023.', loc:'Sarajevo, BiH',
+    desc:'Vera Milošević umire u kolovoza 2023. u 90. godini života. Rodila se u Derventi 1933., preživjela je Drugi svjetski rat, izgradnju Jugoslavije, njezin raspad i sarajevsku opsadu. Ostavlja djecu Goranku i Borisa.' },
 
   // ── BORIS 60
   { id:'boris60', year:2026, frac:.03, type:'milestone', members:['boris','goranka'],
@@ -1225,6 +1232,21 @@ function addDot(row, ev, year, frac, color) {
 }
 
 /* ============================================================
+   RENDER TYPE LEGEND
+============================================================ */
+function renderTypeLegend() {
+  const legend = document.getElementById('typeLegend');
+  const order = ['birth', 'marriage', 'education', 'move', 'hospital', 'escape', 'fire', 'war', 'job', 'rocket', 'milestone', 'general', 'world', 'death'];
+  
+  legend.innerHTML = order.map(type => {
+    const label = TYPE_LABELS[type] || type;
+    const color = TYPE_COLORS[type] || '#999';
+    const icon = getIcon(type, color);
+    return `<div class="tl-item" title="${label}"><span class="tl-icon">${icon}</span><span>${label}</span></div>`;
+  }).join('');
+}
+
+/* ============================================================
    TOOLTIP
 ============================================================ */
 const ttEl      = document.getElementById('tooltip');
@@ -1333,6 +1355,9 @@ document.querySelectorAll('.ml-pill').forEach(pill => {
     });
   });
 });
+
+// Renderaj type legend na početku
+renderTypeLegend();
 
 /* ============================================================
    PROFILES
@@ -1929,3 +1954,4 @@ requestAnimationFrame(() => {
 
 </script></body>
 </html>
+
