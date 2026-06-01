@@ -101,10 +101,12 @@
     .ml-pill[data-m="vera"].on   {background:var(--c-vera);   border-color:var(--c-vera)}
     .ml-pill[data-m="goranka"].on{background:var(--c-goranka);border-color:var(--c-goranka)}
     .ml-pill[data-m="boris"].on  {background:var(--c-boris);  border-color:var(--c-boris)}
+    .ml-pill[data-m="andrea"].on {background:#d4745f;border-color:#d4745f}
     .ml-pill[data-m="drago"]:not(.on):hover  {border-color:var(--c-drago);  color:var(--c-drago)}
     .ml-pill[data-m="vera"]:not(.on):hover   {border-color:var(--c-vera);   color:var(--c-vera)}
     .ml-pill[data-m="goranka"]:not(.on):hover{border-color:var(--c-goranka);color:var(--c-goranka)}
     .ml-pill[data-m="boris"]:not(.on):hover  {border-color:var(--c-boris);  color:var(--c-boris)}
+    .ml-pill[data-m="andrea"]:not(.on):hover {border-color:#d4745f;color:#d4745f}
     .ml-dot{width:8px;height:8px;border-radius:50%;background:currentColor;flex-shrink:0}
 
     /* ============================================================  WAR SPAN OVERLAY  */
@@ -632,6 +634,7 @@
   <button class="ml-pill on" data-m="vera">   <span class="ml-dot" style="background:var(--c-vera)"></span>   Vera</button>
   <button class="ml-pill on" data-m="goranka"><span class="ml-dot" style="background:var(--c-goranka)"></span>Goranka</button>
   <button class="ml-pill on" data-m="boris">  <span class="ml-dot" style="background:var(--c-boris)"></span>  Boris</button>
+  <button class="ml-pill on" data-m="andrea"> <span class="ml-dot" style="background:#d4745f"></span> Andrea</button>
 </nav>
 
 <!-- ZOOM BAR -->
@@ -707,6 +710,7 @@ const MEMBERS = [
   { id:'vera',    name:'Vera Milošević',    role:'Majka',            born:1933, bornDate:'28. 5. 1933.', died:2023, diedDate:'Kolovoz 2023.', place:'Derventa, BiH', color:'#b84c6e', initials:'VM' },
   { id:'goranka', name:'Goranka Milošević', role:'Kći (prvorođena)', born:1961, bornDate:'29. 9. 1961.', died:null, place:'Slavonski Brod', color:'#2a8c5b', initials:'GM' },
   { id:'boris',   name:'Boris Milošević',   role:'Sin',              born:1966, bornDate:'5. 1. 1966.',  died:null, place:'Bosanski Brod', color:'#2563a8', initials:'BM' },
+  { id:'andrea',  name:'Andrea Gavrić',     role:'Unuka',            born:1990, bornDate:'25. 1. 1990.', died:null, place:'Tuzla, BiH', color:'#d4745f', initials:'AG' },
 ];
 
 // type: birth | marriage | death | war | milestone | general | world
