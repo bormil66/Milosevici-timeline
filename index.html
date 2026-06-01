@@ -324,7 +324,7 @@
     }
     .pg-event-dot:hover{transform:translate(-50%,-50%) scale(1.5);filter:drop-shadow(0 2px 6px rgba(0,0,0,.28))}
     .pg-event-dot.grouped-hover{
-      /* Će biti postavljeno dinamički */
+      /* grouped hover styling intentionally reserved for JS-managed groups */
     }
     .pg-event-dot svg{width:100%;height:100%;display:block}
 
@@ -420,7 +420,7 @@
       background:var(--surface2);border:1px solid var(--border);
       border-radius:var(--r-lg);padding:.875rem 1rem;
       box-shadow:var(--sh-md);
-      max-width:280px;min-width:200px;
+      max-width:min(90vw, 500px);min-width:220px;
       pointer-events:none;
       opacity:0;transition:opacity .15s ease;
     }
@@ -431,7 +431,7 @@
       padding:2px 7px;border-radius:var(--r-full);color:#fff}
     .tt-title{font-family:var(--fd);font-size:var(--sm);font-weight:700;line-height:1.25;margin-bottom:.3rem}
     .tt-loc{font-size:var(--xs);color:var(--faint);margin-bottom:.3rem;display:flex;align-items:center;gap:3px}
-    .tt-desc{font-size:var(--xs);color:var(--muted);line-height:1.5;max-height:80px;overflow:hidden}
+    .tt-desc{font-size:var(--xs);color:var(--muted);line-height:1.5;word-break:break-word;white-space:normal;}
     .tt-members{display:flex;flex-wrap:wrap;gap:.3rem;margin-top:.5rem}
     .tt-badge{font-size:9px;font-weight:600;padding:2px 6px;border-radius:var(--r-full);background:var(--surface-off);color:var(--muted);display:flex;align-items:center;gap:3px}
     .tt-badge-dot{width:6px;height:6px;border-radius:50%}
@@ -801,17 +801,12 @@ const EVENTS = [
   // ── BORIS ETF
   { id:'boris-etf', year:1984, frac:.46, type:'education', members:['boris'],
     title:'Boris upisuje ETF Sarajevo', date:'Lipanj 1984.', loc:'Sarajevo, BiH',
-    desc:'Boris upisuje Elektrotehnički fakultet u Sarajevu u lipnju 1984. Samo dva mjeseca kasnije, u kolovozu, odlazi na vojni rok u JNA u Đakovo pa mu studij privremeno staje.' },
+    desc:'Boris upisuje Elektrotehnički fakultet u Sarajevu u lipnju 1984. Dva mjeseca kasnije, nakon Zimskih olimpijskih igara (održanih u siječnju), odlazi na vojni rok u JNA u Đakovo pa mu studij privremeno staje.' },
 
   // ── BORIS JNA
   { id:'boris-jna', year:1984, frac:.58, yearEnd:1985, type:'war', members:['boris'],
     title:'Boris u JNA — Đakovo', date:'Kolovoz 1984. — Rujan 1985.', loc:'Đakovo, SR Hrvatska',
-    desc:'Boris odlazi na služenje vojnog roka u JNA, raspoređen u Đakovo u Hrvatskoj. Provodi točno 409 dana u vojsci. Iste godine Sarajevo je domaćin Zimskih olimpijskih igara — obitelj ih prati bez njega.' },
-
-  // ── BORIS NASTAVLJA ETF
-  { id:'boris-etf-nastavak', year:1985, frac:.75, type:'education', members:['boris'],
-    title:'Boris nastavlja ETF', date:'Jesen 1985.', loc:'Sarajevo, BiH',
-    desc:'Nakon 409 dana vojnog roka u Đakovu, Boris se vraća u Sarajevo i nastavlja studij na Elektrotehničkom fakultetu.' },
+    desc:'Nakon Zimskih olimpijskih igara u Sarajevu (siječanj 1984), Boris odlazi na služenje vojnog roka u JNA. Raspoređen je u Đakovo u Hrvatskoj gdje provodi točno 409 dana u vojsci.' },
 
   // ── WORLD
   { id:'w-yugo91', year:1991, yearEnd:1995, type:'world', world:true,
@@ -837,17 +832,32 @@ const EVENTS = [
   // ── KUĆA U NEUMU ZAPALJENA
   { id:'neum-pozar', year:1992, frac:.52, type:'fire', members:['drago','vera'],
     title:'Kuća u Neumu zapaljena', date:'Kraj srpnja 1992.', loc:'Neum, BiH',
-    desc:'Desetak dana prije dolaska Drage i Vere, njihova kuća u Neumu je zapaljena. Dočekuje ih ruševina umjesto skloništa.' },
+    desc:'Kuća u Neumu je zapaljena, ali je ugašena prije nego što je sasvim izgorjela – stradao je samo gornji kat. Lokalni Hrvati su je zapalili jer su mislili da su vlasnici Srbi.' },
 
   // ── DRAGO I VERA PROTJERANI IZ SARAJEVA
   { id:'drago-vera-bijeg', year:1992, frac:.60, type:'escape', members:['drago','vera'],
-    title:'Drago i Vera protjerani iz Sarajeva', date:'Srpanj 1992.', loc:'Sarajevo → Neum, BiH',
-    desc:'Drago (63 god.) i Vera (59 god.) su protjerani iz Sarajeva u srpnju 1992. Stižu u Neum gdje imaju kuću — ali ju nalaze spaljenu, samo 10 dana ranije.' },
+    title:'Drago i Vera protjerani iz Ilidže', date:'Srpanj 1992.', loc:'Ilidža (Sarajevo) → Neum, BiH',
+    desc:'U Ilidži su živjeli kao stalni dom, a Neum je bila njihova vikendica za more. Srpski časnik je dozvolio Dragi da uzme Ladu Samaru i ode u Neum, gdje su kuću našli spaljenu.' },
 
   // ── BORIS GISDATA
   { id:'boris-gisdata', year:1992, frac:.38, yearEnd:1998, yearEndFrac:.92, type:'job', members:['boris'],
     title:'Boris — Gisdata, Zagreb', date:'Svibanj 1992. — Prosinac 1998.', loc:'Zagreb, HR',
     desc:'Boris počinje raditi u tvrtki Gisdata u Zagrebu u svibnju 1992., neposredno nakon dolaska iz Sarajeva. Radi tamo šest i pol godina do prosinca 1998.' },
+
+  // ── BORIS GUSDATA BIH
+  { id:'boris-gisdata-bih', year:1996, frac:.5, yearEnd:1997, yearEndFrac:.75, type:'job', members:['boris'],
+    title:'Osniva Gisdata BiH', date:'Lipanj 1996. — Rujan 1997.', loc:'Sarajevo, BiH',
+    desc:'Boris dolazi u Sarajevo i osniva ogranak Gisdata BiH. Ured u Sarajevu ostaje aktivan nakon njegovog povratka u Zagreb.' },
+
+  // ── BORIS DIPLOMIRA ETF
+  { id:'boris-etf-dipl', year:1997, frac:.3, type:'education', members:['boris'],
+    title:'Diplomirao na ETF', date:'Svibanj 1997.', loc:'Sarajevo, BiH',
+    desc:'Boris završava Elektrotehnički fakultet sa diplomskim radom na temu Geografskih informacijskih sustava (GIS). Upisao je 1984., studirao je 13 godina sa stankom zbog vojnog roka (409 dana 1984–1985) i ratnih okolnosti (1992–1997).' },
+
+  // ── BORIS VRAĆA SE U ZAGREB
+  { id:'boris-gisdata-return', year:1997, frac:.75, type:'job', members:['boris'],
+    title:'Vraća se u Zagreb u Gisdata', date:'Rujan 1997.', loc:'Sarajevo → Zagreb, HR',
+    desc:'Nakon diplome, Boris se vraća u matičnu središnjicu Gisdata u Zagrebu gdje nastavlja svoju karijeru.' },
 
   // ── BORIS B4B
   { id:'boris-b4b', year:1998, frac:.92, yearEnd:2004, yearEndFrac:.38, type:'job', members:['boris'],
@@ -878,6 +888,9 @@ const EVENTS = [
 /* ============================================================
    LAYOUT CONSTANTS
 ============================================================ */
+const DENSE_START = 1991;
+const DENSE_END   = 1995;
+let   DENSE_MULT  = 4;   // dense zona dobiva 4x više prostora
 const NUM_YEARS  = YEAR_END - YEAR_START + 1;
 const LABEL_W    = 56;   // left gutter for row names
 let   GRID_W     = NUM_YEARS * COL_W;
@@ -887,8 +900,23 @@ let   TOTAL_W    = GRID_W + LABEL_W + 32;
    HELPERS
 ============================================================ */
 function xOfYear(year, frac = 0) {
-  return LABEL_W + (year - YEAR_START + frac) * COL_W;
+  const y = year + frac;
+  const beforeDense = (DENSE_START - YEAR_START) * COL_W;
+
+  if (y <= DENSE_START) {
+    return LABEL_W + (y - YEAR_START) * COL_W;
+  } else if (y <= DENSE_END) {
+    const insideDense = (y - DENSE_START) * COL_W * DENSE_MULT;
+    return LABEL_W + beforeDense + insideDense;
+  } else {
+    const denseWidth = (DENSE_END - DENSE_START) * COL_W * DENSE_MULT;
+    const afterDense = (y - DENSE_END) * COL_W;
+    return LABEL_W + beforeDense + denseWidth + afterDense;
+  }
 }
+
+TOTAL_W = xOfYear(YEAR_END + 1) - LABEL_W;
+GRID_W = TOTAL_W - LABEL_W;
 
 function cssVar(name) {
   return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
@@ -905,7 +933,38 @@ function buildTimeline() {
   // ── YEAR AXIS
   const axis = document.createElement('div');
   axis.className = 'pg-year-axis';
-  axis.style.gridTemplateColumns = `${LABEL_W}px repeat(${NUM_YEARS}, ${COL_W}px)`;
+
+  const yearColumns = [LABEL_W + 'px'];
+  for (let y = YEAR_START; y <= YEAR_END; y++) {
+    yearColumns.push((xOfYear(y + 1) - xOfYear(y)) + 'px');
+  }
+  axis.style.gridTemplateColumns = yearColumns.join(' ');
+
+  const denseOverlay = document.createElement('div');
+  denseOverlay.style.cssText = `
+    position:absolute;
+    left:${xOfYear(DENSE_START)}px;
+    top:0;
+    height:100%;
+    width:${xOfYear(DENSE_END + 1) - xOfYear(DENSE_START)}px;
+    background:rgba(184,76,58,.08);
+    border-top:2px solid #b84c3a;
+    pointer-events:none;
+  `;
+  const denseLabel = document.createElement('div');
+  denseLabel.style.cssText = `
+    position:absolute;
+    top:-1.15rem;
+    left:0;
+    font-size:.76rem;
+    color:#b84c3a;
+    white-space:nowrap;
+    pointer-events:none;
+  `;
+  denseLabel.textContent = '1991–1995 ▲ Detaljan prikaz';
+  denseOverlay.appendChild(denseLabel);
+  axis.appendChild(denseOverlay);
+
   // spacer cell
   const spacer = document.createElement('div');
   spacer.style.cssText = 'border-left:none';
@@ -1014,6 +1073,9 @@ function buildTimeline() {
     let lastLabelX = -999;
     let labelAbove = true;
     memberEvents.forEach((ev) => {
+      // Skip showing dot icons for Gisdata Sarajevo branch events
+      if (['boris-gisdata-bih', 'boris-gisdata-return'].includes(ev.id)) return;
+      
       const color = TYPE_COLORS[ev.type] || TYPE_COLORS.general;
       addDot(row, ev, ev.year, ev.frac || 0, color);
 
@@ -1077,8 +1139,12 @@ function buildTimeline() {
       svgStart.innerHTML = `<path class="pg-job-connector-start" d="M 20 0 Q 10 20, 20 40"/>`;
       jobRow.appendChild(svgStart);
 
-      // Get Boris's job events
-      const borisJobs = EVENTS.filter(e => !e.world && e.yearEnd && e.members && e.members.includes('boris') && (e.type === 'job' || e.type === 'rocket'));
+      // Get Boris's job events (exclude branch events)
+      const borisJobs = EVENTS.filter(e => !e.world && e.yearEnd && e.members && e.members.includes('boris') && (e.type === 'job' || e.type === 'rocket') && !['boris-gisdata-bih', 'boris-gisdata-return'].includes(e.id));
+      
+      // Special handling for Gisdata - needs to curve for BiH branch
+      const gisdataJob = borisJobs.find(j => j.id === 'boris-gisdata');
+      const gisdataBihEvent = EVENTS.find(e => e.id === 'boris-gisdata-bih');
       
       // Map jobs to company IDs for coloring
       borisJobs.forEach(job => {
@@ -1091,31 +1157,113 @@ function buildTimeline() {
         else if (job.id.includes('b4b')) companyColor = COMPANY_COLORS.b4b;
         else if (job.id.includes('freelance')) companyColor = COMPANY_COLORS.freelance;
         
-        const jobBar = document.createElement('div');
-        jobBar.className = 'pg-job-bar';
-        jobBar.style.background = companyColor;
-        jobBar.style.left = x1 + 'px';
-        jobBar.style.width = (x2 - x1) + 'px';
-        
-        // Add tooltip
-        attachTooltip(jobBar, job);
-        jobBar.style.pointerEvents = 'auto';
-        jobRow.appendChild(jobBar);
+        // Special case: Gisdata with BiH branch - split into parallel lines
+        if (job.id === 'boris-gisdata' && gisdataBihEvent) {
+          const bihStartX = xOfYear(gisdataBihEvent.year, gisdataBihEvent.frac || 0);
+          const bihEndX = xOfYear(gisdataBihEvent.yearEnd, gisdataBihEvent.yearEndFrac || .99);
+          
+          // Gisdata Zagreb BEFORE BiH (1992-1996.5)
+          const bar1 = document.createElement('div');
+          bar1.className = 'pg-job-bar';
+          bar1.style.background = companyColor;
+          bar1.style.left = x1 + 'px';
+          bar1.style.width = (bihStartX - x1) + 'px';
+          bar1.style.top = '50%';
+          bar1.style.transform = 'translateY(-50%)';
+          attachTooltip(bar1, job);
+          bar1.style.pointerEvents = 'auto';
+          jobRow.appendChild(bar1);
+          
+          // Label for Gisdata Zagreb (first part)
+          const gisdataLabel = document.createElement('div');
+          gisdataLabel.style.cssText = `
+            position:absolute;
+            left:${(x1 + bihStartX) / 2}px;
+            top:calc(50% - 14px);
+            transform:translateX(-50%);
+            font-size:7px;
+            font-weight:700;
+            color:${companyColor};
+            text-transform:uppercase;
+            pointer-events:none;
+            white-space:nowrap;
+          `;
+          gisdataLabel.textContent = 'Gisdata';
+          jobRow.appendChild(gisdataLabel);
+          
+          // Gisdata Sarajevo DURING BiH (parallel line below)
+          const bihBar = document.createElement('div');
+          bihBar.className = 'pg-job-bar';
+          bihBar.style.background = companyColor;
+          bihBar.style.left = bihStartX + 'px';
+          bihBar.style.width = (bihEndX - bihStartX) + 'px';
+          bihBar.style.top = 'calc(50% + 12px)';
+          bihBar.style.transform = 'translateY(-50%)';
+          bihBar.style.opacity = '0.8';
+          attachTooltip(bihBar, gisdataBihEvent);
+          bihBar.style.pointerEvents = 'auto';
+          jobRow.appendChild(bihBar);
+          
+          // Label for Gisdata Sarajevo
+          const bihLabel = document.createElement('div');
+          bihLabel.style.cssText = `
+            position:absolute;
+            left:${(bihStartX + bihEndX) / 2}px;
+            top:calc(50% + 18px);
+            transform:translateX(-50%);
+            font-size:7px;
+            font-weight:700;
+            color:${companyColor};
+            text-transform:uppercase;
+            pointer-events:none;
+            white-space:nowrap;
+          `;
+          bihLabel.textContent = 'Ured Sarajevo';
+          jobRow.appendChild(bihLabel);
+          
+          // Gisdata Zagreb AFTER BiH (1997.75-1998)
+          const bar2 = document.createElement('div');
+          bar2.className = 'pg-job-bar';
+          bar2.style.background = companyColor;
+          bar2.style.left = bihEndX + 'px';
+          bar2.style.width = (x2 - bihEndX) + 'px';
+          bar2.style.top = '50%';
+          bar2.style.transform = 'translateY(-50%)';
+          attachTooltip(bar2, job);
+          bar2.style.pointerEvents = 'auto';
+          jobRow.appendChild(bar2);
+          
+          // No label needed for the third part - it's continuation after Ured Sarajevo
+        } else {
+          // Normal job bar (not Gisdata or no BiH branch)
+          const jobBar = document.createElement('div');
+          jobBar.className = 'pg-job-bar';
+          jobBar.style.background = companyColor;
+          jobBar.style.left = x1 + 'px';
+          jobBar.style.width = (x2 - x1) + 'px';
+          
+          // Add tooltip
+          attachTooltip(jobBar, job);
+          jobBar.style.pointerEvents = 'auto';
+          jobRow.appendChild(jobBar);
+        }
 
-        // Add job label
-        const jobLabel = document.createElement('div');
-        jobLabel.className = 'pg-job-label';
-        jobLabel.style.left = ((x1 + x2) / 2) + 'px';
-        
-        // Extract company name from title
-        let companyName = '';
-        if (job.id.includes('gisdata')) companyName = 'Gisdata';
-        else if (job.id.includes('b4b')) companyName = 'B4B';
-        else if (job.id.includes('freelance')) companyName = 'Freelance';
-        
-        jobLabel.textContent = companyName;
-        jobLabel.style.color = companyColor;
-        jobRow.appendChild(jobLabel);
+        // Add job label (for non-Gisdata jobs)
+        if (job.id !== 'boris-gisdata') {
+          const jobLabel = document.createElement('div');
+          jobLabel.className = 'pg-job-label';
+          jobLabel.style.left = ((x1 + x2) / 2) + 'px';
+          
+          // Extract company name from title
+          let companyName = '';
+          if (job.id.includes('gisdata')) companyName = 'Gisdata';
+          else if (job.id.includes('b4b')) companyName = 'B4B';
+          else if (job.id.includes('freelance')) companyName = 'Freelance';
+          
+          jobLabel.textContent = companyName;
+          jobLabel.style.color = companyColor;
+          jobRow.appendChild(jobLabel);
+        }
       });
 
       // S-connector at end
@@ -1181,10 +1329,13 @@ const TYPE_ICONS = {
   hospital: (c) => `<svg viewBox="0 0 24 24" fill="${c}" xmlns="http://www.w3.org/2000/svg">
     <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/>
   </svg>`,
-  escape: (c) => `<svg viewBox="0 0 24 24" fill="${c}" xmlns="http://www.w3.org/2000/svg">
-    <circle cx="13" cy="4" r="2"/>
-    <path d="M16.5 9.5L14 8l-3 1.5V13h2v-2l1.5.8L13 17H9v2h5l1.5-5.5 2 2.5h2.5v-2H18l-1.5-4.5z"/>
-    <path d="M7 13.5l-2 5H7l1.5-4 1-1H7z" opacity=".6"/>
+  escape: (c) => `<svg viewBox="0 0 24 24" fill="none" stroke="${c}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="12" cy="4" r="2" />
+    <path d="M12 6v4" />
+    <path d="M7 10l3 1 1 3" />
+    <path d="M10 14l-2 5" />
+    <path d="M14 12l3 5" />
+    <path d="M14 8l2 2" />
   </svg>`,
   fire: (c) => `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
     <!-- mala vatra — tri plamena -->
@@ -1333,7 +1484,9 @@ function attachTooltip(el, ev) {
     ttTag.textContent     = TYPE_LABELS[type] || '';
     ttTag.style.background = color;
     ttTitle.textContent   = ev.title;
-    ttDesc.textContent    = ev.desc || '';
+
+    const rawDesc = ev.desc || '';
+    ttDesc.textContent = rawDesc;
 
     if (ev.loc) {
       ttLoc.style.display = 'flex';
@@ -1476,8 +1629,8 @@ function applyZoom(newVal, preserveYear) {
   const centreYear = preserveYear || (YEAR_START + (scrollLeft + outer.clientWidth / 2 - LABEL_W) / COL_W);
 
   COL_W   = Math.max(MIN_ZOOM, Math.min(MAX_ZOOM, newVal));
-  GRID_W  = NUM_YEARS * COL_W;
-  TOTAL_W = GRID_W + LABEL_W + 32;
+  TOTAL_W = xOfYear(YEAR_END + 1) - LABEL_W;
+  GRID_W  = TOTAL_W - LABEL_W;
 
   zoomSlider.value = COL_W;
   zoomLabel.textContent = COL_W + ' px/god';
@@ -2014,8 +2167,6 @@ requestAnimationFrame(() => {
     handleCaptureRequest(event);
   });
 })();
-
-
-</script></body>
+  </script></body>
 </html>
 
