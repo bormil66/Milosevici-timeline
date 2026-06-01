@@ -314,13 +314,16 @@
     /* Event marker on a member row */
     .pg-event-dot{
       position:absolute;
-      width:22px;height:22px;
+      width:16px;height:16px;
       display:flex;align-items:center;justify-content:center;
       top:50%;transform:translate(-50%,-50%);
       cursor:pointer;
       z-index:5;
       transition:transform var(--tr),filter var(--tr),top var(--tr);
       filter:drop-shadow(0 1px 2px rgba(0,0,0,.18));
+    }
+    .pg-event-dot.grandchild-birth{
+      width:16px;height:16px;
     }
     .pg-event-dot:hover{transform:translate(-50%,-50%) scale(1.5);filter:drop-shadow(0 2px 6px rgba(0,0,0,.28))}
     .pg-event-dot.grouped-hover{
@@ -807,6 +810,16 @@ const EVENTS = [
   { id:'boris-jna', year:1984, frac:.58, yearEnd:1985, type:'war', members:['boris'],
     title:'Boris u JNA — Đakovo', date:'Kolovoz 1984. — Rujan 1985.', loc:'Đakovo, SR Hrvatska',
     desc:'Nakon Zimskih olimpijskih igara u Sarajevu (siječanj 1984), Boris odlazi na služenje vojnog roka u JNA. Raspoređen je u Đakovo u Hrvatskoj gdje provodi točno 409 dana u vojsci.' },
+
+  // ── GORANKA VJENČANJE
+  { id:'goranka-vjencanje', year:1989, frac:.75, type:'marriage', members:['goranka'],
+    title:'Goranka se vjenčava sa Zoranom Gavricem', date:'Rujan 1989.', loc:'Tuzla, BiH',
+    desc:'Goranka se vjenčava sa Zoranom Gavricem u Tuzli gdje radi kao stomatolog.' },
+
+  // ── ANDREA RODJENA
+  { id:'andrea-birth', year:1990, frac:.06, type:'birth', isGrandchildBirth:true, members:['goranka','drago','vera','boris'],
+    title:'Rođena Andrea Gavrić', date:'25. 1. 1990.', loc:'Tuzla, BiH',
+    desc:'Kćer Goranke i Zorana Gavrica. Andrea je unuka Drage i Vere, sestrična Borisu.' },
 
   // ── WORLD
   { id:'w-yugo91', year:1991, yearEnd:1995, type:'world', world:true,
@@ -1376,11 +1389,20 @@ function getIcon(type, color) {
 
 function addDot(row, ev, year, frac, color) {
   const dot = document.createElement('div');
-  dot.className = 'pg-event-dot';
+  const type = ev.world ? 'world' : (ev.type || 'general');
+  
+  // Ako je unuko rođenje, koristi plavu boju i posebnu klasu
+  let dotClass = 'pg-event-dot ' + type;
+  let dotColor = color;
+  if (ev.isGrandchildBirth) {
+    dotClass = 'pg-event-dot grandchild-birth';
+    dotColor = '#2563a8';  // plavo za unuke
+  }
+  
+  dot.className = dotClass;
   dot.style.left = xOfYear(year, frac) + 'px';
   dot.dataset.eventX = xOfYear(year, frac);
-  const type = ev.world ? 'world' : (ev.type || 'general');
-  dot.innerHTML = getIcon(type, color);
+  dot.innerHTML = getIcon(type, dotColor);
   attachTooltip(dot, ev);
   row.appendChild(dot);
   return dot;
