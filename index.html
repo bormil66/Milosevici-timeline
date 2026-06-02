@@ -981,6 +981,15 @@ const EVENTS = [
     title:'Boris slavi 60. rođendan  •  60 god.', date:'5. 1. 2026.', loc:'Bosanski Brod / Sarajevo',
     desc:'Boris puni 60 godina. Goranka organizira proslavu — šest desetljeća jednog života kroz raspad jedne i rađanje novih država.' },
 
+  // ── BORIS ZDRAVLJE
+  { id:'boris-asd-otkriven', year:2019, frac:.47, type:'hospital', members:['boris'],
+    title:'Otkriven ASD — srčana mana  •  53 god.', date:'2019.', loc:'Hrvatska',
+    desc:'Borisu je otkrivena urođena srčana mana ASD (Atrial Septal Defect) — rupa na atrijskom septumu. Počinje tražiti opcije gdje napraviti operaciju.' },
+  { id:'boris-operacija-asd', year:2021, frac:.48, type:'hospital', members:['boris'],
+    title:'Operacija ASD — KBC Rebro  •  55 god.', date:'25. 6. 2021.', loc:'KBC Rebro, Zagreb',
+    desc:'Boris odlazi u KBC Rebro gdje kirurg dr. Anić uspješno zatvara rupu na atrijskom septumu (ASD). Operacija prolazi bez komplikacija. Boris ostaje 4 dana u bolnici i izlazi u odličnom stanju.' },
+
+
   // ── KORONA PANDEMIJA
   { id:'w-corona', year:2020, frac:.17, yearEnd:2022, yearEndFrac:.5, type:'world', world:true, warSpan:false,
     title:'COVID-19 pandemija', date:'Ožujak 2020. – 2022.', loc:'Cijeli svijet',
@@ -1717,6 +1726,13 @@ const TYPE_ICONS = {
     <circle cx="4"  cy="20" r="2.2" fill="white" stroke="${c}" stroke-width="0.6"/>
     <path d="M18.5 5.5 L5.5 18.5" stroke-width="2.2" stroke="${c}" opacity="0.15"/>
     <path d="M18.5 5.5 L5.5 18.5" stroke="${c}" stroke-width="0.6"/>
+  </svg>`,
+  hospital: (c) => `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <!-- bijela podloga - kvadrat s zaobljenim kutovima -->
+    <rect x="2" y="2" width="20" height="20" rx="3" ry="3" fill="white" stroke="#cc0000" stroke-width="1.2"/>
+    <!-- crveni križ -->
+    <rect x="10" y="5" width="4" height="14" fill="#cc0000"/>
+    <rect x="5" y="10" width="14" height="4" fill="#cc0000"/>
   </svg>`,
   house: (c) => `<svg viewBox="0 0 24 24" fill="white" stroke="${c}" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" xmlns="http://www.w3.org/2000/svg">
     <path d="M3 10.5L12 3l9 7.5V20a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V10.5z"/>
