@@ -107,6 +107,8 @@
     .ml-pill[data-m="goranka"]:not(.on):hover{border-color:var(--c-goranka);color:var(--c-goranka)}
     .ml-pill[data-m="boris"]:not(.on):hover  {border-color:var(--c-boris);  color:var(--c-boris)}
     .ml-pill[data-m="andrea"]:not(.on):hover {border-color:#d4745f;color:#d4745f}
+    .ml-pill[data-m="davor"].on {background:#2563a8;border-color:#2563a8}
+    .ml-pill[data-m="davor"]:not(.on):hover {border-color:#2563a8;color:#2563a8}
     .ml-dot{width:8px;height:8px;border-radius:50%;background:currentColor;flex-shrink:0}
 
     /* ============================================================  WAR SPAN OVERLAY  */
@@ -635,6 +637,7 @@
   <button class="ml-pill on" data-m="goranka"><span class="ml-dot" style="background:var(--c-goranka)"></span>Goranka</button>
   <button class="ml-pill on" data-m="boris">  <span class="ml-dot" style="background:var(--c-boris)"></span>  Boris</button>
   <button class="ml-pill on" data-m="andrea"> <span class="ml-dot" style="background:#d4745f"></span> Andrea</button>
+    <button class="ml-pill on" data-m="davor"><span class="ml-dot" style="background:#2563a8"></span> Davor</button>
 </nav>
 
 <!-- ZOOM BAR -->
@@ -711,6 +714,7 @@ const MEMBERS = [
   { id:'goranka', name:'Goranka Milošević', role:'Kći (prvorođena)', born:1961, bornDate:'29. 9. 1961.', died:null, place:'Slavonski Brod', color:'#2a8c5b', initials:'GM' },
   { id:'boris',   name:'Boris Milošević',   role:'Sin',              born:1966, bornDate:'5. 1. 1966.',  died:null, place:'Bosanski Brod', color:'#2563a8', initials:'BM' },
   { id:'andrea',  name:'Andrea Gavrić',     role:'Unuka',            born:1990, bornDate:'25. 1. 1990.', died:null, place:'Tuzla, BiH', color:'#d4745f', initials:'AG' },
+  { id:'davor',   name:'Davor Korać',        role:'Unuk',             born:1996, bornDate:'4. 3. 1996.',   died:null, place:'Dubrovnik, HR', color:'#2563a8', initials:'DK' },
 ];
 
 // type: birth | marriage | death | war | milestone | general | world
@@ -832,6 +836,18 @@ const EVENTS = [
     title:'Stomatolog (nastavak)', date:'1996. – danas', loc:'Sarajevo / HR',
     desc:'Goranka nastavlja karijeru stomatologa nakon rata. Dodaj stvarne podatke o radnom mjestu kad budu poznati.' },
 
+  // ── GORANKA VJENČANJE S RATKOM
+  { id:'goranka-vjencanje-ratko', year:1995, frac:.92, type:'marriage', members:['goranka'],
+    title:'Goranka se vjenčava s Ratkom', date:'Prosinac 1995.', loc:'Sarajevo / HR',
+    desc:'Goranka se vjenčava s Ratkom u prosincu 1995., nakon završetka rata u BiH.' },
+
+  // ── DAVOR
+  { id:'davor-birth', year:1996, frac:.17, type:'birth', isGrandchildBirth:true, members:['davor','goranka'],
+    title:'Rođen Davor Korać', date:'4. 3. 1996.', loc:'Dubrovnik, HR',
+    desc:'Sin Goranke i Ratka Korača. Davor se rađa u Dubrovniku 4. ožujka 1996.' },
+
+
+
 
   // ── ANDREA RODJENA
   { id:'andrea-birth', year:1990, frac:.06, type:'birth', isGrandchildBirth:true, members:['goranka','drago','vera','boris'],
@@ -920,6 +936,12 @@ const EVENTS = [
     title:'Vlastiti freelance projekt — Mađarska', date:'Svibanj 2004. – Travanj 2005.', loc:'Mađarska / Europa',
     desc:'Boris pokreće vlastiti freelance projekt u Mađarskoj. Kraj redovnog zaposlenja, početak samostalnog poduzetničkog puta. Radi kao SAP Basis consultant diljem Europe do otvaranja vlastite tvrtke 2005.' },
 
+  // ── BORIS VJENČANJE
+  { id:'boris-vjencanje', year:2004, frac:.85, type:'marriage', members:['boris'],
+    title:'Boris se vjenčava s Irenom', date:'Studeni 2004.', loc:'Hrvatska',
+    desc:'Boris se vjenčava s Irenom Petričević u studenom 2004. Godinu dana kasnije zajedno osnivaju Lifeline Consulting d.o.o.' },
+
+
   // ── BORIS LIFELINE CONSULTING
   { id:'boris-lifeline', year:2005, frac:.38, yearEnd:2026, yearEndFrac:.42, type:'rocket', members:['boris'],
     title:'Lifeline Consulting d.o.o.', date:'Svibanj 2005. – danas', loc:'Hrvatska',
@@ -940,6 +962,12 @@ const EVENTS = [
   { id:'boris60', year:2026, frac:.03, type:'milestone', members:['boris','goranka'],
     title:'Boris slavi 60. rođendan', date:'5. 1. 2026.', loc:'Bosanski Brod / Sarajevo',
     desc:'Boris puni 60 godina. Goranka organizira proslavu — šest desetljeća jednog života kroz raspad jedne i rađanje novih država.' },
+
+  // ── KORONA PANDEMIJA
+  { id:'w-corona', year:2020, frac:.17, yearEnd:2022, yearEndFrac:.5, type:'world', world:true, warSpan:false,
+    title:'COVID-19 pandemija', date:'Ožujak 2020. – 2022.', loc:'Cijeli svijet',
+    desc:'Globalna pandemija COVID-19. Lockdowni, zatvaranje granica, zdravstvena kriza diljem svijeta. Obitelj razdvojena, putovanja onemogućena.' },
+
 ];
 
 /* ============================================================
@@ -1137,6 +1165,21 @@ function buildTimeline() {
       const andreaBirthEv = EVENTS.find(e => e.id === 'andrea-birth');
       if (andreaBirthEv) attachTooltip(heartDot, andreaBirthEv);
       row.appendChild(heartDot);
+    }
+
+    // ── DAVOR: plavo srce na početak linije života
+    if (m.id === 'davor') {
+      const davorHeartX = xOfYear(m.born, 0.17);
+      const davorHeartDot = document.createElement('div');
+      davorHeartDot.className = 'pg-event-dot birth';
+      davorHeartDot.style.left = davorHeartX + 'px';
+      davorHeartDot.style.zIndex = '6';
+      davorHeartDot.innerHTML = `<svg viewBox="0 0 24 24" fill="#2563a8" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+      </svg>`;
+      const davorBirthEv = EVENTS.find(e => e.id === 'davor-birth');
+      if (davorBirthEv) attachTooltip(davorHeartDot, davorBirthEv);
+      row.appendChild(davorHeartDot);
     }
 
     // Events for this member
@@ -2383,4 +2426,3 @@ requestAnimationFrame(() => {
 })();
   </script></body>
 </html>
-
