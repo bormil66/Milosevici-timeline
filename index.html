@@ -1033,6 +1033,44 @@ function buildTimeline() {
   wrap.innerHTML = '';
   wrap.style.minWidth = TOTAL_W + 'px';
 
+  // ── COVID OVERLAY — dodaje se na kraju nakon svih redova
+  window.requestAnimationFrame(() => {
+    const covidX1 = xOfYear(2020, 0.17);
+    const covidX2 = xOfYear(2022, 0.5);
+    const existing = document.getElementById('covid-overlay');
+    if (existing) existing.remove();
+    const covidOverlay = document.createElement('div');
+    covidOverlay.id = 'covid-overlay';
+    covidOverlay.style.cssText = [
+      'position:absolute',
+      'left:' + (covidX1 + 32) + 'px',
+      'width:' + (covidX2 - covidX1) + 'px',
+      'top:0',
+      'height:100%',
+      'background:repeating-linear-gradient(45deg,rgba(180,30,30,0.05) 0px,rgba(180,30,30,0.05) 3px,transparent 3px,transparent 10px)',
+      'border-left:1.5px solid rgba(200,50,50,0.28)',
+      'border-right:1.5px solid rgba(200,50,50,0.28)',
+      'pointer-events:none',
+      'z-index:2'
+    ].join(';');
+    const covidLabel = document.createElement('div');
+    covidLabel.style.cssText = [
+      'position:absolute',
+      'top:10px',
+      'left:50%',
+      'transform:translateX(-50%)',
+      'font-size:9px',
+      'font-weight:700',
+      'letter-spacing:0.1em',
+      'color:rgba(180,30,30,0.4)',
+      'white-space:nowrap',
+      'pointer-events:none'
+    ].join(';');
+    covidLabel.textContent = 'COVID-19';
+    covidOverlay.appendChild(covidLabel);
+    wrap.appendChild(covidOverlay);
+  });
+
   // ── YEAR AXIS
   const axis = document.createElement('div');
   axis.className = 'pg-year-axis';
