@@ -1,0 +1,2386 @@
+﻿<!DOCTYPE html>
+<html lang="hr" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Obiteljski Kronoloznik — Obitelj Milošević</title>
+  <link href="https://api.fontshare.com/v2/css?f[]=boska@400,500,700&f[]=switzer@300,400,500,600&display=swap" rel="stylesheet" />
+  <style>
+    /* ============================================================  TOKENS  */
+    :root,[data-theme="light"]{
+      --bg:#f5f0e8; --surface:#faf7f2; --surface2:#fff; --surface-off:#ede7d9;
+      --border:#d4c9b2; --divider:#e0d8c8;
+      --text:#2a2218; --muted:#6b5e48; --faint:#b0a080;
+      --primary:#8b5e2a; --primary-hi:#f0e4cc;
+
+      --c-drago:#5b3a8c; --c-vera:#b84c6e; --c-goranka:#2a8c5b; --c-boris:#2563a8;
+      --c-world:#8c3a2a;
+
+      --c-birth:#2a8c5b; --c-marriage:#c8860a; --c-death:#777;
+      --c-war:#b84c3a; --c-general:#2563a8; --c-milestone:#7c3e99;
+
+      --fd:'Boska','Georgia',serif; --fb:'Switzer','Helvetica Neue',sans-serif;
+
+      --xs:clamp(.75rem,.7rem + .25vw,.875rem);
+      --sm:clamp(.875rem,.8rem + .35vw,1rem);
+      --base:clamp(1rem,.95rem + .25vw,1.125rem);
+      --lg:clamp(1.125rem,1rem + .75vw,1.5rem);
+      --xl:clamp(1.5rem,1.2rem + 1.25vw,2.25rem);
+      --2xl:clamp(2rem,1.2rem + 2.5vw,3.5rem);
+
+      --sh-sm:0 1px 3px rgba(0,0,0,.08); --sh-md:0 4px 16px rgba(0,0,0,.10);
+      --tr:180ms cubic-bezier(.16,1,.3,1);
+      --r-sm:.375rem; --r-md:.5rem; --r-lg:.75rem; --r-full:9999px;
+    }
+    [data-theme="dark"]{
+      --bg:#1a1510; --surface:#211c15; --surface2:#282018; --surface-off:#1e1912;
+      --border:#3d3325; --divider:#2e2618;
+      --text:#e8dece; --muted:#a0907a; --faint:#5e5040;
+      --primary:#c89050; --primary-hi:#3a2e1a;
+      --c-drago:#a58add; --c-vera:#e08aaa; --c-goranka:#60cc94; --c-boris:#78aadd;
+      --c-world:#dd8070;
+      --c-birth:#60cc94; --c-marriage:#e0c050; --c-death:#999;
+      --c-war:#dd7060; --c-general:#78aadd; --c-milestone:#b080dd;
+      --sh-sm:0 1px 3px rgba(0,0,0,.3); --sh-md:0 4px 16px rgba(0,0,0,.4);
+    }
+    @media(prefers-color-scheme:dark){:root:not([data-theme]){
+      --bg:#1a1510;--surface:#211c15;--surface2:#282018;--surface-off:#1e1912;
+      --border:#3d3325;--divider:#2e2618;--text:#e8dece;--muted:#a0907a;--faint:#5e5040;
+      --primary:#c89050;--c-drago:#a58add;--c-vera:#e08aaa;--c-goranka:#60cc94;--c-boris:#78aadd;
+      --c-world:#dd8070;--c-birth:#60cc94;--c-marriage:#e0c050;--c-death:#999;
+      --c-war:#dd7060;--c-general:#78aadd;--c-milestone:#b080dd;
+    }}
+
+    /* ============================================================  BASE  */
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{-webkit-font-smoothing:antialiased;scroll-behavior:smooth}
+    body{font-family:var(--fb);font-size:var(--base);color:var(--text);background:var(--bg);min-height:100dvh;line-height:1.5}
+    img,svg{display:block;max-width:100%}
+    button{cursor:pointer;background:none;border:none;font:inherit;color:inherit}
+
+    /* ============================================================  HEADER  */
+    .hdr{
+      position:sticky;top:0;z-index:200;
+      background:var(--surface);border-bottom:1px solid var(--divider);
+      display:flex;align-items:center;justify-content:space-between;
+      padding:.75rem 1.5rem;gap:1rem;box-shadow:var(--sh-sm);
+    }
+    .logo{display:flex;align-items:center;gap:.75rem}
+    .logo-text{font-family:var(--fd);font-size:var(--lg);font-weight:700;color:var(--primary);line-height:1.1}
+    .logo-sub{font-size:var(--xs);color:var(--muted);display:block;font-weight:400}
+    .hdr-right{display:flex;align-items:center;gap:.5rem}
+    .icon-btn{width:34px;height:34px;border-radius:var(--r-full);display:flex;align-items:center;justify-content:center;color:var(--muted);transition:background var(--tr),color var(--tr)}
+    .icon-btn:hover{background:var(--surface-off);color:var(--text)}
+
+    /* ============================================================  HERO  */
+    .hero{
+      text-align:center;padding:3rem 1.5rem 2rem;
+      background:linear-gradient(180deg,var(--surface) 0%,var(--bg) 100%);
+      border-bottom:1px solid var(--divider);
+    }
+    .hero-label{font-size:var(--xs);text-transform:uppercase;letter-spacing:.12em;color:var(--primary);font-weight:500;margin-bottom:.75rem}
+    .hero-title{font-family:var(--fd);font-size:var(--2xl);font-weight:700;line-height:1.1;margin-bottom:.75rem}
+    .hero-desc{font-size:var(--sm);color:var(--muted);max-width:520px;margin:0 auto 1.5rem}
+    .hero-years{font-family:var(--fd);font-size:var(--xl);font-weight:500;color:var(--muted)}
+    .hero-years b{color:var(--primary);font-weight:700}
+
+    /* ============================================================  MEMBER LEGEND  */
+    .member-legend{
+      display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;align-items:center;
+      padding:.875rem 1.5rem;background:var(--surface);border-bottom:1px solid var(--divider);
+    }
+    .ml-pill{
+      display:inline-flex;align-items:center;gap:.4rem;
+      padding:.25rem .875rem;border-radius:var(--r-full);
+      font-size:var(--sm);font-weight:600;border:2px solid transparent;
+      cursor:pointer;transition:all var(--tr);
+      background:var(--surface-off);color:var(--muted);
+    }
+    .ml-pill.on{color:#fff}
+    .ml-pill[data-m="drago"].on  {background:var(--c-drago);  border-color:var(--c-drago)}
+    .ml-pill[data-m="vera"].on   {background:var(--c-vera);   border-color:var(--c-vera)}
+    .ml-pill[data-m="goranka"].on{background:var(--c-goranka);border-color:var(--c-goranka)}
+    .ml-pill[data-m="boris"].on  {background:var(--c-boris);  border-color:var(--c-boris)}
+    .ml-pill[data-m="andrea"].on {background:#d4745f;border-color:#d4745f}
+    .ml-pill[data-m="drago"]:not(.on):hover  {border-color:var(--c-drago);  color:var(--c-drago)}
+    .ml-pill[data-m="vera"]:not(.on):hover   {border-color:var(--c-vera);   color:var(--c-vera)}
+    .ml-pill[data-m="goranka"]:not(.on):hover{border-color:var(--c-goranka);color:var(--c-goranka)}
+    .ml-pill[data-m="boris"]:not(.on):hover  {border-color:var(--c-boris);  color:var(--c-boris)}
+    .ml-pill[data-m="andrea"]:not(.on):hover {border-color:#d4745f;color:#d4745f}
+    .ml-dot{width:8px;height:8px;border-radius:50%;background:currentColor;flex-shrink:0}
+
+    /* ============================================================  WAR SPAN OVERLAY  */
+    .war-vline {
+      position:absolute;
+      top:0; bottom:0;
+      width:1.5px;
+      background:#b84c3a;
+      opacity:.5;
+      pointer-events:none;
+      z-index:4;
+    }
+
+    /* ============================================================  ZOOM BAR  */
+    .zoom-bar{
+      display:flex;align-items:center;gap:.75rem;justify-content:center;
+      padding:.6rem 1.5rem;
+      background:var(--surface);border-bottom:1px solid var(--divider);
+      position:sticky;top:54px;z-index:150;
+    }
+    .zoom-label{font-size:var(--xs);font-weight:600;color:var(--muted);min-width:80px;text-align:center}
+    .zoom-btn{
+      width:30px;height:30px;border-radius:var(--r-full);
+      display:flex;align-items:center;justify-content:center;
+      font-size:1.1rem;font-weight:700;
+      background:var(--surface-off);color:var(--text);
+      border:1px solid var(--border);
+      transition:background var(--tr),transform var(--tr);
+      flex-shrink:0;
+    }
+    .zoom-btn:hover{background:var(--primary-hi);transform:scale(1.1)}
+    .zoom-btn:active{transform:scale(.95)}
+    .zoom-slider{
+      -webkit-appearance:none;appearance:none;
+      width:160px;height:4px;
+      border-radius:99px;
+      background:var(--border);
+      outline:none;cursor:pointer;
+    }
+    .zoom-slider::-webkit-slider-thumb{
+      -webkit-appearance:none;appearance:none;
+      width:16px;height:16px;border-radius:50%;
+      background:var(--primary);
+      cursor:pointer;
+      border:2px solid var(--surface);
+      box-shadow:var(--sh-sm);
+    }
+    .zoom-slider::-moz-range-thumb{
+      width:16px;height:16px;border-radius:50%;
+      background:var(--primary);cursor:pointer;
+      border:2px solid var(--surface);
+    }
+    .zoom-reset{
+      font-size:var(--xs);color:var(--muted);padding:.2rem .6rem;
+      border:1px solid var(--border);border-radius:var(--r-sm);
+      background:none;transition:all var(--tr);
+    }
+    .zoom-reset:hover{background:var(--surface-off);color:var(--text)}
+
+    /* ============================================================  TYPE LEGEND  */
+    .type-legend{
+      display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;align-items:center;
+      padding:.75rem 1.5rem;background:var(--surface-off);border-bottom:1px solid var(--divider);
+      font-size:var(--xs);color:var(--muted);
+    }
+    .tl-item{display:flex;align-items:center;gap:.3rem;white-space:nowrap}
+    .tl-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+    .tl-icon{width:14px;height:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .tl-icon svg{width:100%;height:100%;display:block}
+    @media(max-width:1024px){
+      .type-legend{gap:.4rem;padding:.6rem 1rem;font-size:10px}
+      .tl-dot{width:8px;height:8px}
+      .tl-icon{width:12px;height:12px}
+    }
+    @media(max-width:768px){
+      .type-legend{gap:.3rem;padding:.5rem .75rem;font-size:9px}
+      .tl-dot{width:7px;height:7px}
+      .tl-icon{width:11px;height:11px}
+    }
+
+    /* ============================================================  SCROLL WRAPPER  */
+    .scroll-outer{
+      overflow-x:auto;
+      -webkit-overflow-scrolling:touch;
+      padding-bottom:1rem;
+    }
+    .scroll-outer::-webkit-scrollbar{height:6px}
+    .scroll-outer::-webkit-scrollbar-track{background:var(--bg)}
+    .scroll-outer::-webkit-scrollbar-thumb{background:var(--border);border-radius:99px}
+
+    /* ============================================================  PARALLEL GRID  */
+    /*
+      Structure:
+        .pg-wrap  (min-width: calculated by JS)
+          .pg-year-header   — top axis with year labels
+          .pg-world-row     — world events band
+          .pg-member-row    — one per person (with their own timeline track)
+    */
+    .pg-wrap{
+      display:flex;flex-direction:column;
+      min-width:1400px; /* overridden by JS */
+      position:relative;
+      padding:0 2rem 2rem;
+    }
+
+    /* Year axis */
+    .pg-year-axis{
+      display:grid; /* columns set by JS via grid-template-columns */
+      height:2.5rem;
+      position:sticky;top:0; /* sticks inside scroll-outer only on desktop */
+      z-index:10;
+      background:var(--surface);
+      border-bottom:1px solid var(--border);
+      margin-bottom:.25rem;
+    }
+    .pg-year-cell{
+      display:flex;align-items:center;justify-content:center;
+      font-family:var(--fd);font-size:var(--xs);font-weight:600;color:var(--muted);
+      border-left:1px solid var(--divider);
+      position:relative;
+      cursor:default;
+    }
+    .pg-year-cell.decade{color:var(--text);font-weight:700;font-size:var(--sm)}
+    .pg-year-cell.decade::after{
+      content:'';position:absolute;top:0;bottom:0;left:0;
+      width:1px;background:var(--border);
+    }
+
+    /* World events row */
+    .pg-world-row{
+      display:grid;
+      min-height:2rem;
+      align-items:center;
+      border-bottom:2px solid var(--divider);
+      margin-bottom:.25rem;
+      position:relative;
+    }
+    .pg-world-label{
+      position:absolute;left:-1.75rem;top:50%;transform:translateY(-50%);
+      writing-mode:vertical-rl;text-orientation:mixed;
+      font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;
+      color:var(--c-world);opacity:.7;
+      pointer-events:none;
+    }
+    .pg-world-event{
+      position:absolute;
+      height:22px;
+      border-radius:var(--r-sm);
+      background:var(--c-war);
+      opacity:.18;
+      cursor:pointer;
+      transition:opacity var(--tr);
+    }
+    .pg-world-event:hover{opacity:.32}
+    .pg-world-dot{
+      position:absolute;
+      width:10px;height:10px;border-radius:50%;
+      background:var(--c-war);
+      top:50%;transform:translate(-50%,-50%);
+      cursor:pointer;
+      z-index:2;
+      transition:transform var(--tr);
+    }
+    .pg-world-dot:hover{transform:translate(-50%,-50%) scale(1.5)}
+
+    /* Member row */
+    .pg-member-row{
+      display:grid;
+      min-height:4rem;
+      align-items:center;
+      border-bottom:1px solid var(--divider);
+      position:relative;
+    }
+    .pg-member-row:last-child{border-bottom:none}
+
+    /* Row label (name on left, fixed) */
+    .pg-row-label{
+      position:absolute;
+      left:-2.5rem;
+      top:50%;transform:translateY(-50%);
+      display:flex;flex-direction:column;align-items:center;gap:3px;
+      pointer-events:none;
+    }
+    .pg-row-avatar{
+      width:28px;height:28px;border-radius:50%;
+      display:flex;align-items:center;justify-content:center;
+      font-size:10px;font-weight:700;color:#fff;
+      box-shadow:var(--sh-sm);
+    }
+
+    /* Birth-to-now bar (life span bar) */
+    .pg-life-bar{
+      position:absolute;
+      height:6px;
+      border-radius:var(--r-full);
+      opacity:.25;
+      top:50%;transform:translateY(-50%);
+      pointer-events:none;
+    }
+
+    /* Vertical year lines (drawn as CSS background via JS) */
+    .pg-year-lines{
+      position:absolute;inset:0;
+      pointer-events:none;
+    }
+
+    /* Event marker on a member row */
+    .pg-event-dot{
+      position:absolute;
+      width:16px;height:16px;
+      display:flex;align-items:center;justify-content:center;
+      top:50%;transform:translate(-50%,-50%);
+      cursor:pointer;
+      z-index:5;
+      transition:transform var(--tr),filter var(--tr),top var(--tr);
+      filter:drop-shadow(0 1px 2px rgba(0,0,0,.18));
+    }
+    .pg-event-dot.grandchild-birth{
+      width:16px;height:16px;
+    }
+    .pg-event-dot:hover{transform:translate(-50%,-50%) scale(1.5);filter:drop-shadow(0 2px 6px rgba(0,0,0,.28))}
+    .pg-event-dot.grouped-hover{
+      /* grouped hover styling intentionally reserved for JS-managed groups */
+    }
+    .pg-event-dot svg{width:100%;height:100%;display:block}
+
+    /* Event label above/below dot */
+    .pg-event-label{
+      position:absolute;
+      transform:translateX(-50%);
+      white-space:nowrap;
+      font-size:9.5px;font-weight:600;
+      color:var(--muted);
+      pointer-events:none;
+      max-width:90px;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+    .pg-event-label.above{bottom:calc(50% + 12px)}
+    .pg-event-label.below{top:calc(50% + 12px)}
+
+    /* Connecting lines between same-year events on different rows */
+    .pg-connector{
+      position:absolute;
+      width:1.5px;
+      background:var(--border);
+      z-index:1;
+      pointer-events:none;
+    }
+
+    /* ============================================================  JOB TIMELINE  */
+    /* Company colors */
+    .pg-job-row{
+      display:grid;
+      min-height:1.6rem;
+      align-items:center;
+      border-bottom:1px solid var(--divider);
+      position:relative;
+      background:var(--surface-off);
+      opacity:.85;
+    }
+    
+    /* S-connector curves */
+    .pg-job-connector{
+      position:absolute;
+      width:20px;
+      height:40px;
+      left:-20px;
+      top:50%;
+      transform:translateY(-50%);
+      pointer-events:none;
+      z-index:2;
+    }
+    .pg-job-connector-start{
+      fill:none;
+      stroke:var(--border);
+      stroke-width:2.2px;
+      opacity:.7;
+    }
+    
+    /* Job bar - will be colored by company */
+    .pg-job-bar{
+      position:absolute;
+      height:6px;
+      border-radius:3px;
+      top:50%;
+      transform:translateY(-50%);
+      cursor:pointer;
+      opacity:.75;
+      transition:opacity var(--tr),filter var(--tr);
+      filter:drop-shadow(0 1px 2px rgba(0,0,0,.12));
+    }
+    .pg-job-bar:hover{
+      opacity:1;
+      filter:drop-shadow(0 2px 4px rgba(0,0,0,.18));
+    }
+    
+    /* Job label */
+    .pg-job-label{
+      position:absolute;
+      transform:translateX(-50%);
+      white-space:nowrap;
+      font-size:8.5px;
+      font-weight:600;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      color:var(--muted);
+      pointer-events:none;
+      top:calc(100% + 3px);
+    }
+
+    /* ============================================================  TOOLTIP  */
+    .tooltip{
+      position:fixed;z-index:999;
+      background:var(--surface2);border:1px solid var(--border);
+      border-radius:var(--r-lg);padding:.875rem 1rem;
+      box-shadow:var(--sh-md);
+      max-width:min(90vw, 500px);min-width:220px;
+      pointer-events:none;
+      opacity:0;transition:opacity .15s ease;
+    }
+    .tooltip.visible{opacity:1}
+    .tt-meta{display:flex;align-items:center;gap:.4rem;margin-bottom:.35rem;flex-wrap:wrap}
+    .tt-date{font-size:var(--xs);color:var(--muted);font-weight:500}
+    .tt-tag{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;
+      padding:2px 7px;border-radius:var(--r-full);color:#fff}
+    .tt-title{font-family:var(--fd);font-size:var(--sm);font-weight:700;line-height:1.25;margin-bottom:.3rem}
+    .tt-loc{font-size:var(--xs);color:var(--faint);margin-bottom:.3rem;display:flex;align-items:center;gap:3px}
+    .tt-desc{font-size:var(--xs);color:var(--muted);line-height:1.5;word-break:break-word;white-space:normal;}
+    .tt-members{display:flex;flex-wrap:wrap;gap:.3rem;margin-top:.5rem}
+    .tt-badge{font-size:9px;font-weight:600;padding:2px 6px;border-radius:var(--r-full);background:var(--surface-off);color:var(--muted);display:flex;align-items:center;gap:3px}
+    .tt-badge-dot{width:6px;height:6px;border-radius:50%}
+
+    /* ============================================================  PROFILES  */
+    .profiles{padding:3rem 2rem 5rem;max-width:1000px;margin:0 auto}
+    .profiles-title{font-family:var(--fd);font-size:var(--xl);font-weight:700;text-align:center;margin-bottom:2rem}
+    .profiles-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1.25rem}
+    .pc{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:1.25rem;box-shadow:var(--sh-sm);transition:box-shadow var(--tr)}
+    .pc:hover{box-shadow:var(--sh-md)}
+    .pc-head{display:flex;align-items:center;gap:.875rem;padding-bottom:1rem;border-bottom:1px solid var(--divider);margin-bottom:.875rem}
+    .pc-av{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:1.1rem;font-weight:700;color:#fff;flex-shrink:0}
+    .pc-name{font-family:var(--fd);font-size:var(--base);font-weight:700;line-height:1.2}
+    .pc-role{font-size:var(--xs);color:var(--muted)}
+    .pc-stat{display:flex;justify-content:space-between;font-size:var(--sm);padding:.3rem 0;border-bottom:1px solid var(--divider)}
+    .pc-stat:last-child{border:none}
+    .pc-sl{color:var(--muted)} .pc-sv{font-weight:600}
+
+    /* ============================================================  NOTE BANNER  */
+    .note-banner{
+      background:var(--primary-hi);border:1px solid var(--border);border-left:4px solid var(--primary);
+      border-radius:var(--r-md);padding:.75rem 1rem;
+      font-size:var(--xs);color:var(--muted);
+      margin:1rem 2rem 0;display:flex;gap:.5rem;align-items:flex-start;
+    }
+    .note-banner strong{color:var(--primary)}
+
+    /* ============================================================  WAR MODAL  */
+    .war-modal-overlay {
+      position:fixed;inset:0;z-index:500;
+      background:rgba(0,0,0,.55);
+      backdrop-filter:blur(4px);
+      display:flex;align-items:center;justify-content:center;
+      opacity:0;pointer-events:none;
+      transition:opacity .22s ease;
+    }
+    .war-modal-overlay.open { opacity:1;pointer-events:all; }
+    .war-modal {
+      background:var(--surface);
+      border:1px solid var(--border);
+      border-radius:1rem;
+      box-shadow:0 24px 80px rgba(0,0,0,.3);
+      width:min(96vw,940px);
+      max-height:88vh;
+      display:flex;flex-direction:column;
+      overflow:hidden;
+      transform:translateY(20px);
+      transition:transform .22s ease;
+    }
+    .war-modal-overlay.open .war-modal { transform:translateY(0); }
+    .war-modal-header {
+      display:flex;align-items:flex-start;justify-content:space-between;
+      padding:1.25rem 1.5rem 1rem;
+      border-bottom:1px solid var(--divider);
+      flex-shrink:0;
+      background:linear-gradient(90deg,#b84c3a18 0%,transparent 60%);
+    }
+    .war-modal-title { font-family:var(--fd);font-size:var(--lg);font-weight:700;color:var(--text); }
+    .war-modal-subtitle { font-size:var(--xs);color:var(--muted);margin-top:.25rem; }
+    .war-modal-close {
+      width:34px;height:34px;border-radius:50%;
+      display:flex;align-items:center;justify-content:center;
+      font-size:1.1rem;color:var(--muted);
+      border:1px solid var(--border);background:none;
+      cursor:pointer;transition:all .15s;flex-shrink:0;
+    }
+    .war-modal-close:hover{background:var(--surface-off);color:var(--text)}
+    .war-modal-body {
+      overflow-y:auto;padding:1.25rem 1.5rem 2rem;flex:1;
+    }
+    .war-modal-body::-webkit-scrollbar{width:5px}
+    .war-modal-body::-webkit-scrollbar-thumb{background:var(--border);border-radius:99px}
+
+    /* Member filter inside modal */
+    .wm-filter {
+      display:flex;flex-wrap:wrap;gap:.4rem;
+      padding:.75rem 1.5rem .75rem;
+      border-bottom:1px solid var(--divider);
+      background:var(--surface-off);
+      flex-shrink:0;
+    }
+    .wm-filter-pill {
+      font-size:var(--xs);font-weight:600;
+      padding:.2rem .7rem;border-radius:99px;
+      border:1.5px solid transparent;
+      cursor:pointer;transition:all .15s;
+      background:var(--surface-off);color:var(--muted);
+    }
+    .wm-filter-pill.on { color:#fff; }
+
+    /* Year + quarters */
+    .wm-year { margin-bottom:2rem; }
+    .wm-year-label {
+      font-family:var(--fd);font-size:var(--base);font-weight:700;
+      color:var(--text);margin-bottom:.75rem;
+      padding-bottom:.35rem;
+      border-bottom:2px solid #b84c3a;
+      display:flex;align-items:center;gap:.5rem;
+    }
+    .wm-quarters {
+      display:grid;grid-template-columns:repeat(4,1fr);gap:.625rem;
+    }
+    .wm-quarter {
+      background:var(--surface2);border:1px solid var(--border);
+      border-radius:.5rem;padding:.625rem .75rem;min-height:56px;
+    }
+    .wm-q-label {
+      font-size:9px;font-weight:700;color:var(--muted);
+      text-transform:uppercase;letter-spacing:.08em;margin-bottom:.4rem;
+    }
+    .wm-event {
+      display:flex;align-items:flex-start;gap:.35rem;
+      margin-bottom:.45rem;cursor:pointer;
+    }
+    .wm-event:last-child{margin-bottom:0}
+    .wm-event:hover .wm-event-title{text-decoration:underline}
+    .wm-icon{width:16px;height:16px;flex-shrink:0;margin-top:2px;}
+    .wm-icon svg{width:100%;height:100%;display:block}
+    .wm-event-info{flex:1;min-width:0;}
+    .wm-event-title{font-size:var(--xs);font-weight:600;color:var(--text);line-height:1.35;}
+    .wm-event-loc{font-size:.72rem;color:var(--muted);margin-top:.1rem;line-height:1.3;}
+    .wm-event-desc{font-size:.72rem;color:var(--muted);margin-top:.15rem;line-height:1.4;opacity:.8;}
+    .wm-event-who{display:flex;gap:.2rem;flex-wrap:wrap;margin-top:.25rem;}
+    .wm-badge{font-size:8px;font-weight:700;padding:1px 5px;border-radius:99px;color:#fff;}
+    .wm-empty{font-size:var(--xs);color:var(--faint);font-style:italic;}
+    
+    /* ============================================================  MOBILE TOOLTIP  */
+    @media(max-width:768px){
+      .tooltip{
+        max-width:90vw;min-width:160px;
+        padding:.65rem .75rem;
+        border-radius:var(--r-md);
+      }
+      .tt-title{font-size:var(--xs);margin-bottom:.2rem}
+      .tt-date{font-size:8px}
+      .tt-tag{font-size:8px;padding:1px 5px}
+      .tt-desc{font-size:10px;max-height:60px}
+      .tt-badge{font-size:8px;padding:1px 4px}
+    }
+    @media(max-width:580px){
+      .wm-quarters{grid-template-columns:repeat(2,1fr)}
+      .tooltip{
+        max-width:95vw;padding:.5rem .65rem
+      }
+      .tt-meta{margin-bottom:.2rem}
+      .tt-title{font-size:10px}
+      .tt-loc{font-size:9px;margin-bottom:.15rem}
+      .tt-desc{font-size:9px;max-height:50px}
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="hdr">
+  <div class="logo">
+    <svg width="34" height="34" viewBox="0 0 36 36" fill="none" aria-label="Obiteljsko stablo">
+      <rect x="16.5" y="18" width="3" height="12" rx="1.5" fill="var(--primary)"/>
+      <path d="M18 30 Q12 32 9 35" stroke="var(--primary)" stroke-width="1.5" stroke-linecap="round" fill="none" opacity=".5"/>
+      <path d="M18 30 Q24 32 27 35" stroke="var(--primary)" stroke-width="1.5" stroke-linecap="round" fill="none" opacity=".5"/>
+      <path d="M18 18 Q10 13 8 7" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" fill="none"/>
+      <path d="M18 18 Q26 13 28 7" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" fill="none"/>
+      <path d="M18 18 V8" stroke="var(--primary)" stroke-width="2" stroke-linecap="round"/>
+      <circle cx="8"  cy="6" r="3"   fill="var(--c-goranka)" opacity=".85"/>
+      <circle cx="28" cy="6" r="3"   fill="var(--c-boris)"   opacity=".85"/>
+      <circle cx="18" cy="7" r="3.5" fill="var(--primary)"   opacity=".9"/>
+      <circle cx="13" cy="10" r="2.5" fill="var(--c-vera)"   opacity=".85"/>
+      <circle cx="23" cy="10" r="2.5" fill="var(--c-drago)"  opacity=".85"/>
+    </svg>
+    <div>
+      <span class="logo-text">Obitelj Milošević</span>
+      <span class="logo-sub">Paralelni kronoloznik · 1929–2026</span>
+    </div>
+  </div>
+  <div class="hdr-right">
+    <button class="icon-btn" data-theme-toggle aria-label="Prebaci temu">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+      </svg>
+    </button>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <p class="hero-label">Obiteljska povijest · Paralelni prikaz</p>
+  <h1 class="hero-title">Kronoloznik obitelji Milošević</h1>
+  <p class="hero-desc">Svaki član obitelji ima svoju traku — čitaj horizontalno tko je što radio u istom trenutku.</p>
+  <div class="hero-years"><b>1929</b> &nbsp;—&nbsp; <b>2026</b></div>
+</section>
+
+<!-- MEMBER FILTER -->
+<nav class="member-legend">
+  <button class="ml-pill on" data-m="drago">  <span class="ml-dot" style="background:var(--c-drago)"></span>  Drago</button>
+  <button class="ml-pill on" data-m="vera">   <span class="ml-dot" style="background:var(--c-vera)"></span>   Vera</button>
+  <button class="ml-pill on" data-m="goranka"><span class="ml-dot" style="background:var(--c-goranka)"></span>Goranka</button>
+  <button class="ml-pill on" data-m="boris">  <span class="ml-dot" style="background:var(--c-boris)"></span>  Boris</button>
+  <button class="ml-pill on" data-m="andrea"> <span class="ml-dot" style="background:#d4745f"></span> Andrea</button>
+</nav>
+
+<!-- ZOOM BAR -->
+<div class="zoom-bar">
+  <button class="zoom-btn" id="zoomOut" aria-label="Zoom out">&#8722;</button>
+  <input class="zoom-slider" id="zoomSlider" type="range" min="6" max="60" value="18" step="1" aria-label="Zoom razina" />
+  <button class="zoom-btn" id="zoomIn" aria-label="Zoom in">&#43;</button>
+  <span class="zoom-label" id="zoomLabel">18 px/god</span>
+  <button class="zoom-reset" id="zoomReset">Reset</button>
+</div>
+
+<!-- TYPE LEGEND -->
+<div class="type-legend" id="typeLegend">
+  <!-- JS će popuniti sve dostupne tipove -->
+</div>
+
+<!-- NOTE -->
+<div class="note-banner">
+  <strong>⚠️ Napomena:</strong>&nbsp;Datum vjenčanja Drage i Vere još nije unesen (označen kao ~1955). Dodaj pravi datum i ostale događaje kad budu poznati.
+</div>
+
+<!-- PARALLEL TIMELINE -->
+<div class="scroll-outer" id="scrollOuter">
+  <div class="pg-wrap" id="pgWrap">
+    <!-- JS builds everything here -->
+  </div>
+</div>
+
+<!-- TOOLTIP -->
+<div class="tooltip" id="tooltip">
+  <div class="tt-meta">
+    <span class="tt-date" id="tt-date"></span>
+    <span class="tt-tag"  id="tt-tag"></span>
+  </div>
+  <div class="tt-title"   id="tt-title"></div>
+  <div class="tt-loc"     id="tt-loc"></div>
+  <div class="tt-desc"    id="tt-desc"></div>
+  <div class="tt-members" id="tt-members"></div>
+</div>
+
+<!-- WAR MODAL -->
+<div class="war-modal-overlay" id="warModalOverlay" role="dialog" aria-modal="true" aria-labelledby="warModalTitle">
+  <div class="war-modal">
+    <div class="war-modal-header">
+      <div>
+        <div class="war-modal-title" id="warModalTitle"></div>
+        <div class="war-modal-subtitle" id="warModalSubtitle"></div>
+      </div>
+      <button class="war-modal-close" id="warModalClose" aria-label="Zatvori"
+        title="Zatvori">&times;</button>
+    </div>
+    <div class="wm-filter" id="warModalFilter"></div>
+    <div class="war-modal-body" id="warModalBody"></div>
+  </div>
+</div>
+
+<!-- PROFILES -->
+<section class="profiles">
+  <h2 class="profiles-title">Članovi obitelji</h2>
+  <div class="profiles-grid" id="profiles-grid"></div>
+</section>
+
+<script>
+/* ============================================================
+   DATA
+============================================================ */
+const YEAR_START = 1929;
+const YEAR_END   = 2026;
+let   COL_W      = 18;   // px per year — controlled by zoom
+
+const MEMBERS = [
+  { id:'drago',   name:'Drago Milošević',   role:'Otac',             born:1929, bornDate:'29. 4. 1929.', died:2013, diedDate:'Veljača 2013.', place:'Derventa, BiH', color:'#5b3a8c', initials:'DM' },
+  { id:'vera',    name:'Vera Milošević',    role:'Majka',            born:1933, bornDate:'28. 5. 1933.', died:2023, diedDate:'Kolovoz 2023.', place:'Derventa, BiH', color:'#b84c6e', initials:'VM' },
+  { id:'goranka', name:'Goranka Milošević', role:'Kći (prvorođena)', born:1961, bornDate:'29. 9. 1961.', died:null, place:'Slavonski Brod', color:'#2a8c5b', initials:'GM' },
+  { id:'boris',   name:'Boris Milošević',   role:'Sin',              born:1966, bornDate:'5. 1. 1966.',  died:null, place:'Bosanski Brod', color:'#2563a8', initials:'BM' },
+  { id:'andrea',  name:'Andrea Gavrić',     role:'Unuka',            born:1990, bornDate:'25. 1. 1990.', died:null, place:'Tuzla, BiH', color:'#d4745f', initials:'AG' },
+];
+
+// type: birth | marriage | death | war | milestone | general | world
+const TYPE_COLORS = {
+  birth:     '#e0354a',  // crveno srce
+  death:     '#555',
+  education: '#7c3e99',  // ljubičasta kapa
+  move:      '#c8860a',  // zlatni kamion
+  hospital:  '#c0152a',  // crveni križ bolnice
+  escape:    '#8b4500',  // smeđa — bijeg
+  fire:      '#d44000',  // narancačasta — požar
+  marriage:  '#c8860a',
+  war:       '#b84c3a',
+  milestone: '#7c3e99',
+  general:   '#2563a8',
+  world:     '#8c3a2a',
+  job:       '#1a6e3c',  // tamno zelena — posao
+  rocket:    '#0d47a1',  // duboko plava — raketa/startup
+};
+
+// Company colors for Boris's job timeline
+const COMPANY_COLORS = {
+  lifeline: '#c0392b', // crvena — LifeLine Consulting
+  'gisdata':  '#00A86B',  // sveža zelena
+  'b4b':      '#3D5A80',  // mornarska plava
+  'freelance':'#FF6B35',  // jarko narančasta
+};
+const TYPE_LABELS = {
+  birth:     'Rođenje',
+  death:     'Smrt',
+  education: 'Fakultet / Škola',
+  move:      'Selidba',
+  hospital:  'Bolnica / Operacija',
+  escape:    'Bijeg / Protjerivanje',
+  fire:      'Požar / Uništenje',
+  marriage:  'Vjenčanje',
+  war:       'Rat / Vojska',
+  milestone: 'Prekretnica',
+  general:   'Događaj',
+  world:     'Svjetski događaj',
+  job:       'Zaposlenje',
+  rocket:    'Vlastiti posao / Startup',
+};
+
+const EVENTS = [
+  // ── DRAGO
+  { id:'drago-birth',    year:1929, frac:.33, type:'birth',     members:['drago'],
+    title:'Rođen Drago', date:'29. 4. 1929.', loc:'Derventa, BiH',
+    desc:'Drago dolazi na svijet u Derventi, Bosna i Hercegovina.' },
+
+  // ── VERA
+  { id:'vera-birth',     year:1933, frac:.40, type:'birth',     members:['vera'],
+    title:'Rođena Vera', date:'28. 5. 1933.', loc:'Derventa, BiH',
+    desc:'Vera se rađa u Derventi — istom gradu u kojemu je i Drago.' },
+
+  // ── WORLD
+  { id:'w-ww2',    year:1941, yearEnd:1945, type:'world', world:true, warSpan:true,
+    title:'Drugi svjetski rat / NDH', date:'1941–1945', loc:'Bosna i Hercegovina',
+    desc:'Derventa i okolica prolaze kroz teška razaranja. Drago (12 god.) i Vera (8 god.) odrastaju u ratu.' },
+
+  // ── WORLD
+  { id:'w-fnrj',   year:1945, frac:.5, type:'world', world:true,
+    title:'Kraj rata — osnivanje FNRJ', date:'1945.', loc:'Jugoslavija',
+    desc:'Yugoslavija se obnavlja kao federacija. Derventa postaje dio SR Bosne i Hercegovine.' },
+
+  // ── VJENČANJE (oboje)
+  { id:'vjencanje', year:1955, frac:.5, type:'marriage', members:['drago','vera'],
+    title:'Vjenčanje Drage i Vere', date:'~1955. (datum nepoznat)', loc:'Derventa, BiH',
+    desc:'Drago i Vera vjenčaju se u Derventi. Točan datum još nije unesen — dodati kad bude poznat.' },
+
+  // ── GORANKA
+  { id:'goranka-birth', year:1961, frac:.75, type:'birth', members:['goranka','drago','vera'],
+    title:'Rođena Goranka', date:'29. 9. 1961.', loc:'Slavonski Brod, HR',
+    desc:'Prvorođena kći Goranka rađa se u Slavonskom Brodu. Obitelj živi na granici Bosne i Slavonije.' },
+
+  // ── BORIS
+  { id:'boris-birth',   year:1966, frac:.03, type:'birth', members:['boris','drago','vera'],
+    title:'Rođen Boris', date:'5. 1. 1966.', loc:'Bosanski Brod, BiH',
+    desc:'Sin Boris rađa se u Bosanskom Brodu. Goranka tada ima 4 godine i dobiva mlađeg brata.' },
+
+  // ── WORLD
+  { id:'w-tito71', year:1971, frac:.5, type:'world', world:true,
+    title:'Hrvatsko proljeće', date:'1971.', loc:'SR Hrvatska',
+    desc:'Politički pokreti u SRH. Obitelj prati zbivanja s nesigurnošću.' },
+
+  // ── SELIDBA SARAJEVO
+  { id:'sarajevo', year:1977, frac:.5, type:'move', members:['drago','vera','goranka','boris'],
+    title:'Selidba u Sarajevo', date:'1977.', loc:'Bosanski Brod → Sarajevo, BiH',
+    desc:'Cijela obitelj napušta Bosanski Brod i seli se u Sarajevo. Goranka (15 god.) i Boris (11 god.) mijenjaju škole.' },
+
+  // ── WORLD
+  { id:'w-tito80', year:1980, frac:.35, type:'world', world:true,
+    title:'Smrt Tita', date:'4. 5. 1980.', loc:'Ljubljana / Beograd',
+    desc:'Cijela Jugoslavija tuguje. Sarajevo je posebno žalosno. Drago i Vera gledaju pogreb na televiziji.' },
+
+  // ── BORIS ETF
+  { id:'boris-etf', year:1984, frac:.46, type:'education', members:['boris'],
+    title:'Boris upisuje ETF Sarajevo', date:'Lipanj 1984.', loc:'Sarajevo, BiH',
+    desc:'Boris upisuje Elektrotehnički fakultet u Sarajevu u lipnju 1984. Dva mjeseca kasnije, nakon Zimskih olimpijskih igara (održanih u siječnju), odlazi na vojni rok u JNA u Đakovo pa mu studij privremeno staje.' },
+
+  // ── BORIS JNA
+  { id:'boris-jna', year:1984, frac:.58, yearEnd:1985, type:'war', members:['boris'],
+    title:'Boris u JNA — Đakovo', date:'Kolovoz 1984. — Rujan 1985.', loc:'Đakovo, SR Hrvatska',
+    desc:'Nakon Zimskih olimpijskih igara u Sarajevu (siječanj 1984), Boris odlazi na služenje vojnog roka u JNA. Raspoređen je u Đakovo u Hrvatskoj gdje provodi točno 409 dana u vojsci.' },
+
+  // ── GORANKA VJENČANJE
+  { id:'goranka-vjencanje', year:1989, frac:.75, type:'marriage', members:['goranka'],
+    title:'Goranka se vjenčava sa Zoranom Gavricem', date:'Rujan 1989.', loc:'Tuzla, BiH',
+    desc:'Goranka se vjenčava sa Zoranom Gavricem u Tuzli gdje radi kao stomatolog.' },
+
+  // ── GORANKA KARIJERA (stomatolog) — placeholder datumi, dopuniti kad budu poznati
+  { id:'goranka-job-tuzla', year:1985, frac:.5, yearEnd:1989, yearEndFrac:.7, type:'tooth', members:['goranka'],
+    title:'Stomatolog, Tuzla', date:'~1985. – 1989.', loc:'Tuzla, BiH',
+    desc:'Goranka radi kao stomatolog u Tuzli. Točan datum početka rada je približan — dodaj pravi datum kad bude poznat.' },
+  { id:'goranka-job-sarajevo', year:1992, frac:.3, yearEnd:1995, yearEndFrac:.9, type:'tooth', members:['goranka'],
+    title:'Stomatolog, Sarajevo (opsada)', date:'1992. – 1995.', loc:'Sarajevo, BiH',
+    desc:'Goranka ostaje u opkoljenom Sarajevu i nastavlja raditi kao stomatolog kroz cijelo trajanje opsade (1425 dana).' },
+  { id:'goranka-job-danas', year:1996, frac:.0, yearEnd:2026, yearEndFrac:.0, type:'tooth', members:['goranka'],
+    title:'Stomatolog (nastavak)', date:'1996. – danas', loc:'Sarajevo / HR',
+    desc:'Goranka nastavlja karijeru stomatologa nakon rata. Dodaj stvarne podatke o radnom mjestu kad budu poznati.' },
+
+
+  // ── ANDREA RODJENA
+  { id:'andrea-birth', year:1990, frac:.06, type:'birth', isGrandchildBirth:true, members:['goranka','drago','vera','boris'],
+    title:'Rođena Andrea Gavrić', date:'25. 1. 1990.', loc:'Tuzla, BiH',
+    desc:'Kćer Goranke i Zorana Gavrica. Andrea je unuka Drage i Vere, sestrična Borisu.' },
+
+  // ── ANDREA KARIJERA I ŠKOLOVANJE
+  { id:'andrea-rijeka-selidba', year:2008, frac:.67, type:'move', members:['andrea','goranka'],
+    title:'Andrea seli u Rijeku', date:'Rujan 2008.', loc:'Tuzla → Rijeka, HR',
+    desc:'Andrea odlazi od mame Goranke u Rijeku kako bi upisala Medicinski fakultet Sveučilišta u Rijeci.' },
+  { id:'andrea-med-diplomirala', year:2013, frac:.92, type:'education', members:['andrea'],
+    title:'Diplomirala — Medicinski fak.', date:'Prosinac 2013.', loc:'Rijeka, HR',
+    desc:'Andrea završava Medicinski fakultet Sveučilišta u Rijeci. Diplomirala u prosincu 2013.' },
+  { id:'andrea-vukovic-posao', year:2014, frac:.04, yearEnd:2026, yearEndFrac:.0, type:'tooth', members:['andrea'],
+    title:'Dr. Vuković, Rovinj', date:'13. 1. 2014. – danas', loc:'Rovinj, HR',
+    desc:'Andrea počinje raditi kod dr. Vukovića u Rovinju 13. siječnja 2014.' },
+
+  // ── ANDREA KUĆA CVITANI
+  { id:'andrea-kuca-gradnja', year:2021, frac:.42, yearEnd:2025, yearEndFrac:.54, type:'house', members:['andrea'],
+    title:'Gradi kuću u Cvitanima', date:'Lipanj 2021. – Srpanj 2025.', loc:'Cvitane, HR',
+    desc:'Andrea uzima vlastiti kredit i gradi kuću u Cvitanima. Gradnja traje od lipnja 2021. do srpnja 2025.' },
+  { id:'andrea-kuca-iznajmljivanje', year:2025, frac:.54, yearEnd:2026, yearEndFrac:.0, type:'house', members:['andrea'],
+    title:'Kuća u Cvitanima — iznajmljivanje', date:'Srpanj 2025. – danas', loc:'Cvitane, HR',
+    desc:'Kuća je završena u srpnju 2025. i od tada se redovno iznajmljuje. Andrea je vlasnica nekretnine.' },
+
+
+
+  // ── WORLD
+  { id:'w-yugo91', year:1991, yearEnd:1995, type:'world', world:true,
+    title:'Domovinski rat (HR)', date:'1991–1995',
+    desc:'Hrvatska proglašava neovisnost. Rat zahvaća Slavoniju i Bosnu.' },
+
+  { id:'w-bih92', year:1992, frac:.27, yearEnd:1995, yearEndFrac:.9, type:'world', world:true, warSpan:true,
+    title:'Rat u BiH', date:'1992–1995',
+    desc:'Opsada Sarajeva i rat u BiH. Drago, Vera i Goranka ostaju u opkoljenom gradu 1425 dana.' },
+
+
+
+  // ── WORLD
+  { id:'w-dayton', year:1995, frac:.9, type:'world', world:true,
+    title:'Daytonski sporazum', date:'21. 11. 1995.', loc:'Dayton, SAD',
+    desc:'Kraj rata u BiH. Sarajevo izlazi iz opsade.' },
+
+  // ── BORIS ODLAZI U ZAGREB
+  { id:'boris-zagreb', year:1992, frac:.28, type:'escape', members:['boris'],
+    title:'Boris bježi u Zagreb', date:'Travanj 1992.', loc:'Sarajevo → Doboj → Tuzla → Zagreb',
+    desc:'Boris napušta Sarajevo vlakom do Doboja, pa autobusom do Tuzle i napokon do Zagreba. U Sarajevu još nema rata — ali su nemiri i prosvjedi već u zraku. To je bio jedan od posljednjih vlakova koji su normalno prometovali. Drago, Vera i Goranka ostaju u gradu koji će uskoro biti opkoljen.' },
+
+  // ── KUĆA U NEUMU ZAPALJENA
+  { id:'neum-pozar', year:1992, frac:.52, type:'fire', members:['drago','vera'],
+    title:'Kuća u Neumu zapaljena', date:'Kraj srpnja 1992.', loc:'Neum, BiH',
+    desc:'Kuća u Neumu je zapaljena, ali je ugašena prije nego što je sasvim izgorjela – stradao je samo gornji kat. Lokalni Hrvati su je zapalili jer su mislili da su vlasnici Srbi.' },
+
+  // ── DRAGO I VERA PROTJERANI IZ SARAJEVA
+  { id:'drago-vera-bijeg', year:1992, frac:.60, type:'escape', members:['drago','vera'],
+    title:'Drago i Vera protjerani iz Ilidže', date:'Srpanj 1992.', loc:'Ilidža (Sarajevo) → Neum, BiH',
+    desc:'U Ilidži su živjeli kao stalni dom, a Neum je bila njihova vikendica za more. Srpski časnik je dozvolio Dragi da uzme Ladu Samaru i ode u Neum, gdje su kuću našli spaljenu.' },
+
+  // ── BORIS GISDATA
+  { id:'boris-gisdata', year:1992, frac:.38, yearEnd:1998, yearEndFrac:.92, type:'job', members:['boris'],
+    title:'Boris — Gisdata, Zagreb', date:'Svibanj 1992. — Prosinac 1998.', loc:'Zagreb, HR',
+    desc:'Boris počinje raditi u tvrtki Gisdata u Zagrebu u svibnju 1992., neposredno nakon dolaska iz Sarajeva. Radi tamo šest i pol godina do prosinca 1998.' },
+
+  // ── BORIS GUSDATA BIH
+  { id:'boris-gisdata-bih', year:1996, frac:.5, yearEnd:1997, yearEndFrac:.75, type:'job', members:['boris'],
+    title:'Osniva Gisdata BiH', date:'Lipanj 1996. — Rujan 1997.', loc:'Sarajevo, BiH',
+    desc:'Boris dolazi u Sarajevo i osniva ogranak Gisdata BiH. Ured u Sarajevu ostaje aktivan nakon njegovog povratka u Zagreb.' },
+
+  // ── BORIS DIPLOMIRA ETF
+  { id:'boris-etf-dipl', year:1997, frac:.3, type:'education', members:['boris'],
+    title:'Diplomirao na ETF', date:'Svibanj 1997.', loc:'Sarajevo, BiH',
+    desc:'Boris završava Elektrotehnički fakultet sa diplomskim radom na temu Geografskih informacijskih sustava (GIS). Upisao je 1984., studirao je 13 godina sa stankom zbog vojnog roka (409 dana 1984–1985) i ratnih okolnosti (1992–1997).' },
+
+  // ── BORIS VRAĆA SE U ZAGREB
+  { id:'boris-gisdata-return', year:1997, frac:.75, type:'job', members:['boris'],
+    title:'Vraća se u Zagreb u Gisdata', date:'Rujan 1997.', loc:'Sarajevo → Zagreb, HR',
+    desc:'Nakon diplome, Boris se vraća u matičnu središnjicu Gisdata u Zagrebu gdje nastavlja svoju karijeru.' },
+
+  // ── BORIS B4B
+  { id:'boris-b4b', year:1998, frac:.92, yearEnd:2004, yearEndFrac:.38, type:'job', members:['boris'],
+    title:'Boris — B4B, Zagreb', date:'Prosinac 1998. — Svibanj 2004.', loc:'Zagreb, HR',
+    desc:'Boris prelazi u tvrtku B4B u prosincu 1998 - Tvrtka b4b je zastupnik SAP AG tu pocinje svoj dugi put kao SAP Basis Consultant. U b4b radi do svibnja 2004.  kada kreće na vlastiti freelance projekt u Mađarsku.' },
+
+  // ── BORIS FREELANCE MAĐARSKA (RAKETA)
+  { id:'boris-freelance', year:2004, frac:.38, yearEnd:2005, yearEndFrac:.38, type:'rocket', members:['boris'],
+    title:'Vlastiti freelance projekt — Mađarska', date:'Svibanj 2004. – Travanj 2005.', loc:'Mađarska / Europa',
+    desc:'Boris pokreće vlastiti freelance projekt u Mađarskoj. Kraj redovnog zaposlenja, početak samostalnog poduzetničkog puta. Radi kao SAP Basis consultant diljem Europe do otvaranja vlastite tvrtke 2005.' },
+
+  // ── BORIS LIFELINE CONSULTING
+  { id:'boris-lifeline', year:2005, frac:.38, yearEnd:2026, yearEndFrac:.42, type:'rocket', members:['boris'],
+    title:'Lifeline Consulting d.o.o.', date:'Svibanj 2005. – danas', loc:'Hrvatska',
+    desc:'Boris osniva Lifeline Consulting d.o.o. u Hrvatskoj u svibnju 2005. U tvrtci radi i njegova supruga Irena. Nastavlja pružati SAP consulting usluge klijentima diljem svijeta kao neovisni konzultant.' },
+
+
+  // ── SMRT DRAGE
+  { id:'drago-smrt', year:2013, frac:.12, type:'death', members:['drago','vera','goranka','boris'],
+    title:'Drago Milošević umire', date:'Veljača 2013.', loc:'Sarajevo, BiH',
+    desc:'Drago Milošević umire u veljači 2013. u 84 od karcinoma zeludac u hospiciju pored Zagreba. godini života. Rođen u Derventi 1929., proživio je rat, izgradnju zemlje, sarajevsku opsadu i raspad Jugoslavije. Ostavio je Veru, djecu Goranku i Borisa.' },
+
+  // ── SMRT VERE
+  { id:'vera-smrt', year:2023, frac:.67, type:'death', members:['vera','goranka','boris'],
+    title:'Vera Milošević umire', date:'Kolovoz 2023.', loc:'Sarajevo, BiH',
+    desc:'Vera Milošević umire u kolovoza 2023 u 90 godini zivota u Bolnici Pula od komplikacija mnogostrukih lomova i padova. Sahrannjena u Porecu na gradskom groblju. Zadnjih godinau ana zivota zivjela je u Domu za umirovljenik Porec. Rodila se u Derventi 1933., preživjela je Drugi svjetski rat, izgradnju Jugoslavije, njezin raspad i sarajevsku opsadu. Ostavlja djecu Goranku i Borisa.' },
+
+  // ── BORIS 60
+  { id:'boris60', year:2026, frac:.03, type:'milestone', members:['boris','goranka'],
+    title:'Boris slavi 60. rođendan', date:'5. 1. 2026.', loc:'Bosanski Brod / Sarajevo',
+    desc:'Boris puni 60 godina. Goranka organizira proslavu — šest desetljeća jednog života kroz raspad jedne i rađanje novih država.' },
+];
+
+/* ============================================================
+   LAYOUT CONSTANTS
+============================================================ */
+const DENSE_START = 1991;
+const DENSE_END   = 1995;
+let   DENSE_MULT  = 4;   // dense zona dobiva 4x više prostora
+const NUM_YEARS  = YEAR_END - YEAR_START + 1;
+const LABEL_W    = 56;   // left gutter for row names
+let   GRID_W     = NUM_YEARS * COL_W;
+let   TOTAL_W    = GRID_W + LABEL_W + 32;
+
+/* ============================================================
+   HELPERS
+============================================================ */
+function xOfYear(year, frac = 0) {
+  const y = year + frac;
+  const beforeDense = (DENSE_START - YEAR_START) * COL_W;
+
+  if (y <= DENSE_START) {
+    return LABEL_W + (y - YEAR_START) * COL_W;
+  } else if (y <= DENSE_END) {
+    const insideDense = (y - DENSE_START) * COL_W * DENSE_MULT;
+    return LABEL_W + beforeDense + insideDense;
+  } else {
+    const denseWidth = (DENSE_END - DENSE_START) * COL_W * DENSE_MULT;
+    const afterDense = (y - DENSE_END) * COL_W;
+    return LABEL_W + beforeDense + denseWidth + afterDense;
+  }
+}
+
+TOTAL_W = xOfYear(YEAR_END + 1) - LABEL_W;
+GRID_W = TOTAL_W - LABEL_W;
+
+function cssVar(name) {
+  return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+}
+
+/* ============================================================
+   BUILD TIMELINE
+============================================================ */
+function buildTimeline() {
+  const wrap = document.getElementById('pgWrap');
+  wrap.innerHTML = '';
+  wrap.style.minWidth = TOTAL_W + 'px';
+
+  // ── YEAR AXIS
+  const axis = document.createElement('div');
+  axis.className = 'pg-year-axis';
+
+  const yearColumns = [LABEL_W + 'px'];
+  for (let y = YEAR_START; y <= YEAR_END; y++) {
+    yearColumns.push((xOfYear(y + 1) - xOfYear(y)) + 'px');
+  }
+  axis.style.gridTemplateColumns = yearColumns.join(' ');
+
+  const denseOverlay = document.createElement('div');
+  denseOverlay.style.cssText = `
+    position:absolute;
+    left:${xOfYear(DENSE_START)}px;
+    top:0;
+    height:100%;
+    width:${xOfYear(DENSE_END + 1) - xOfYear(DENSE_START)}px;
+    background:rgba(184,76,58,.08);
+    border-top:2px solid #b84c3a;
+    pointer-events:none;
+  `;
+  const denseLabel = document.createElement('div');
+  denseLabel.style.cssText = `
+    position:absolute;
+    top:-1.15rem;
+    left:0;
+    font-size:.76rem;
+    color:#b84c3a;
+    white-space:nowrap;
+    pointer-events:none;
+  `;
+  denseLabel.textContent = '1991–1995 ▲ Detaljan prikaz';
+  denseOverlay.appendChild(denseLabel);
+  axis.appendChild(denseOverlay);
+
+  // spacer cell
+  const spacer = document.createElement('div');
+  spacer.style.cssText = 'border-left:none';
+  axis.appendChild(spacer);
+
+  for (let y = YEAR_START; y <= YEAR_END; y++) {
+    const cell = document.createElement('div');
+    cell.className = 'pg-year-cell' + (y % 10 === 0 ? ' decade' : '');
+    if (y % 5 === 0) cell.textContent = y;
+    axis.appendChild(cell);
+  }
+  wrap.appendChild(axis);
+
+  // ── WORLD EVENTS ROW
+  // SVIJET ima dva reda: gornji za HR rat, donji za ostale događaje + BiH rat
+  const worldRow = document.createElement('div');
+  worldRow.className = 'pg-world-row';
+  worldRow.style.height = '60px';
+  worldRow.style.position = 'relative';
+
+  const worldLabel = document.createElement('div');
+  worldLabel.className = 'pg-world-label';
+  worldLabel.textContent = 'SVIJET';
+  worldRow.appendChild(worldLabel);
+
+  drawYearLines(worldRow);
+
+  // Gornji red: samo Domovinski rat (HR)
+  const hrEv = EVENTS.find(e => e.id === 'w-yugo91');
+  if (hrEv) {
+    const x1 = xOfYear(hrEv.year, hrEv.frac || 0);
+    const x2 = xOfYear(hrEv.yearEnd, .99);
+    const hrBar = document.createElement('div');
+    hrBar.style.cssText = `position:absolute;left:${x1}px;width:${x2-x1}px;top:4px;height:12px;background:#b84c3a;opacity:.22;border-radius:3px;cursor:pointer;`;
+    attachTooltip(hrBar, hrEv);
+    worldRow.appendChild(hrBar);
+    // Mali label
+    const hrLbl = document.createElement('div');
+    hrLbl.style.cssText = `position:absolute;left:${x1+4}px;top:5px;font-size:8px;font-weight:700;color:#b84c3a;opacity:.7;pointer-events:none;white-space:nowrap;letter-spacing:.06em;text-transform:uppercase;`;
+    hrLbl.textContent = 'Domovinski rat (HR)';
+    worldRow.appendChild(hrLbl);
+  }
+
+  // Donji red: svi ostali world događaji osim HR rata
+  const worldEvents = EVENTS.filter(e => e.world && e.id !== 'w-yugo91');
+  worldEvents.forEach(ev => {
+    if (ev.yearEnd) {
+      const x1 = xOfYear(ev.year, ev.frac || 0);
+      const x2 = xOfYear(ev.yearEnd, ev.yearEndFrac || .99);
+      const bar = document.createElement('div');
+      bar.style.cssText = `position:absolute;left:${x1}px;width:${x2-x1}px;top:22px;height:14px;background:#b84c3a;opacity:.25;border-radius:3px;cursor:pointer;transition:opacity .15s;`;
+      attachTooltip(bar, ev);
+      if (ev.warSpan) {
+        bar.title = 'Klikni za detaljan prikaz rata po kvartalima';
+        bar.style.opacity = '.38';
+        bar.addEventListener('mouseenter', () => bar.style.opacity = '.6');
+        bar.addEventListener('mouseleave', () => bar.style.opacity = '.38');
+        bar.addEventListener('click', () => openWarModal(ev));
+      }
+      worldRow.appendChild(bar);
+      // Label unutar bara
+      const lbl2 = document.createElement('div');
+      lbl2.style.cssText = `position:absolute;left:${x1+4}px;top:24px;font-size:8px;font-weight:700;color:#b84c3a;opacity:.75;pointer-events:none;white-space:nowrap;letter-spacing:.06em;text-transform:uppercase;`;
+      lbl2.textContent = ev.title + (ev.warSpan ? ' ▸' : '');
+      worldRow.appendChild(lbl2);
+      addDot(worldRow, ev, ev.year, ev.frac || 0, '#b84c3a');
+    } else {
+      addDot(worldRow, ev, ev.year, ev.frac || 0, TYPE_COLORS.world);
+    }
+  });
+  wrap.appendChild(worldRow);
+
+  // ── MEMBER ROWS
+  const activeMems = getActiveMembers();
+
+  MEMBERS.forEach(m => {
+    const row = document.createElement('div');
+    row.className = 'pg-member-row';
+    row.dataset.member = m.id;
+    row.style.height = '72px';
+    if (!activeMems.includes(m.id)) row.style.display = 'none';
+
+    // Row label
+    const lbl = document.createElement('div');
+    lbl.className = 'pg-row-label';
+    lbl.innerHTML = `<div class="pg-row-avatar" style="background:${m.color}">${m.initials}</div>`;
+    row.appendChild(lbl);
+
+    // Year lines
+    drawYearLines(row);
+
+    // Life bar
+    const lifeBar = document.createElement('div');
+    lifeBar.className = 'pg-life-bar';
+    lifeBar.style.background = m.color;
+    const bx = xOfYear(m.born, .33);
+    const ex = m.died ? xOfYear(m.died, .99) : xOfYear(YEAR_END, .99);
+    lifeBar.style.left  = bx + 'px';
+    lifeBar.style.width = (ex - bx) + 'px';
+    row.appendChild(lifeBar);
+
+    // ── ANDREA: plavo srce na početak linije života
+    if (m.id === 'andrea') {
+      const heartX = xOfYear(m.born, 0.06);
+      const heartDot = document.createElement('div');
+      heartDot.className = 'pg-event-dot birth';
+      heartDot.style.left = heartX + 'px';
+      heartDot.style.zIndex = '6';
+      heartDot.innerHTML = `<svg viewBox="0 0 24 24" fill="#2563a8" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+      </svg>`;
+      // Pronađi andrea-birth event za tooltip
+      const andreaBirthEv = EVENTS.find(e => e.id === 'andrea-birth');
+      if (andreaBirthEv) attachTooltip(heartDot, andreaBirthEv);
+      row.appendChild(heartDot);
+    }
+
+    // Events for this member
+    const memberEvents = EVENTS.filter(e => !e.world && e.members && e.members.includes(m.id));
+
+    // Smart label placement: alternate above/below, skip if too close to previous
+    let lastLabelX = -999;
+    let labelAbove = true;
+    memberEvents.forEach((ev) => {
+      // Skip showing dot icons for Gisdata Sarajevo branch events
+      if (['boris-gisdata-bih', 'boris-gisdata-return'].includes(ev.id)) return;
+      
+      const color = TYPE_COLORS[ev.type] || TYPE_COLORS.general;
+      addDot(row, ev, ev.year, ev.frac || 0, color);
+
+      const x = xOfYear(ev.year, ev.frac || 0);
+      // Only show label if at least 55px from the last one
+      if (x - lastLabelX >= 55) {
+        const lbl2 = document.createElement('div');
+        const shortTitle = ev.title.length > 14 ? ev.title.slice(0, 13) + '…' : ev.title;
+        lbl2.className = 'pg-event-label ' + (labelAbove ? 'above' : 'below');
+        lbl2.textContent = shortTitle;
+        lbl2.style.left = x + 'px';
+        lbl2.style.color = color;
+        row.appendChild(lbl2);
+        lastLabelX = x;
+        labelAbove = !labelAbove;
+      }
+    });
+
+    // Span events (like job periods) — but NOT job/rocket events (those go on separate job timeline)
+    EVENTS.filter(e => !e.world && e.yearEnd && e.members && e.members.includes(m.id) && !(e.type === 'job' || e.type === 'tooth' || e.type === 'rocket')).forEach(ev => {
+      const barH  = 4;
+      const barOp = '.35';
+      const x1 = xOfYear(ev.year, ev.frac || 0);
+      const x2 = xOfYear(ev.yearEnd, ev.yearEndFrac !== undefined ? ev.yearEndFrac : .99);
+      const spanBar = document.createElement('div');
+      spanBar.style.cssText = `
+        position:absolute;height:${barH}px;border-radius:99px;opacity:${barOp};
+        background:${TYPE_COLORS[ev.type] || TYPE_COLORS.general};
+        left:${x1}px;
+        width:${x2 - x1}px;
+        top:calc(50% - ${barH/2}px);
+        pointer-events:none;
+      `;
+      attachTooltip(spanBar, ev);
+      spanBar.style.pointerEvents = 'auto';
+      row.appendChild(spanBar);
+    });
+
+    wrap.appendChild(row);
+
+    // ── GORANKA JOB TIMELINE (parallel timeline for jobs)
+    if (m.id === 'goranka') {
+      const gorankaJobRow = document.createElement('div');
+      gorankaJobRow.className = 'pg-job-row';
+      gorankaJobRow.dataset.member = 'goranka-jobs';
+      gorankaJobRow.style.height = '32px';
+
+      // Row label
+      const gorankaJobLbl = document.createElement('div');
+      gorankaJobLbl.className = 'pg-row-label';
+      gorankaJobLbl.innerHTML = '<div class="pg-row-avatar" style="background:#2a8c5b;font-size:7.5px;line-height:1">WORK</div>';
+      gorankaJobRow.appendChild(gorankaJobLbl);
+
+      // Year lines
+      drawYearLines(gorankaJobRow);
+
+      // S-connector at start
+      const gorankaJobSvgStart = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      gorankaJobSvgStart.setAttribute('class', 'pg-job-connector');
+      gorankaJobSvgStart.setAttribute('viewBox', '0 0 20 40');
+      gorankaJobSvgStart.innerHTML = `<path class="pg-job-connector-start" d="M 20 0 Q 10 20, 20 40"/>`;
+      gorankaJobRow.appendChild(gorankaJobSvgStart);
+
+      // Gorankini job eventi
+      const gorankaJobs = EVENTS.filter(e => !e.world && e.yearEnd && e.members && e.members.includes('goranka') && (e.type === 'job' || e.type === 'tooth'));
+
+      // Boje za Gorankine poslove (zelena nijansa)
+      const GORANKA_JOB_COLOR = '#2a8c5b';
+
+      gorankaJobs.forEach(job => {
+        const x1 = xOfYear(job.year, job.frac || 0);
+        const x2 = xOfYear(job.yearEnd, job.yearEndFrac !== undefined ? job.yearEndFrac : .99);
+
+        const jobBar = document.createElement('div');
+        jobBar.className = 'pg-job-bar';
+        jobBar.style.background = GORANKA_JOB_COLOR;
+        jobBar.style.left = x1 + 'px';
+        jobBar.style.width = (x2 - x1) + 'px';
+        jobBar.style.top = '50%';
+        jobBar.style.transform = 'translateY(-50%)';
+        attachTooltip(jobBar, job);
+        jobBar.style.pointerEvents = 'auto';
+        gorankaJobRow.appendChild(jobBar);
+
+        // Job label
+        const jobLabel = document.createElement('div');
+        jobLabel.className = 'pg-job-label';
+        jobLabel.style.left = ((x1 + x2) / 2) + 'px';
+        jobLabel.style.color = GORANKA_JOB_COLOR;
+        let companyName = 'Stomatolog';
+        if (job.id === 'goranka-job-sarajevo') companyName = 'Opsada';
+        jobLabel.textContent = companyName;
+        gorankaJobRow.appendChild(jobLabel);
+      });
+
+      // S-connector at end
+      const gorankaJobSvgEnd = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      gorankaJobSvgEnd.setAttribute('class', 'pg-job-connector');
+      gorankaJobSvgEnd.setAttribute('viewBox', '0 0 20 40');
+      gorankaJobSvgEnd.style.left = 'auto';
+      gorankaJobSvgEnd.style.right = '-20px';
+      gorankaJobSvgEnd.innerHTML = `<path class="pg-job-connector-start" d="M 0 0 Q 10 20, 0 40"/>`;
+      gorankaJobRow.appendChild(gorankaJobSvgEnd);
+
+      wrap.appendChild(gorankaJobRow);
+    }
+
+    // ── ANDREA JOB TIMELINE
+    if (m.id === 'andrea') {
+      const andreaJobRow = document.createElement('div');
+      andreaJobRow.className = 'pg-job-row';
+      andreaJobRow.dataset.member = 'andrea-jobs';
+      andreaJobRow.style.height = '32px';
+
+      const andreaJobLbl = document.createElement('div');
+      andreaJobLbl.className = 'pg-row-label';
+      andreaJobLbl.innerHTML = '<div class="pg-row-avatar" style="background:#d4745f;font-size:7.5px;line-height:1">WORK</div>';
+      andreaJobRow.appendChild(andreaJobLbl);
+
+      drawYearLines(andreaJobRow);
+
+      const andreaJobSvgStart = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      andreaJobSvgStart.setAttribute('class', 'pg-job-connector');
+      andreaJobSvgStart.setAttribute('viewBox', '0 0 20 40');
+      andreaJobSvgStart.innerHTML = `<path class="pg-job-connector-start" d="M 20 0 Q 10 20, 20 40"/>`;
+      andreaJobRow.appendChild(andreaJobSvgStart);
+
+      const andreaJobs = EVENTS.filter(e => !e.world && e.yearEnd && e.members && e.members.includes('andrea') && (e.type === 'job' || e.type === 'tooth'));
+      const ANDREA_JOB_COLOR = '#d4745f';
+
+      andreaJobs.forEach(job => {
+        const x1 = xOfYear(job.year, job.frac || 0);
+        const x2 = xOfYear(job.yearEnd, job.yearEndFrac !== undefined ? job.yearEndFrac : .99);
+        const jobBar = document.createElement('div');
+        jobBar.className = 'pg-job-bar';
+        jobBar.style.background = ANDREA_JOB_COLOR;
+        jobBar.style.left = x1 + 'px';
+        jobBar.style.width = (x2 - x1) + 'px';
+        jobBar.style.top = '50%';
+        jobBar.style.transform = 'translateY(-50%)';
+        attachTooltip(jobBar, job);
+        jobBar.style.pointerEvents = 'auto';
+        andreaJobRow.appendChild(jobBar);
+
+        const jobLabel = document.createElement('div');
+        jobLabel.className = 'pg-job-label';
+        jobLabel.style.left = ((x1 + x2) / 2) + 'px';
+        jobLabel.style.color = ANDREA_JOB_COLOR;
+        jobLabel.textContent = 'Dr. Vuković';
+        andreaJobRow.appendChild(jobLabel);
+      });
+
+      const andreaJobSvgEnd = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      andreaJobSvgEnd.setAttribute('class', 'pg-job-connector');
+      andreaJobSvgEnd.setAttribute('viewBox', '0 0 20 40');
+      andreaJobSvgEnd.style.left = 'auto';
+      andreaJobSvgEnd.style.right = '-20px';
+      andreaJobSvgEnd.innerHTML = `<path class="pg-job-connector-start" d="M 0 0 Q 10 20, 0 40"/>`;
+      andreaJobRow.appendChild(andreaJobSvgEnd);
+
+      wrap.appendChild(andreaJobRow);
+    }
+
+    // ── BORIS JOB TIMELINE (parallel timeline for jobs)
+    if (m.id === 'boris') {
+      const jobRow = document.createElement('div');
+      jobRow.className = 'pg-job-row';
+      jobRow.dataset.member = 'boris-jobs';
+      jobRow.style.height = '32px';
+
+      // Row label
+      const jobLbl = document.createElement('div');
+      jobLbl.className = 'pg-row-label';
+      jobLbl.innerHTML = '<div class="pg-row-avatar" style="background:#666;font-size:7.5px;line-height:1">WORK</div>';
+      jobRow.appendChild(jobLbl);
+
+      // Year lines
+      drawYearLines(jobRow);
+
+      // S-connector at start
+      const svgStart = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      svgStart.setAttribute('class', 'pg-job-connector');
+      svgStart.setAttribute('viewBox', '0 0 20 40');
+      svgStart.innerHTML = `<path class="pg-job-connector-start" d="M 20 0 Q 10 20, 20 40"/>`;
+      jobRow.appendChild(svgStart);
+
+      // Get Boris's job events (exclude branch events)
+      const borisJobs = EVENTS.filter(e => !e.world && e.yearEnd && e.members && e.members.includes('boris') && (e.type === 'job' || e.type === 'rocket') && !['boris-gisdata-bih', 'boris-gisdata-return'].includes(e.id));
+      
+      // Special handling for Gisdata - needs to curve for BiH branch
+      const gisdataJob = borisJobs.find(j => j.id === 'boris-gisdata');
+      const gisdataBihEvent = EVENTS.find(e => e.id === 'boris-gisdata-bih');
+      
+      // Map jobs to company IDs for coloring
+      borisJobs.forEach(job => {
+        const x1 = xOfYear(job.year, job.frac || 0);
+        const x2 = xOfYear(job.yearEnd, job.yearEndFrac !== undefined ? job.yearEndFrac : .99);
+        
+        // Determine company color
+        let companyColor = COMPANY_COLORS.freelance; // default
+        if (job.id.includes('gisdata')) companyColor = COMPANY_COLORS.gisdata;
+        else if (job.id.includes('b4b')) companyColor = COMPANY_COLORS.b4b;
+        else if (job.id.includes('lifeline')) companyColor = COMPANY_COLORS.lifeline;
+        else if (job.id.includes('freelance')) companyColor = COMPANY_COLORS.freelance;
+        
+        // Special case: Gisdata with BiH branch - split into parallel lines
+        if (job.id === 'boris-gisdata' && gisdataBihEvent) {
+          const bihStartX = xOfYear(gisdataBihEvent.year, gisdataBihEvent.frac || 0);
+          const bihEndX = xOfYear(gisdataBihEvent.yearEnd, gisdataBihEvent.yearEndFrac || .99);
+          
+          // Gisdata Zagreb BEFORE BiH (1992-1996.5)
+          const bar1 = document.createElement('div');
+          bar1.className = 'pg-job-bar';
+          bar1.style.background = companyColor;
+          bar1.style.left = x1 + 'px';
+          bar1.style.width = (bihStartX - x1) + 'px';
+          bar1.style.top = '50%';
+          bar1.style.transform = 'translateY(-50%)';
+          attachTooltip(bar1, job);
+          bar1.style.pointerEvents = 'auto';
+          jobRow.appendChild(bar1);
+          
+          // Label for Gisdata Zagreb (first part)
+          const gisdataLabel = document.createElement('div');
+          gisdataLabel.style.cssText = `
+            position:absolute;
+            left:${(x1 + bihStartX) / 2}px;
+            top:calc(50% - 14px);
+            transform:translateX(-50%);
+            font-size:7px;
+            font-weight:700;
+            color:${companyColor};
+            text-transform:uppercase;
+            pointer-events:none;
+            white-space:nowrap;
+          `;
+          gisdataLabel.textContent = 'Gisdata';
+          jobRow.appendChild(gisdataLabel);
+          
+          // Gisdata Sarajevo DURING BiH (parallel line below)
+          const bihBar = document.createElement('div');
+          bihBar.className = 'pg-job-bar';
+          bihBar.style.background = companyColor;
+          bihBar.style.left = bihStartX + 'px';
+          bihBar.style.width = (bihEndX - bihStartX) + 'px';
+          bihBar.style.top = 'calc(50% + 12px)';
+          bihBar.style.transform = 'translateY(-50%)';
+          bihBar.style.opacity = '0.8';
+          attachTooltip(bihBar, gisdataBihEvent);
+          bihBar.style.pointerEvents = 'auto';
+          jobRow.appendChild(bihBar);
+          
+          // Label for Gisdata Sarajevo
+          const bihLabel = document.createElement('div');
+          bihLabel.style.cssText = `
+            position:absolute;
+            left:${(bihStartX + bihEndX) / 2}px;
+            top:calc(50% + 18px);
+            transform:translateX(-50%);
+            font-size:7px;
+            font-weight:700;
+            color:${companyColor};
+            text-transform:uppercase;
+            pointer-events:none;
+            white-space:nowrap;
+          `;
+          bihLabel.textContent = 'Ured Sarajevo';
+          jobRow.appendChild(bihLabel);
+          
+          // Gisdata Zagreb AFTER BiH (1997.75-1998)
+          const bar2 = document.createElement('div');
+          bar2.className = 'pg-job-bar';
+          bar2.style.background = companyColor;
+          bar2.style.left = bihEndX + 'px';
+          bar2.style.width = (x2 - bihEndX) + 'px';
+          bar2.style.top = '50%';
+          bar2.style.transform = 'translateY(-50%)';
+          attachTooltip(bar2, job);
+          bar2.style.pointerEvents = 'auto';
+          jobRow.appendChild(bar2);
+          
+          // No label needed for the third part - it's continuation after Ured Sarajevo
+        } else {
+          // Normal job bar (not Gisdata or no BiH branch)
+          const jobBar = document.createElement('div');
+          jobBar.className = 'pg-job-bar';
+          jobBar.style.background = companyColor;
+          jobBar.style.left = x1 + 'px';
+          jobBar.style.width = (x2 - x1) + 'px';
+          
+          // Add tooltip
+          attachTooltip(jobBar, job);
+          jobBar.style.pointerEvents = 'auto';
+          jobRow.appendChild(jobBar);
+        }
+
+        // Add job label (for non-Gisdata jobs)
+        if (job.id !== 'boris-gisdata') {
+          const jobLabel = document.createElement('div');
+          jobLabel.className = 'pg-job-label';
+          jobLabel.style.left = ((x1 + x2) / 2) + 'px';
+          
+          // Extract company name from title
+          let companyName = '';
+          if (job.id.includes('gisdata')) companyName = 'Gisdata';
+          else if (job.id.includes('b4b')) companyName = 'B4B';
+          else if (job.id.includes('lifeline')) companyName = 'LifeLine';
+          else if (job.id.includes('freelance')) companyName = 'Freelance';
+          
+          jobLabel.textContent = companyName;
+          jobLabel.style.color = companyColor;
+          jobRow.appendChild(jobLabel);
+        }
+      });
+
+      // S-connector at end
+      const svgEnd = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      svgEnd.setAttribute('class', 'pg-job-connector');
+      svgEnd.setAttribute('viewBox', '0 0 20 40');
+      svgEnd.style.left = 'auto';
+      svgEnd.style.right = '-20px';
+      svgEnd.innerHTML = `<path class="pg-job-connector-start" d="M 0 0 Q 10 20, 0 40"/>`;
+      jobRow.appendChild(svgEnd);
+
+      wrap.appendChild(jobRow);
+    }
+  });
+
+  // ── WAR SPAN OVERLAYS — samo po jedna linija na pocetku i na kraju
+  const warSpans = EVENTS.filter(e => e.world && e.warSpan && e.yearEnd);
+  warSpans.forEach(ev => {
+    const x1 = xOfYear(ev.year, ev.frac || 0);
+    const x2 = xOfYear(ev.yearEnd, ev.yearEndFrac || .99);
+
+    [x1, x2].forEach(x => {
+      const line = document.createElement('div');
+      line.className = 'war-vline';
+      line.style.left = x + 'px';
+      wrap.appendChild(line);
+    });
+  });
+}
+
+function drawYearLines(row) {
+  for (let y = YEAR_START; y <= YEAR_END; y++) {
+    const line = document.createElement('div');
+    const isDec = y % 10 === 0;
+    const isFiv = y % 5 === 0;
+    line.style.cssText = `
+      position:absolute;top:0;bottom:0;
+      left:${xOfYear(y)}px;
+      width:${isDec ? 1.5 : 1}px;
+      background:var(--divider);
+      opacity:${isDec ? 0.7 : isFiv ? 0.4 : 0.18};
+      pointer-events:none;
+    `;
+    row.appendChild(line);
+  }
+}
+
+/* SVG icons per event type */
+const TYPE_ICONS = {
+  birth: (c) => `<svg viewBox="0 0 24 24" fill="${c}" xmlns="http://www.w3.org/2000/svg">
+    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+  </svg>`,
+  death: (c) => `<svg viewBox="0 0 24 24" fill="none" stroke="${c}" stroke-width="2.2" stroke-linecap="round" xmlns="http://www.w3.org/2000/svg">
+    <line x1="12" y1="3" x2="12" y2="21"/>
+    <line x1="5" y1="8" x2="19" y2="8"/>
+  </svg>`,
+  education: (c) => `<svg viewBox="0 0 24 24" fill="${c}" xmlns="http://www.w3.org/2000/svg">
+    <path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zM5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/>
+  </svg>`,
+  move: (c) => `<svg viewBox="0 0 24 24" fill="${c}" xmlns="http://www.w3.org/2000/svg">
+    <path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9l1.96 2.5H17V9.5h2.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
+  </svg>`,
+  hospital: (c) => `<svg viewBox="0 0 24 24" fill="${c}" xmlns="http://www.w3.org/2000/svg">
+    <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/>
+  </svg>`,
+  escape: (c) => `<svg viewBox="0 0 24 24" fill="none" stroke="${c}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="12" cy="4" r="2" />
+    <path d="M12 6v4" />
+    <path d="M7 10l3 1 1 3" />
+    <path d="M10 14l-2 5" />
+    <path d="M14 12l3 5" />
+    <path d="M14 8l2 2" />
+  </svg>`,
+  fire: (c) => `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <!-- mala vatra — tri plamena -->
+    <path d="M12 2 C12 2 10 6 10 8.5 C10 10 11 11 12 11 C13 11 14 10 14 8.5 C14 6 12 2 12 2Z" fill="#ff6b00"/>
+    <path d="M8.5 7 C8.5 7 7 10 7 12 C7 14.2 8.8 16 11 16 L13 16 C15.2 16 17 14.2 17 12 C17 10 15.5 7 15.5 7 C15.5 7 14.5 9 13 9.5 C13.5 8 13 6 12 4.5 C11 6.5 10 8.5 9 9 C8 8.5 8.5 7 8.5 7Z" fill="${c}"/>
+    <ellipse cx="12" cy="19" rx="4" ry="1.2" fill="${c}" opacity=".3"/>
+  </svg>`,
+  marriage: (c) => `<svg viewBox="0 0 24 24" fill="${c}" xmlns="http://www.w3.org/2000/svg">
+    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/>
+  </svg>`,
+  war:       (c) => `<svg viewBox="0 0 24 24" fill="${c}" xmlns="http://www.w3.org/2000/svg">
+    <path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+  </svg>`,
+  job: (c) => `<svg viewBox="0 0 24 24" fill="${c}" xmlns="http://www.w3.org/2000/svg">
+    <!-- laptop/computer: prepoznatljiv ekran + tipkovnica -->
+    <path d="M20 18c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2H0v2h24v-2h-4zM4 6h16v10H4V6z"/>
+  </svg>`,
+  house: (c) => `<svg viewBox="0 0 24 24" fill="white" stroke="${c}" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" xmlns="http://www.w3.org/2000/svg">
+    <path d="M3 10.5L12 3l9 7.5V20a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V10.5z"/>
+    <path d="M9 21V12h6v9"/>
+  </svg>`,
+  tooth: (c) => `<svg viewBox="0 0 24 24" fill="white" stroke="${c}" stroke-width="1.5" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+    <path d="M12 2C9.5 2 7.5 3.2 6.5 5c-.7 1.2-.8 2.5-.6 3.8L7 14c.3 1.8.7 4 1.5 5.5.4.8.9 1.5 1.5 1.5s.8-.5 1-1.5L11.5 17c.1-.6.3-1 .5-1s.4.4.5 1l.5 2.5c.2 1 .4 1.5 1 1.5s1.1-.7 1.5-1.5C16.3 18 16.7 15.8 17 14l1.1-5.2c.2-1.3.1-2.6-.6-3.8C16.5 3.2 14.5 2 12 2z"/>
+  </svg>`,
+  rocket: (c) => `<svg viewBox="0 0 24 24" fill="${c}" xmlns="http://www.w3.org/2000/svg">
+    <!-- Heroicons rocket-launch -->
+    <path fill-rule="evenodd" d="M9.315 7.584C12.195 3.883 16.695 1.5 21.75 1.5a.75.75 0 01.75.75c0 5.056-2.383 9.555-6.084 12.436A6.75 6.75 0 019.75 22.5a.75.75 0 01-.75-.75v-4.131A15.838 15.838 0 016.382 15H2.25a.75.75 0 01-.75-.75 6.75 6.75 0 017.815-6.666zM15 6.75a2.25 2.25 0 100 4.5 2.25 2.25 0 000-4.5z" clip-rule="evenodd"/>
+    <path d="M5.26 17.242a.75.75 0 10-.897-1.203 5.243 5.243 0 00-2.05 5.022.75.75 0 00.625.627 5.243 5.243 0 005.022-2.051.75.75 0 10-1.202-.897 3.744 3.744 0 01-3.008 1.51c0-1.23.592-2.323 1.51-3.008z"/>
+  </svg>`,
+  milestone: (c) => `<svg viewBox="0 0 24 24" fill="${c}" xmlns="http://www.w3.org/2000/svg">
+    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+  </svg>`,
+  general:   (c) => `<svg viewBox="0 0 24 24" fill="${c}" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="12" cy="12" r="8"/>
+  </svg>`,
+  world:     (c) => `<svg viewBox="0 0 24 24" fill="${c}" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="12" cy="12" r="8"/>
+  </svg>`,
+};
+
+function getIcon(type, color) {
+  const fn = TYPE_ICONS[type] || TYPE_ICONS.general;
+  return fn(color);
+}
+
+function addDot(row, ev, year, frac, color) {
+  const dot = document.createElement('div');
+  const type = ev.world ? 'world' : (ev.type || 'general');
+  
+  // Ako je unuko rođenje, koristi plavu boju i posebnu klasu
+  let dotClass = 'pg-event-dot ' + type;
+  let dotColor = color;
+  if (ev.isGrandchildBirth) {
+    dotClass = 'pg-event-dot grandchild-birth';
+    dotColor = '#2563a8';  // plavo za unuke
+  }
+  
+  dot.className = dotClass;
+  dot.style.left = xOfYear(year, frac) + 'px';
+  dot.dataset.eventX = xOfYear(year, frac);
+  dot.innerHTML = getIcon(type, dotColor);
+  attachTooltip(dot, ev);
+  row.appendChild(dot);
+  return dot;
+}
+
+function setupOverlapHandling() {
+  // Pronađi sve event dot-ove po redovima i detektuj preklapanja
+  document.querySelectorAll('.pg-member-row, .pg-world-row').forEach(row => {
+    const dots = [...row.querySelectorAll('.pg-event-dot')];
+    
+    // Pronađi grupe bliskos ikona (unutar 30px)
+    const groups = [];
+    const processed = new Set();
+    
+    dots.forEach((dot, idx) => {
+      if (processed.has(idx)) return;
+      
+      const x = parseFloat(dot.dataset.eventX || dot.style.left);
+      const group = [dot];
+      processed.add(idx);
+      
+      // Pronađi sve dot-ove blizu ovog
+      dots.forEach((otherDot, otherIdx) => {
+        if (processed.has(otherIdx)) return;
+        const otherX = parseFloat(otherDot.dataset.eventX || otherDot.style.left);
+        if (Math.abs(x - otherX) < 30) {
+          group.push(otherDot);
+          processed.add(otherIdx);
+        }
+      });
+      
+      // Ako grupa ima više od 1 elementa, postavi hover handler
+      if (group.length > 1) {
+        groups.push(group);
+      }
+    });
+    
+    // Za svaku grupu, postavi hover event listener-e
+    groups.forEach(group => {
+      group.forEach((dot, idx) => {
+        dot.addEventListener('mouseenter', () => {
+          // Razdvoji grupu
+          group.forEach((item, itemIdx) => {
+            const offset = (itemIdx - (group.length - 1) / 2) * 28; // 28px razmak između ikona
+            item.style.top = (50 + offset) + '%';
+            item.style.zIndex = 10 + itemIdx;
+          });
+        });
+        
+        dot.addEventListener('mouseleave', () => {
+          // Provjeri da li su svi članovi grupe napustili hover
+          const anyHovered = group.some(item => item.matches(':hover'));
+          if (!anyHovered && !group.some(item => item.querySelector(':hover'))) {
+            // Vrati sve u originalni položaj
+            group.forEach((item) => {
+              item.style.top = '50%';
+              item.style.zIndex = '';
+            });
+          }
+        });
+      });
+    });
+  });
+}
+
+/* ============================================================
+   RENDER TYPE LEGEND
+============================================================ */
+function renderTypeLegend() {
+  const legend = document.getElementById('typeLegend');
+  const order = ['birth', 'marriage', 'education', 'move', 'hospital', 'escape', 'fire', 'war', 'job', 'rocket', 'milestone', 'general', 'world', 'death'];
+  
+  legend.innerHTML = order.map(type => {
+    const label = TYPE_LABELS[type] || type;
+    const color = TYPE_COLORS[type] || '#999';
+    const icon = getIcon(type, color);
+    return `<div class="tl-item" title="${label}"><span class="tl-icon">${icon}</span><span>${label}</span></div>`;
+  }).join('');
+}
+
+/* ============================================================
+   TOOLTIP
+============================================================ */
+const ttEl      = document.getElementById('tooltip');
+const ttDate    = document.getElementById('tt-date');
+const ttTag     = document.getElementById('tt-tag');
+const ttTitle   = document.getElementById('tt-title');
+const ttLoc     = document.getElementById('tt-loc');
+const ttDesc    = document.getElementById('tt-desc');
+const ttMembers = document.getElementById('tt-members');
+
+let ttTimeout;
+
+function attachTooltip(el, ev) {
+  el.addEventListener('mouseenter', (e) => {
+    clearTimeout(ttTimeout);
+    const type  = ev.world ? 'world' : ev.type;
+    const color = TYPE_COLORS[type] || TYPE_COLORS.general;
+
+    ttDate.textContent    = ev.date || '';
+    ttTag.textContent     = TYPE_LABELS[type] || '';
+    ttTag.style.background = color;
+    ttTitle.textContent   = ev.title;
+
+    const rawDesc = ev.desc || '';
+    ttDesc.textContent = rawDesc;
+
+    if (ev.loc) {
+      ttLoc.style.display = 'flex';
+      ttLoc.innerHTML = `<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> ${ev.loc}`;
+    } else {
+      ttLoc.style.display = 'none';
+    }
+
+    if (ev.members && ev.members.length) {
+      ttMembers.innerHTML = ev.members.map(k => {
+        const m = MEMBERS.find(x => x.id === k);
+        return m ? `<span class="tt-badge"><span class="tt-badge-dot" style="background:${m.color}"></span>${m.name.split(' ')[0]}</span>` : '';
+      }).join('');
+      ttMembers.style.display = 'flex';
+    } else {
+      ttMembers.style.display = 'none';
+    }
+
+    positionTooltip(e);
+    ttEl.classList.add('visible');
+  });
+
+  el.addEventListener('mousemove', positionTooltip);
+
+  el.addEventListener('mouseleave', () => {
+    ttTimeout = setTimeout(() => ttEl.classList.remove('visible'), 80);
+  });
+}
+
+function positionTooltip(e) {
+  const w = ttEl.offsetWidth  || 280;
+  const h = ttEl.offsetHeight || 160;
+  const vw = window.innerWidth;
+  const vh = window.innerHeight;
+  const isMobile = vw <= 768;
+  
+  let x, y;
+  
+  if (isMobile) {
+    // Na mobilnom: centrira horizontalno, pozicija iznad ili ispod
+    x = Math.max(8, Math.min(vw - w - 8, (vw - w) / 2));
+    // Ako je dovoljan prostor, prikaži iznad; inače ispod
+    const spaceAbove = e.clientY;
+    const spaceBelow = vh - e.clientY;
+    
+    if (spaceAbove > h + 20) {
+      // Ima prostora iznad — prikaži iznad
+      y = Math.max(8, e.clientY - h - 12);
+    } else if (spaceBelow > h + 20) {
+      // Ima prostora ispod — prikaži ispod
+      y = Math.min(vh - h - 8, e.clientY + 12);
+    } else {
+      // Nema dovoljno prostora — centrira vertikalno
+      y = Math.max(8, Math.min(vh - h - 8, (vh - h) / 2));
+    }
+  } else {
+    // Na desktopu: koristi stari pristup sa offset-om od kursora
+    x = e.clientX + 14;
+    y = e.clientY + 14;
+    // Ako preskače desnu stranu — pomakni ulevo
+    if (x + w > vw - 8) x = Math.max(8, e.clientX - w - 8);
+    // Ako preskače donju stranu — pomakni gore
+    if (y + h > vh - 8) y = Math.max(8, e.clientY - h - 8);
+  }
+  
+  ttEl.style.left = x + 'px';
+  ttEl.style.top  = y + 'px';
+}
+
+/* ============================================================
+   FILTER
+============================================================ */
+function getActiveMembers() {
+  return [...document.querySelectorAll('.ml-pill.on')].map(el => el.dataset.m);
+}
+
+document.querySelectorAll('.ml-pill').forEach(pill => {
+  pill.addEventListener('click', () => {
+    pill.classList.toggle('on');
+    const active = getActiveMembers();
+    document.querySelectorAll('.pg-member-row').forEach(row => {
+      row.style.display = active.includes(row.dataset.member) ? '' : 'none';
+    });
+  });
+});
+
+/* ============================================================
+   PROFILES
+============================================================ */
+function renderProfiles() {
+  const grid = document.getElementById('profiles-grid');
+  MEMBERS.forEach(m => {
+    const cnt = EVENTS.filter(e => !e.world && e.members && e.members.includes(m.id)).length;
+    const card = document.createElement('div');
+    card.className = 'pc';
+    card.innerHTML = `
+      <div class="pc-head">
+        <div class="pc-av" style="background:${m.color}">${m.initials}</div>
+        <div><div class="pc-name">${m.name}</div><div class="pc-role">${m.role}</div></div>
+      </div>
+      <div class="pc-stat"><span class="pc-sl">Datum rođenja</span><span class="pc-sv">${m.bornDate}</span></div>
+      <div class="pc-stat"><span class="pc-sl">Rodni grad</span><span class="pc-sv">${m.place}</span></div>
+      <div class="pc-stat"><span class="pc-sl">Status</span><span class="pc-sv" style="color:${m.died ? 'var(--c-death)' : 'var(--c-birth)'}">${m.died ? '† ' + (m.diedDate || m.died) : 'Živi'}</span></div>
+      <div class="pc-stat"><span class="pc-sl">Unesenih događaja</span><span class="pc-sv">${cnt}</span></div>`;
+    grid.appendChild(card);
+  });
+}
+
+/* ============================================================
+   THEME TOGGLE
+============================================================ */
+(function() {
+  const t = document.querySelector('[data-theme-toggle]');
+  const r = document.documentElement;
+  let d = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+  r.setAttribute('data-theme', d);
+  const moon = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>`;
+  const sun  = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>`;
+  const upd = () => t.innerHTML = d === 'dark' ? sun : moon;
+  upd();
+  t.addEventListener('click', () => { d = d==='dark'?'light':'dark'; r.setAttribute('data-theme',d); upd(); buildTimeline(); setupOverlapHandling(); });
+})();
+
+/* ============================================================
+   ZOOM CONTROLS
+============================================================ */
+const zoomSlider = document.getElementById('zoomSlider');
+const zoomLabel  = document.getElementById('zoomLabel');
+const zoomIn     = document.getElementById('zoomIn');
+const zoomOut    = document.getElementById('zoomOut');
+const zoomReset  = document.getElementById('zoomReset');
+const DEFAULT_ZOOM = 18;
+const MIN_ZOOM = 6;
+const MAX_ZOOM = 60;
+
+function applyZoom(newVal, preserveYear) {
+  const outer = document.getElementById('scrollOuter');
+  // Which year is currently at the left edge of the viewport?
+  const scrollLeft = outer.scrollLeft;
+  const centreYear = preserveYear || (YEAR_START + (scrollLeft + outer.clientWidth / 2 - LABEL_W) / COL_W);
+
+  COL_W   = Math.max(MIN_ZOOM, Math.min(MAX_ZOOM, newVal));
+  TOTAL_W = xOfYear(YEAR_END + 1) - LABEL_W;
+  GRID_W  = TOTAL_W - LABEL_W;
+
+  zoomSlider.value = COL_W;
+  zoomLabel.textContent = COL_W + ' px/god';
+
+  buildTimeline();
+  setupOverlapHandling();
+
+  // Restore scroll so same year stays centred
+  requestAnimationFrame(() => {
+    const newScroll = LABEL_W + (centreYear - YEAR_START) * COL_W - outer.clientWidth / 2;
+    outer.scrollLeft = Math.max(0, newScroll);
+  });
+}
+
+zoomSlider.addEventListener('input', () => applyZoom(parseInt(zoomSlider.value)));
+zoomIn.addEventListener('click',    () => applyZoom(COL_W + 3));
+zoomOut.addEventListener('click',   () => applyZoom(COL_W - 3));
+zoomReset.addEventListener('click', () => applyZoom(DEFAULT_ZOOM, 1955));
+
+// Ctrl/Cmd + scroll za zoom
+document.getElementById('scrollOuter').addEventListener('wheel', (e) => {
+  if (e.ctrlKey || e.metaKey) {
+    e.preventDefault();
+    applyZoom(COL_W + (e.deltaY < 0 ? 2 : -2));
+  }
+}, { passive: false });
+
+/* ============================================================
+   WAR MODAL
+============================================================ */
+const warModalOverlay = document.getElementById('warModalOverlay');
+const warModalClose   = document.getElementById('warModalClose');
+const warModalTitle   = document.getElementById('warModalTitle');
+const warModalSub     = document.getElementById('warModalSubtitle');
+const warModalFilter  = document.getElementById('warModalFilter');
+const warModalBody    = document.getElementById('warModalBody');
+
+let warModalActiveMems = null; // null = sve; Set of member ids
+
+function fracToQuarter(frac) {
+  if (frac === undefined || frac === null) return 2;
+  if (frac < 0.25) return 1;
+  if (frac < 0.50) return 2;
+  if (frac < 0.75) return 3;
+  return 4;
+}
+
+function qLabel(q) {
+  return ['Q1 (sij–ožu)', 'Q2 (tra–lip)', 'Q3 (srp–ruj)', 'Q4 (lis–pro)'][q - 1];
+}
+
+function renderWarModal(warEv, activeMems) {
+  const startYear = warEv.year;
+  const endYear   = Math.ceil(warEv.yearEnd || warEv.year);
+
+  const allEvs = EVENTS.filter(ev => {
+    if (ev.id === warEv.id) return false;
+    const evYear = ev.year;
+    if (evYear < startYear || evYear > endYear) return false;
+    if (activeMems && !ev.world) {
+      if (!ev.members || !ev.members.some(m => activeMems.has(m))) return false;
+    }
+    return true;
+  });
+
+  if (allEvs.length === 0) {
+    warModalBody.innerHTML = '<div class="wm-empty">Nema unesenih događaja za odabrani filter.</div>';
+    return;
+  }
+
+  const byYear = {};
+  allEvs.forEach(ev => {
+    const y = ev.year;
+    const q = fracToQuarter(ev.frac);
+    if (!byYear[y]) byYear[y] = {1:[], 2:[], 3:[], 4:[]};
+    byYear[y][q].push(ev);
+  });
+
+  let html = '';
+  const years = Object.keys(byYear).map(Number).sort((a,b) => a-b);
+
+  years.forEach(y => {
+    html += `<div class="wm-year">`;
+    html += `<div class="wm-year-label">${y}.</div>`;
+    html += `<div class="wm-quarters">`;
+    [1,2,3,4].forEach(q => {
+      const evs = byYear[y][q];
+      html += `<div class="wm-quarter">`;
+      html += `<div class="wm-q-label">${qLabel(q)}</div>`;
+      if (evs.length === 0) {
+        html += `<div class="wm-empty">—</div>`;
+      } else {
+        evs.forEach(ev => {
+          const type  = ev.world ? 'world' : (ev.type || 'general');
+          const color = TYPE_COLORS[type] || TYPE_COLORS.general;
+          const icon  = getIcon(type, color);
+          const who   = ev.members
+            ? ev.members.map(k => {
+                const m = MEMBERS.find(x => x.id === k);
+                return m ? `<span class="wm-badge" style="background:${m.color}">${m.initials}</span>` : '';
+              }).join('')
+            : (ev.world ? `<span class="wm-badge" style="background:#8c3a2a">SVJ</span>` : '');
+          html += `
+            <div class="wm-event">
+              <div class="wm-icon">${icon}</div>
+              <div class="wm-event-info">
+                <div class="wm-event-title">${ev.title}</div>
+                ${ev.date ? `<div class="wm-event-loc" style="font-size:.72rem;color:var(--faint);">${ev.date}</div>` : ''}
+                ${ev.loc ? `<div class="wm-event-loc">${ev.loc}</div>` : ''}
+                ${ev.desc ? `<div class="wm-event-desc">${ev.desc}</div>` : ''}
+                <div class="wm-event-who">${who}</div>
+              </div>
+            </div>`;
+        });
+      }
+      html += `</div>`; // wm-quarter
+    });
+    html += `</div></div>`; // wm-quarters + wm-year
+  });
+
+  warModalBody.innerHTML = html;
+}
+
+function buildWarModalFilter(warEv) {
+  warModalActiveMems = null;
+  warModalFilter.innerHTML = '';
+  const all = document.createElement('button');
+  all.className = 'wm-filter-pill on';
+  all.dataset.m = '__all';
+  all.style.background = 'var(--primary)';
+  all.style.color = '#fff';
+  all.textContent = 'Svi';
+  warModalFilter.appendChild(all);
+
+  MEMBERS.forEach(m => {
+    const pill = document.createElement('button');
+    pill.className = 'wm-filter-pill';
+    pill.dataset.m = m.id;
+    pill.innerHTML = `<span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:${m.color};margin-right:5px;vertical-align:middle;"></span>${m.name.split(' ')[0]}`;
+    warModalFilter.appendChild(pill);
+  });
+
+  warModalFilter.querySelectorAll('.wm-filter-pill').forEach(pill => {
+    pill.addEventListener('click', () => {
+      if (pill.dataset.m === '__all') {
+        warModalFilter.querySelectorAll('.wm-filter-pill').forEach(p => {
+          p.classList.toggle('on', p.dataset.m === '__all');
+          p.style.background = p.dataset.m === '__all' ? 'var(--primary)' : '';
+          p.style.color = p.dataset.m === '__all' ? '#fff' : '';
+        });
+        warModalActiveMems = null;
+      } else {
+        const allPill = warModalFilter.querySelector('[data-m="__all"]');
+        allPill.classList.remove('on');
+        allPill.style.background = '';
+        allPill.style.color = '';
+        pill.classList.toggle('on');
+        const c = MEMBERS.find(x => x.id === pill.dataset.m);
+        pill.style.background = pill.classList.contains('on') ? (c ? c.color : '') : '';
+        pill.style.color = pill.classList.contains('on') ? '#fff' : '';
+        const active = [...warModalFilter.querySelectorAll('.wm-filter-pill.on')]
+          .map(p => p.dataset.m).filter(id => id !== '__all');
+        if (active.length === 0) {
+          allPill.classList.add('on');
+          allPill.style.background = 'var(--primary)';
+          allPill.style.color = '#fff';
+          warModalActiveMems = null;
+        } else {
+          warModalActiveMems = new Set(active);
+        }
+      }
+      renderWarModal(warEv, warModalActiveMems);
+    });
+  });
+}
+
+function openWarModal(warEv) {
+  warModalTitle.textContent = warEv.title;
+  warModalSub.textContent   = warEv.date + (warEv.loc ? ' · ' + warEv.loc : '');
+  buildWarModalFilter(warEv);
+  renderWarModal(warEv, null);
+  warModalOverlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeWarModal() {
+  warModalOverlay.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+warModalClose.addEventListener('click', closeWarModal);
+warModalOverlay.addEventListener('click', (e) => { if (e.target === warModalOverlay) closeWarModal(); });
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeWarModal(); });
+
+
+/* ============================================================
+   INIT — scroll to 1955 on load
+============================================================ */
+buildTimeline();
+setupOverlapHandling();
+renderProfiles();
+renderTypeLegend();
+
+// Scroll so 1955 is near the left edge after load
+requestAnimationFrame(() => {
+  const outer = document.getElementById('scrollOuter');
+  const targetX = xOfYear(1955) - 80;
+  outer.scrollLeft = Math.max(0, targetX);
+});
+</script>
+<script data-pplx-inline-edit>
+(function () {
+  if (window === window.top) return;
+
+  const allowedParentOrigins = ["https://www.perplexity.ai","https://perplexity.ai","https://testing.perplexity.ai","https://staging.perplexity.ai","https://*.preview.i.perplexity.ai","http://localhost:3000","http://127.0.0.1:3000","http://localhost:5173","http://127.0.0.1:5173"];
+  const MAX_FONT_BYTES = 500 * 1024;
+  const MAX_TOTAL_FONT_BYTES = 2 * 1024 * 1024;
+  let scrollForwarding = false;
+  let scrollRaf = 0;
+  let trustedTopOrigin = null;
+
+  // Allow entries like "https://*.preview.i.perplexity.ai" — the wildcard
+  // matches a single DNS label (no dots), so "https://*.foo" cannot stretch
+  // across multiple labels.
+  function matchesAllowedOrigin(origin) {
+    if (!origin) return false;
+    for (const entry of allowedParentOrigins) {
+      if (!entry.includes("*")) {
+        if (entry === origin) return true;
+        continue;
+      }
+      const pattern = new RegExp(
+        "^" +
+          entry.replace(/[.+?^${}()|[\]\\]/g, "\\$&").replace(/\*/g, "[^.]+") +
+          "$",
+      );
+      if (pattern.test(origin)) return true;
+    }
+    return false;
+  }
+
+  // Trust decision: when the sender is same-origin-visible (event.origin is a
+  // real origin like https://www.perplexity.ai) we trust event.origin directly.
+  // When event.origin is "null" (opaque broker srcdoc), we fall back to the
+  // broker's stamped `parentOrigin` to identify the top window. The fallback
+  // is claim-only — we rely on the browser's native `targetOrigin` enforcement
+  // on the response path (see postToTrustedTop) to ensure replies can't be
+  // delivered to anyone but the actual top window of that claimed origin.
+  function getTrustedParentOrigin(event) {
+    const forwardedParentOrigin =
+      typeof event.data.parentOrigin === "string" ? event.data.parentOrigin : null;
+    const parentOrigin = event.origin === "null" ? forwardedParentOrigin : event.origin;
+    return matchesAllowedOrigin(parentOrigin) ? parentOrigin : null;
+  }
+
+  // All responses go to window.top with targetOrigin = the allowlisted origin.
+  // An attacker that iframes us inside their own null-origin broker can claim
+  // any parentOrigin they like, but the browser will drop the reply whenever
+  // the real top's origin doesn't match — so the screenshot never leaves.
+  function postToTrustedTop(message) {
+    if (!trustedTopOrigin) return;
+    try {
+      window.top.postMessage(message, trustedTopOrigin);
+    } catch (_error) {}
+  }
+
+  function inlineAll(original, clone) {
+    if (original.nodeType !== 1 || clone.nodeType !== 1) return;
+
+    try {
+      const computedStyle = getComputedStyle(original);
+      // cssText on a computed style is the serialized declaration in modern
+      // Chromium/Safari — a single read beats enumerating ~400 longhand
+      // properties. Firefox returns "" here, so we fall back on empty.
+      const serialized = computedStyle.cssText;
+      if (serialized) {
+        clone.style.cssText = serialized;
+      } else {
+        const parts = new Array(computedStyle.length);
+        for (let index = 0; index < computedStyle.length; index += 1) {
+          const property = computedStyle[index];
+          parts[index] = `${property}:${computedStyle.getPropertyValue(property)};`;
+        }
+        clone.style.cssText = parts.join("");
+      }
+    } catch (_error) {}
+
+    const originalChildren = original.children;
+    const clonedChildren = clone.children;
+    for (
+      let index = 0;
+      index < originalChildren.length && index < clonedChildren.length;
+      index += 1
+    ) {
+      inlineAll(originalChildren[index], clonedChildren[index]);
+    }
+  }
+
+  function extractFontUrl(srcValue) {
+    const matches = [
+      ...srcValue.matchAll(
+        /url\(["']?([^"')]+)["']?\)(?:\s*format\(["']?([^"')]+)["']?\))?/gi,
+      ),
+    ];
+    if (matches.length === 0) return null;
+    const woff2 = matches.find((m) => m[2] && m[2].toLowerCase().includes("woff2"));
+    if (woff2) return woff2[1];
+    const woff = matches.find((m) => m[2] && m[2].toLowerCase().includes("woff"));
+    if (woff) return woff[1];
+    return matches[0][1];
+  }
+
+  // Cache resolved font URL -> data URI across captures. Fonts on a page
+  // essentially never change, and a batch run emits multiple captures back to
+  // back — without this we'd refetch + re-base64 every time.
+  const fontDataUriCache = new Map();
+  const SRC_DECLARATION_RE = /src\s*:\s*[^;}]+/i;
+
+  async function fetchAsDataUri(url) {
+    if (fontDataUriCache.has(url)) return fontDataUriCache.get(url);
+    let dataUri = null;
+    try {
+      const response = await fetch(url, { mode: "cors", credentials: "omit" });
+      if (response.ok) {
+        const blob = await response.blob();
+        if (blob.size <= MAX_FONT_BYTES) {
+          dataUri = await new Promise((resolve) => {
+            const reader = new FileReader();
+            reader.onloadend = () =>
+              resolve(typeof reader.result === "string" ? reader.result : null);
+            reader.onerror = () => resolve(null);
+            reader.readAsDataURL(blob);
+          });
+        }
+      }
+    } catch (_error) {
+      dataUri = null;
+    }
+    fontDataUriCache.set(url, dataUri);
+    return dataUri;
+  }
+
+  function collectFontFaceRuleTexts() {
+    const rules = [];
+    for (const sheet of document.styleSheets) {
+      let cssRules;
+      try {
+        cssRules = sheet.cssRules;
+      } catch (_error) {
+        continue;
+      }
+      if (!cssRules) continue;
+      for (const rule of cssRules) {
+        const cssText = rule.cssText || "";
+        if (cssText.startsWith("@font-face")) rules.push(cssText);
+      }
+    }
+    return rules;
+  }
+
+  async function buildInlinedFontCss() {
+    const ruleTexts = collectFontFaceRuleTexts();
+    if (ruleTexts.length === 0) return null;
+
+    const resolved = ruleTexts.map((cssText) => {
+      if (!SRC_DECLARATION_RE.test(cssText)) return null;
+      const srcMatch = cssText.match(/src\s*:\s*([^;}]+)[;}]/i);
+      if (!srcMatch) return null;
+      const url = extractFontUrl(srcMatch[1]);
+      if (!url) return null;
+      try {
+        return { cssText, url: new URL(url, document.baseURI).href };
+      } catch (_error) {
+        return null;
+      }
+    });
+
+    const dataUris = await Promise.all(
+      resolved.map((entry) => (entry ? fetchAsDataUri(entry.url) : Promise.resolve(null))),
+    );
+
+    const inlined = [];
+    let totalBytes = 0;
+    for (let index = 0; index < resolved.length; index += 1) {
+      const entry = resolved[index];
+      const dataUri = dataUris[index];
+      if (!entry || !dataUri) continue;
+      const approxBytes = dataUri.length * 0.75;
+      if (totalBytes + approxBytes > MAX_TOTAL_FONT_BYTES) break;
+      totalBytes += approxBytes;
+      inlined.push(entry.cssText.replace(SRC_DECLARATION_RE, `src: url("${dataUri}")`));
+    }
+    return inlined.length > 0 ? inlined.join("\n") : null;
+  }
+
+  function stripExternal(clone) {
+    const images = clone.querySelectorAll("img");
+    for (let index = 0; index < images.length; index += 1) {
+      const src = images[index].getAttribute("src");
+      if (src && !src.startsWith("data:")) images[index].removeAttribute("src");
+    }
+
+    const elements = clone.querySelectorAll("*");
+    for (let index = 0; index < elements.length; index += 1) {
+      const style = elements[index].style.cssText;
+      if (style && style.includes("url(")) {
+        elements[index].style.cssText = style.replace(
+          /url\(["']?(?!data:)[^)"']*["']?\)/gi,
+          "none",
+        );
+      }
+    }
+  }
+
+  function emitScroll() {
+    scrollRaf = 0;
+    if (!scrollForwarding) return;
+    postToTrustedTop({
+      type: "INLINE_EDIT_SCROLL",
+      scrollX: window.scrollX,
+      scrollY: window.scrollY,
+    });
+  }
+
+  window.addEventListener(
+    "scroll",
+    function () {
+      if (!scrollForwarding || scrollRaf) return;
+      scrollRaf = requestAnimationFrame(emitScroll);
+    },
+    { passive: true, capture: true },
+  );
+
+  async function handleCaptureRequest(event) {
+    const requestId = event.data.requestId;
+    const scrollX = window.scrollX;
+    const scrollY = window.scrollY;
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+
+    function postResult(dataUrl) {
+      postToTrustedTop({
+        type: "INLINE_EDIT_SCREENSHOT_RESULT",
+        requestId,
+        dataUrl,
+        scrollX,
+        scrollY,
+      });
+    }
+
+    try {
+      // Wait for any pending web fonts to resolve so both inline metrics and
+      // the @font-face inlining below see the same loaded faces.
+      if (document.fonts && document.fonts.ready) {
+        try {
+          await document.fonts.ready;
+        } catch (_error) {}
+      }
+
+      const clone = document.documentElement.cloneNode(true);
+      inlineAll(document.documentElement, clone);
+
+      const removedNodes = clone.querySelectorAll("script,link[rel=\"stylesheet\"],style");
+      for (let index = 0; index < removedNodes.length; index += 1) {
+        removedNodes[index].remove();
+      }
+
+      stripExternal(clone);
+
+      // Re-embed web fonts as data-URI @font-face rules so the SVG rasterizer
+      // can resolve them — external font URLs aren't fetched during
+      // foreignObject rendering, which would otherwise force a fallback face
+      // and change text metrics.
+      const inlinedFontCss = await buildInlinedFontCss();
+      if (inlinedFontCss) {
+        const styleEl = document.createElement("style");
+        styleEl.textContent = inlinedFontCss;
+        const head = clone.querySelector("head");
+        if (head) head.appendChild(styleEl);
+        else clone.insertBefore(styleEl, clone.firstChild);
+      }
+
+      const html = new XMLSerializer().serializeToString(clone);
+      const svg =
+        `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}">` +
+        '<foreignObject width="100%" height="100%">' +
+        `<div xmlns="http://www.w3.org/1999/xhtml" style="width:${width}px;height:${height}px;overflow:hidden">` +
+        `<div style="position:relative;left:-${scrollX}px;top:-${scrollY}px">` +
+        html +
+        "</div></div></foreignObject></svg>";
+      const svgUrl = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
+      const image = new Image();
+      image.onload = function () {
+        const canvas = document.createElement("canvas");
+        canvas.width = width;
+        canvas.height = height;
+        canvas.getContext("2d").drawImage(image, 0, 0);
+        postResult(canvas.toDataURL("image/png"));
+      };
+      image.onerror = function () {
+        postResult(null);
+      };
+      image.src = svgUrl;
+    } catch (_error) {
+      postResult(null);
+    }
+  }
+
+  window.addEventListener("message", function (event) {
+    if (!event.data) return;
+    // Only accept messages from the direct parent frame. Blocks sibling /
+    // unrelated-window postMessage senders that could otherwise reach us.
+    if (event.source !== window.parent) return;
+
+    const trustedParentOrigin = getTrustedParentOrigin(event);
+    if (!trustedParentOrigin) return;
+    trustedTopOrigin = trustedParentOrigin;
+
+    if (event.data.type === "INLINE_EDIT_SCROLL_START") {
+      scrollForwarding = true;
+      emitScroll();
+      return;
+    }
+
+    if (event.data.type === "INLINE_EDIT_SCROLL_STOP") {
+      scrollForwarding = false;
+      if (scrollRaf) cancelAnimationFrame(scrollRaf);
+      scrollRaf = 0;
+      return;
+    }
+
+    if (event.data.type !== "INLINE_EDIT_CAPTURE_REQUEST") return;
+
+    handleCaptureRequest(event);
+  });
+})();
+  </script></body>
+</html>
+
