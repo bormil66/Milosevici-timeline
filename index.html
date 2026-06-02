@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="hr" data-theme="light">
 <head>
   <meta charset="UTF-8" />
@@ -782,12 +782,12 @@ const EVENTS = [
 
   // ── VJENČANJE (oboje)
   { id:'vjencanje', year:1955, frac:.5, type:'marriage', members:['drago','vera'],
-    title:'Vjenčanje Drage i Vere', date:'~1955. (datum nepoznat)', loc:'Derventa, BiH',
+    title:'Vjenčanje Drage i Vere  •  Drago: 26 god. | Vera: 23 god.', date:'~1955. (datum nepoznat)', loc:'Derventa, BiH',
     desc:'Drago i Vera vjenčaju se u Derventi. Točan datum još nije unesen — dodati kad bude poznat.' },
 
   // ── GORANKA
   { id:'goranka-birth', year:1961, frac:.75, type:'birth', members:['goranka','drago','vera'],
-    title:'Rođena Goranka', date:'29. 9. 1961.', loc:'Slavonski Brod, HR',
+    title:'Rođena Goranka  •  Goranka: 0 god. | Drago: 32 god. | Vera: 29 god.', date:'29. 9. 1961.', loc:'Slavonski Brod, HR',
     desc:'Prvorođena kći Goranka rađa se u Slavonskom Brodu. Obitelj živi na granici Bosne i Slavonije.' },
 
   // ── BORIS
@@ -802,7 +802,7 @@ const EVENTS = [
 
   // ── SELIDBA SARAJEVO
   { id:'sarajevo', year:1977, frac:.5, type:'move', members:['drago','vera','goranka','boris'],
-    title:'Selidba u Sarajevo', date:'1977.', loc:'Bosanski Brod → Sarajevo, BiH',
+    title:'Selidba u Sarajevo  •  Drago: 48 god. | Vera: 45 god. | Goranka: 16 god.', date:'1977.', loc:'Bosanski Brod → Sarajevo, BiH',
     desc:'Cijela obitelj napušta Bosanski Brod i seli se u Sarajevo. Goranka (15 god.) i Boris (11 god.) mijenjaju škole.' },
 
   // ── WORLD
@@ -812,55 +812,55 @@ const EVENTS = [
 
   // ── BORIS ETF
   { id:'boris-etf', year:1984, frac:.46, type:'education', members:['boris'],
-    title:'Boris upisuje ETF Sarajevo', date:'Lipanj 1984.', loc:'Sarajevo, BiH',
+    title:'Boris upisuje ETF Sarajevo  •  18 god.', date:'Lipanj 1984.', loc:'Sarajevo, BiH',
     desc:'Boris upisuje Elektrotehnički fakultet u Sarajevu u lipnju 1984. Dva mjeseca kasnije, nakon Zimskih olimpijskih igara (održanih u siječnju), odlazi na vojni rok u JNA u Đakovo pa mu studij privremeno staje.' },
 
   // ── BORIS JNA
   { id:'boris-jna', year:1984, frac:.58, yearEnd:1985, type:'war', members:['boris'],
-    title:'Boris u JNA — Đakovo', date:'Kolovoz 1984. — Rujan 1985.', loc:'Đakovo, SR Hrvatska',
+    title:'Boris u JNA — Đakovo  •  18 god.', date:'Kolovoz 1984. — Rujan 1985.', loc:'Đakovo, SR Hrvatska',
     desc:'Nakon Zimskih olimpijskih igara u Sarajevu (siječanj 1984), Boris odlazi na služenje vojnog roka u JNA. Raspoređen je u Đakovo u Hrvatskoj gdje provodi točno 409 dana u vojsci.' },
 
   // ── GORANKA VJENČANJE
   { id:'goranka-vjencanje', year:1989, frac:.75, type:'marriage', members:['goranka'],
-    title:'Goranka se vjenčava sa Zoranom Gavricem', date:'Rujan 1989.', loc:'Tuzla, BiH',
+    title:'Goranka se vjenčava sa Zoranom Gavricem  •  28 god.', date:'Rujan 1989.', loc:'Tuzla, BiH',
     desc:'Goranka se vjenčava sa Zoranom Gavricem u Tuzli gdje radi kao stomatolog.' },
 
   // ── GORANKA KARIJERA (stomatolog) — placeholder datumi, dopuniti kad budu poznati
   { id:'goranka-job-tuzla', year:1985, frac:.5, yearEnd:1989, yearEndFrac:.7, type:'tooth', members:['goranka'],
-    title:'Stomatolog, Tuzla', date:'~1985. – 1989.', loc:'Tuzla, BiH',
+    title:'Stomatolog, Tuzla  •  24–28 god.', date:'~1985. – 1989.', loc:'Tuzla, BiH',
     desc:'Goranka radi kao stomatolog u Tuzli. Točan datum početka rada je približan — dodaj pravi datum kad bude poznat.' },
   { id:'goranka-job-sarajevo', year:1992, frac:.3, yearEnd:1995, yearEndFrac:.9, type:'tooth', members:['goranka'],
-    title:'Stomatolog, Sarajevo (opsada)', date:'1992. – 1995.', loc:'Sarajevo, BiH',
+    title:'Stomatolog, Sarajevo (opsada)  •  31–34 god.', date:'1992. – 1995.', loc:'Sarajevo, BiH',
     desc:'Goranka ostaje u opkoljenom Sarajevu i nastavlja raditi kao stomatolog kroz cijelo trajanje opsade (1425 dana).' },
   { id:'goranka-job-danas', year:1996, frac:.0, yearEnd:2026, yearEndFrac:.0, type:'tooth', members:['goranka'],
-    title:'Stomatolog (nastavak)', date:'1996. – danas', loc:'Sarajevo / HR',
+    title:'Stomatolog (nastavak)  •  35–65 god.', date:'1996. – danas', loc:'Sarajevo / HR',
     desc:'Goranka nastavlja karijeru stomatologa nakon rata. Dodaj stvarne podatke o radnom mjestu kad budu poznati.' },
 
   // ── GORANKA VJENČANJE S RATKOM
   { id:'goranka-vjencanje-ratko', year:1995, frac:.92, type:'marriage', members:['goranka'],
-    title:'Goranka se vjenčava s Ratkom', date:'Prosinac 1995.', loc:'Sarajevo / HR',
+    title:'Goranka se vjenčava s Ratkom  •  34 god.', date:'Prosinac 1995.', loc:'Sarajevo / HR',
     desc:'Goranka se vjenčava s Ratkom u prosincu 1995., nakon završetka rata u BiH.' },
 
   // ── DAVOR
   { id:'davor-birth', year:1996, frac:.17, type:'birth', isGrandchildBirth:true, members:['davor','goranka','drago','vera'],
-    title:'Rođen Davor Korać', date:'4. 3. 1996.', loc:'Dubrovnik, HR',
+    title:'Rođen Davor Korać  •  Davor: 0 god. | Goranka: 35 god. | Drago: 67 god. | Vera: 64 god.', date:'4. 3. 1996.', loc:'Dubrovnik, HR',
     desc:'Sin Goranke i Ratka Korača. Davor se rađa u Dubrovniku 4. ožujka 1996.' },
 
   // ── DAVOR ŠKOLOVANJE
   { id:'davor-maribor-selidba', year:2015, frac:.67, type:'move', members:['davor','goranka'],
-    title:'Davor seli u Maribor', date:'Rujan 2015.', loc:'Dubrovnik → Maribor, SLO',
+    title:'Davor seli u Maribor  •  Davor: 19 god. | Goranka: 54 god.', date:'Rujan 2015.', loc:'Dubrovnik → Maribor, SLO',
     desc:'Davor odlazi u Maribor, Slovenija, upisati studij Fizioterapije.' },
   { id:'davor-fizioterapija', year:2015, frac:.67, yearEnd:2022, yearEndFrac:.9, type:'education', members:['davor'],
-    title:'Fizioterapija — Maribor', date:'Rujan 2015. – 22. 11. 2022.', loc:'Maribor, Slovenija',
+    title:'Fizioterapija — Maribor  •  19–26 god.', date:'Rujan 2015. – 22. 11. 2022.', loc:'Maribor, Slovenija',
     desc:'Davor studira Fizioterapiju na fakultetu u Mariboru, Slovenija. Diplomira 22. studenog 2022.' },
   { id:'davor-diploma', year:2022, frac:.9, type:'education', members:['davor'],
-    title:'Diplomirao — Fizioterapija', date:'22. 11. 2022.', loc:'Maribor, Slovenija',
+    title:'Diplomirao — Fizioterapija  •  26 god.', date:'22. 11. 2022.', loc:'Maribor, Slovenija',
     desc:'Davor završava studij Fizioterapije u Mariboru 22. studenog 2022.' },
 
   // ── DAVOR POSAO
-  { id:'davor-grosuplje', year:2026, frac:.38, yearEnd:2026, yearEndFrac:.99, type:'physio', members:['davor'],
-    title:'Fizioterapeut — Grosuplje', date:'Svibanj 2026. – danas', loc:'Grosuplje, Slovenija',
-    desc:'Davor počinje raditi kao fizioterapeut u domu za starije u Grosuplju, Slovenija, u svibnju 2026.' },
+  { id:'davor-grosuplje', year:2026, frac:.28, yearEnd:2026, yearEndFrac:.99, type:'physio', members:['davor'],
+    title:'Fizioterapeut — Dom za starije Mengeš  •  30 god.', date:'4. 5. 2026. – danas', loc:'Mengeš, Slovenija',
+    desc:'Davor počinje raditi kao fizioterapeut u Domu za starije u Mengeš, Slovenija, 4. svibnja 2026.' },
 
 
 
@@ -868,27 +868,27 @@ const EVENTS = [
 
 
   // ── ANDREA RODJENA
-  { id:'andrea-birth', year:1990, frac:.06, type:'birth', isGrandchildBirth:true, members:['goranka','drago','vera'],
-    title:'Rođena Andrea Gavrić', date:'25. 1. 1990.', loc:'Tuzla, BiH',
+  { id:'andrea-birth', year:1990, frac:.06, type:'birth', isGrandchildBirth:true, members:['andrea','goranka','drago','vera'],
+    title:'Rođena Andrea Gavrić  •  Andrea: 0 god. | Goranka: 29 god. | Drago: 61 god. | Vera: 58 god.', date:'25. 1. 1990.', loc:'Tuzla, BiH',
     desc:'Kćer Goranke i Zorana Gavrica. Andrea je unuka Drage i Vere, sestrična Borisu.' },
 
   // ── ANDREA KARIJERA I ŠKOLOVANJE
   { id:'andrea-rijeka-selidba', year:2008, frac:.67, type:'move', members:['andrea','goranka'],
-    title:'Andrea seli u Rijeku', date:'Rujan 2008.', loc:'Tuzla → Rijeka, HR',
+    title:'Andrea seli u Rijeku  •  Andrea: 18 god. | Goranka: 47 god.', date:'Rujan 2008.', loc:'Tuzla → Rijeka, HR',
     desc:'Andrea odlazi od mame Goranke u Rijeku kako bi upisala Medicinski fakultet Sveučilišta u Rijeci.' },
   { id:'andrea-med-diplomirala', year:2013, frac:.92, type:'education', members:['andrea'],
-    title:'Diplomirala — Medicinski fak.', date:'Prosinac 2013.', loc:'Rijeka, HR',
+    title:'Diplomirala — Medicinski fak.  •  23 god.', date:'Prosinac 2013.', loc:'Rijeka, HR',
     desc:'Andrea završava Medicinski fakultet Sveučilišta u Rijeci. Diplomirala u prosincu 2013.' },
   { id:'andrea-vukovic-posao', year:2014, frac:.04, yearEnd:2026, yearEndFrac:.0, type:'tooth', members:['andrea'],
-    title:'Dr. Vuković, Rovinj', date:'13. 1. 2014. – danas', loc:'Rovinj, HR',
+    title:'Dr. Vuković, Rovinj  •  24–36 god.', date:'13. 1. 2014. – danas', loc:'Rovinj, HR',
     desc:'Andrea počinje raditi kod dr. Vukovića u Rovinju 13. siječnja 2014.' },
 
   // ── ANDREA KUĆA CVITANI
   { id:'andrea-kuca-gradnja', year:2021, frac:.42, yearEnd:2025, yearEndFrac:.54, type:'house', members:['andrea'],
-    title:'Gradi kuću u Cvitanima', date:'Lipanj 2021. – Srpanj 2025.', loc:'Cvitane, HR',
+    title:'Gradi kuću u Cvitanima  •  31–35 god.', date:'Lipanj 2021. – Srpanj 2025.', loc:'Cvitane, HR',
     desc:'Andrea uzima vlastiti kredit i gradi kuću u Cvitanima. Gradnja traje od lipnja 2021. do srpnja 2025.' },
   { id:'andrea-kuca-iznajmljivanje', year:2025, frac:.54, yearEnd:2026, yearEndFrac:.0, type:'house', members:['andrea'],
-    title:'Kuća u Cvitanima — iznajmljivanje', date:'Srpanj 2025. – danas', loc:'Cvitane, HR',
+    title:'Kuća u Cvitanima — iznajmljivanje  •  35–36 god.', date:'Srpanj 2025. – danas', loc:'Cvitane, HR',
     desc:'Kuća je završena u srpnju 2025. i od tada se redovno iznajmljuje. Andrea je vlasnica nekretnine.' },
 
 
@@ -911,74 +911,74 @@ const EVENTS = [
 
   // ── BORIS ODLAZI U ZAGREB
   { id:'boris-zagreb', year:1992, frac:.28, type:'escape', members:['boris'],
-    title:'Boris bježi u Zagreb', date:'Travanj 1992.', loc:'Sarajevo → Doboj → Tuzla → Zagreb',
+    title:'Boris bježi u Zagreb  •  26 god.', date:'Travanj 1992.', loc:'Sarajevo → Doboj → Tuzla → Zagreb',
     desc:'Boris napušta Sarajevo vlakom do Doboja, pa autobusom do Tuzle i napokon do Zagreba. U Sarajevu još nema rata — ali su nemiri i prosvjedi već u zraku. To je bio jedan od posljednjih vlakova koji su normalno prometovali. Drago, Vera i Goranka ostaju u gradu koji će uskoro biti opkoljen.' },
 
   // ── KUĆA U NEUMU ZAPALJENA
   { id:'neum-pozar', year:1992, frac:.52, type:'fire', members:['drago','vera'],
-    title:'Kuća u Neumu zapaljena', date:'Kraj srpnja 1992.', loc:'Neum, BiH',
+    title:'Kuća u Neumu zapaljena  •  Drago: 63 god. | Vera: 60 god.', date:'Kraj srpnja 1992.', loc:'Neum, BiH',
     desc:'Kuća u Neumu je zapaljena, ali je ugašena prije nego što je sasvim izgorjela – stradao je samo gornji kat. Lokalni Hrvati su je zapalili jer su mislili da su vlasnici Srbi.' },
 
   // ── DRAGO I VERA PROTJERANI IZ SARAJEVA
   { id:'drago-vera-bijeg', year:1992, frac:.60, type:'escape', members:['drago','vera'],
-    title:'Drago i Vera protjerani iz Ilidže', date:'Srpanj 1992.', loc:'Ilidža (Sarajevo) → Neum, BiH',
+    title:'Drago i Vera protjerani iz Ilidže  •  Drago: 63 god. | Vera: 60 god.', date:'Srpanj 1992.', loc:'Ilidža (Sarajevo) → Neum, BiH',
     desc:'U Ilidži su živjeli kao stalni dom, a Neum je bila njihova vikendica za more. Srpski časnik je dozvolio Dragi da uzme Ladu Samaru i ode u Neum, gdje su kuću našli spaljenu.' },
 
   // ── BORIS GISDATA
   { id:'boris-gisdata', year:1992, frac:.38, yearEnd:1998, yearEndFrac:.92, type:'job', members:['boris'],
-    title:'Boris — Gisdata, Zagreb', date:'Svibanj 1992. — Prosinac 1998.', loc:'Zagreb, HR',
+    title:'Boris — Gisdata, Zagreb  •  26–32 god.', date:'Svibanj 1992. — Prosinac 1998.', loc:'Zagreb, HR',
     desc:'Boris počinje raditi u tvrtki Gisdata u Zagrebu u svibnju 1992., neposredno nakon dolaska iz Sarajeva. Radi tamo šest i pol godina do prosinca 1998.' },
 
   // ── BORIS GUSDATA BIH
   { id:'boris-gisdata-bih', year:1996, frac:.5, yearEnd:1997, yearEndFrac:.75, type:'job', members:['boris'],
-    title:'Osniva Gisdata BiH', date:'Lipanj 1996. — Rujan 1997.', loc:'Sarajevo, BiH',
+    title:'Osniva Gisdata BiH  •  30–31 god.', date:'Lipanj 1996. — Rujan 1997.', loc:'Sarajevo, BiH',
     desc:'Boris dolazi u Sarajevo i osniva ogranak Gisdata BiH. Ured u Sarajevu ostaje aktivan nakon njegovog povratka u Zagreb.' },
 
   // ── BORIS DIPLOMIRA ETF
   { id:'boris-etf-dipl', year:1997, frac:.3, type:'education', members:['boris'],
-    title:'Diplomirao na ETF', date:'Svibanj 1997.', loc:'Sarajevo, BiH',
+    title:'Diplomirao na ETF  •  31 god.', date:'Svibanj 1997.', loc:'Sarajevo, BiH',
     desc:'Boris završava Elektrotehnički fakultet sa diplomskim radom na temu Geografskih informacijskih sustava (GIS). Upisao je 1984., studirao je 13 godina sa stankom zbog vojnog roka (409 dana 1984–1985) i ratnih okolnosti (1992–1997).' },
 
   // ── BORIS VRAĆA SE U ZAGREB
   { id:'boris-gisdata-return', year:1997, frac:.75, type:'job', members:['boris'],
-    title:'Vraća se u Zagreb u Gisdata', date:'Rujan 1997.', loc:'Sarajevo → Zagreb, HR',
+    title:'Vraća se u Zagreb u Gisdata  •  31 god.', date:'Rujan 1997.', loc:'Sarajevo → Zagreb, HR',
     desc:'Nakon diplome, Boris se vraća u matičnu središnjicu Gisdata u Zagrebu gdje nastavlja svoju karijeru.' },
 
   // ── BORIS B4B
   { id:'boris-b4b', year:1998, frac:.92, yearEnd:2004, yearEndFrac:.38, type:'job', members:['boris'],
-    title:'Boris — B4B, Zagreb', date:'Prosinac 1998. — Svibanj 2004.', loc:'Zagreb, HR',
+    title:'Boris — B4B, Zagreb  •  32–38 god.', date:'Prosinac 1998. — Svibanj 2004.', loc:'Zagreb, HR',
     desc:'Boris prelazi u tvrtku B4B u prosincu 1998 - Tvrtka b4b je zastupnik SAP AG tu pocinje svoj dugi put kao SAP Basis Consultant. U b4b radi do svibnja 2004.  kada kreće na vlastiti freelance projekt u Mađarsku.' },
 
   // ── BORIS FREELANCE MAĐARSKA (RAKETA)
-  { id:'boris-freelance', year:2004, frac:.38, yearEnd:2005, yearEndFrac:.38, type:'rocket', members:['boris'],
-    title:'Vlastiti freelance projekt — Mađarska', date:'Svibanj 2004. – Travanj 2005.', loc:'Mađarska / Europa',
-    desc:'Boris pokreće vlastiti freelance projekt u Mađarskoj. Kraj redovnog zaposlenja, početak samostalnog poduzetničkog puta. Radi kao SAP Basis consultant diljem Europe do otvaranja vlastite tvrtke 2005.' },
+  { id:'boris-freelance', year:2004, frac:.38, yearEnd:2015, yearEndFrac:.14, type:'rocket', members:['boris'],
+    title:'Vlastiti freelance projekt — Mađarska  •  38–49 god.', date:'Svibanj 2004. – Veljača 2015.', loc:'Mađarska / Europa',
+    desc:'Boris pokreće vlastiti freelance projekt u Mađarskoj. Kraj redovnog zaposlenja, početak samostalnog poduzetničkog puta. Radi kao SAP Basis consultant diljem Europe do otvaranja vlastite tvrtke 2015.' },
 
   // ── BORIS VJENČANJE
   { id:'boris-vjencanje', year:2004, frac:.85, type:'marriage', members:['boris'],
-    title:'Boris se vjenčava s Irenom', date:'Studeni 2004.', loc:'Hrvatska',
+    title:'Boris se vjenčava s Irenom  •  38 god.', date:'Studeni 2004.', loc:'Hrvatska',
     desc:'Boris se vjenčava s Irenom Petričević u studenom 2004. Godinu dana kasnije zajedno osnivaju Lifeline Consulting d.o.o.' },
 
 
   // ── BORIS LIFELINE CONSULTING
-  { id:'boris-lifeline', year:2005, frac:.38, yearEnd:2026, yearEndFrac:.42, type:'rocket', members:['boris'],
-    title:'Lifeline Consulting d.o.o.', date:'Svibanj 2005. – danas', loc:'Hrvatska',
-    desc:'Boris osniva Lifeline Consulting d.o.o. u Hrvatskoj u svibnju 2005. U tvrtci radi i njegova supruga Irena. Nastavlja pružati SAP consulting usluge klijentima diljem svijeta kao neovisni konzultant.' },
+  { id:'boris-lifeline', year:2015, frac:.14, yearEnd:2026, yearEndFrac:.42, type:'rocket', members:['boris'],
+    title:'Lifeline Consulting d.o.o.  •  49–60 god.', date:'23. 2. 2015. – danas', loc:'Hrvatska',
+    desc:'Boris osniva Lifeline Consulting d.o.o. u Hrvatskoj 23. veljače 2015. U tvrtci radi i njegova supruga Irena. Nastavlja pružati SAP consulting usluge klijentima diljem svijeta kao neovisni konzultant.' },
 
 
   // ── SMRT DRAGE
   { id:'drago-smrt', year:2013, frac:.12, type:'death', members:['drago','vera','goranka','boris','andrea','davor'],
-    title:'Drago Milošević umire', date:'Veljača 2013.', loc:'Sarajevo, BiH',
+    title:'Drago Milošević umire  •  Drago: 84 god. | Vera: 81 god. | Goranka: 52 god. | Andrea: 23 god. | Davor: 17 god.', date:'Veljača 2013.', loc:'Sarajevo, BiH',
     desc:'Drago Milošević umire u veljači 2013. u 84 od karcinoma zeludac u hospiciju pored Zagreba. godini života. Rođen u Derventi 1929., proživio je rat, izgradnju zemlje, sarajevsku opsadu i raspad Jugoslavije. Ostavio je Veru, djecu Goranku i Borisa.' },
 
   // ── SMRT VERE
   { id:'vera-smrt', year:2023, frac:.67, type:'death', members:['vera','goranka','boris','andrea','davor'],
-    title:'Vera Milošević umire', date:'Kolovoz 2023.', loc:'Sarajevo, BiH',
+    title:'Vera Milošević umire  •  Vera: 91 god. | Goranka: 62 god. | Andrea: 33 god. | Davor: 27 god.', date:'Kolovoz 2023.', loc:'Sarajevo, BiH',
     desc:'Vera Milošević umire u kolovoza 2023 u 90 godini zivota u Bolnici Pula od komplikacija mnogostrukih lomova i padova. Sahrannjena u Porecu na gradskom groblju. Zadnjih godinau ana zivota zivjela je u Domu za umirovljenik Porec. Rodila se u Derventi 1933., preživjela je Drugi svjetski rat, izgradnju Jugoslavije, njezin raspad i sarajevsku opsadu. Ostavlja djecu Goranku i Borisa.' },
 
   // ── BORIS 60
   { id:'boris60', year:2026, frac:.03, type:'milestone', members:['boris','goranka'],
-    title:'Boris slavi 60. rođendan', date:'5. 1. 2026.', loc:'Bosanski Brod / Sarajevo',
+    title:'Boris slavi 60. rođendan  •  60 god.', date:'5. 1. 2026.', loc:'Bosanski Brod / Sarajevo',
     desc:'Boris puni 60 godina. Goranka organizira proslavu — šest desetljeća jednog života kroz raspad jedne i rađanje novih država.' },
 
   // ── KORONA PANDEMIJA
@@ -1452,7 +1452,7 @@ function buildTimeline() {
         jobLabel.className = 'pg-job-label';
         jobLabel.style.left = ((x1 + x2) / 2) + 'px';
         jobLabel.style.color = DAVOR_JOB_COLOR;
-        jobLabel.textContent = 'Grosuplje';
+        jobLabel.textContent = 'Mengeš';
         davorJobRow.appendChild(jobLabel);
       });
 
