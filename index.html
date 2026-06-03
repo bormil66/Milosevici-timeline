@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+!DOCTYPE html>
 <html lang="hr" data-theme="light">
 <head>
   <meta charset="UTF-8" />
@@ -823,18 +823,34 @@ const EVENTS = [
   // ── GORANKA VJENČANJE
   { id:'goranka-vjencanje', year:1989, frac:.75, type:'marriage', members:['goranka'],
     title:'Goranka se vjenčava sa Zoranom Gavricem  •  28 god.', date:'Rujan 1989.', loc:'Tuzla, BiH',
-    desc:'Goranka se vjenčava sa Zoranom Gavricem u Tuzli gdje radi kao stomatolog.' },
 
-  // ── GORANKA KARIJERA (stomatolog) — placeholder datumi, dopuniti kad budu poznati
-  { id:'goranka-job-tuzla', year:1985, frac:.5, yearEnd:1989, yearEndFrac:.7, type:'tooth', members:['goranka'],
-    title:'Stomatolog, Tuzla  •  24–28 god.', date:'~1985. – 1989.', loc:'Tuzla, BiH',
-    desc:'Goranka radi kao stomatolog u Tuzli. Točan datum početka rada je približan — dodaj pravi datum kad bude poznat.' },
-  { id:'goranka-job-sarajevo', year:1992, frac:.3, yearEnd:1995, yearEndFrac:.9, type:'tooth', members:['goranka'],
-    title:'Stomatolog, Sarajevo (opsada)  •  31–34 god.', date:'1992. – 1995.', loc:'Sarajevo, BiH',
-    desc:'Goranka ostaje u opkoljenom Sarajevu i nastavlja raditi kao stomatolog kroz cijelo trajanje opsade (1425 dana).' },
-  { id:'goranka-job-danas', year:1996, frac:.0, yearEnd:2026, yearEndFrac:.0, type:'tooth', members:['goranka'],
-    title:'Stomatolog (nastavak)  •  35–65 god.', date:'1996. – danas', loc:'Sarajevo / HR',
-    desc:'Goranka nastavlja karijeru stomatologa nakon rata. Dodaj stvarne podatke o radnom mjestu kad budu poznati.' },
+    desc:'Goranka se vjenčava sa Zoranom Gavricem u Tuzli gdje radi kao stomatolog.' },
+  // ── GORANKA DIPLOMA
+  { id:'goranka-diploma', year:1987, frac:.38, type:'education', members:['goranka'],
+    title:'Diplomirala — Stomatologija Sarajevo  •  26 god.', date:'Svibanj 1987.', loc:'Sarajevo, BiH',
+    desc:'Goranka diplomira na Stomatološkom fakultetu u Sarajevu u svibnju 1987.' },
+  // ── GORANKA STAŽ
+  { id:'goranka-staz-zivinice', year:1987, frac:.42, yearEnd:1988, yearEndFrac:.42, type:'tooth', members:['goranka'],
+    title:'Staž — Dom zdravlja Živinice  •  26–27 god.', date:'Svibanj 1987. – 1988.', loc:'Živinice, pored Tuzle, BiH',
+    desc:'Goranka odlazi na liječnički staž u Dom zdravlja Živinice kod Tuzle, neposredno nakon diplomiranja na Stomatološkom fakultetu u Sarajevu.' },
+  // ── GORANKA BIJEG IZ TUZLE
+  { id:'goranka-bijeg-tuzla', year:1992, frac:.38, type:'escape', members:['goranka','andrea'],
+    title:'Goranka bježi iz Tuzle — Zagreb  •  Goranka: 31 god. | Andrea: 2 god.', date:'Svibanj 1992.', loc:'Tuzla → Beograd → Zagreb',
+    desc:'Goranka bježi iz Tuzle s dvogodišnjom Andreom u svibnju 1992., na početku rata u BiH. Bježe preko Beograda i dolaze u Zagreb.' },
+  // ── GORANKA U ZAGREBU I ODLAZAK U NEUM
+  { id:'goranka-zagreb-nada', year:1992, frac:.38, yearEnd:1992, yearEndFrac:.69, type:'milestone', members:['goranka','andrea','boris'],
+    title:'Zagreb — kod Nade Hill  •  Goranka: 31 god.', date:'Svibanj – Rujan 1992.', loc:'Zagreb, HR',
+    desc:'Goranka i Andrea borave u Zagrebu kod Nade Hill, zajedno s Borisom, od dolaska iz Tuzle do rujna 1992.' },
+  { id:'goranka-neum', year:1992, frac:.69, type:'move', members:['goranka','andrea'],
+    title:'Goranka odlazi u Neum  •  Goranka: 31 god. | Andrea: 2 god.', date:'Rujan 1992.', loc:'Zagreb → Neum, BiH',
+    desc:'Goranka s Andreom odlazi iz Zagreba u Neum u rujnu 1992.' },
+  // ── GORANKA POSAO METKOVIĆ
+  { id:'goranka-busic-metkovic', year:1992, frac:.85, yearEnd:2003, yearEndFrac:.99, type:'tooth', members:['goranka'],
+    title:'Stomatolog — Dr. Bušić, Metković  •  31–42 god.', date:'Studeni 1992. – 2003.', loc:'Metković, HR',
+    desc:'Goranka počinje raditi kao stomatolog kod dr. Bušića u Metkoviću u studenom 1992. U početku svakodnevno vozi iz Neuma u Metković, a kasnije se preseljava bliže poslu.' },
+
+
+
 
   // ── GORANKA VJENČANJE S RATKOM
   { id:'goranka-vjencanje-ratko', year:1995, frac:.92, type:'marriage', members:['goranka'],
@@ -1216,36 +1232,8 @@ function buildTimeline() {
     lifeBar.style.width = (ex - bx) + 'px';
     row.appendChild(lifeBar);
 
-    // ── ANDREA: plavo srce na početak linije života
-    if (m.id === 'andrea') {
-      const heartX = xOfYear(m.born, 0.06);
-      const heartDot = document.createElement('div');
-      heartDot.className = 'pg-event-dot birth';
-      heartDot.style.left = heartX + 'px';
-      heartDot.style.zIndex = '6';
-      heartDot.innerHTML = `<svg viewBox="0 0 24 24" fill="#2563a8" xmlns="http://www.w3.org/2000/svg">
-        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-      </svg>`;
-      // Pronađi andrea-birth event za tooltip
-      const andreaBirthEv = EVENTS.find(e => e.id === 'andrea-birth');
-      if (andreaBirthEv) attachTooltip(heartDot, andreaBirthEv);
-      row.appendChild(heartDot);
-    }
 
-    // ── DAVOR: plavo srce na početak linije života
-    if (m.id === 'davor') {
-      const davorHeartX = xOfYear(m.born, 0.17);
-      const davorHeartDot = document.createElement('div');
-      davorHeartDot.className = 'pg-event-dot birth';
-      davorHeartDot.style.left = davorHeartX + 'px';
-      davorHeartDot.style.zIndex = '6';
-      davorHeartDot.innerHTML = `<svg viewBox="0 0 24 24" fill="#2563a8" xmlns="http://www.w3.org/2000/svg">
-        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-      </svg>`;
-      const davorBirthEv = EVENTS.find(e => e.id === 'davor-birth');
-      if (davorBirthEv) attachTooltip(davorHeartDot, davorBirthEv);
-      row.appendChild(davorHeartDot);
-    }
+
 
     // Events for this member
     const memberEvents = EVENTS.filter(e => !e.world && e.members && e.members.includes(m.id));
@@ -1261,10 +1249,17 @@ function buildTimeline() {
       addDot(row, ev, ev.year, ev.frac || 0, color);
 
       const x = xOfYear(ev.year, ev.frac || 0);
-      // Only show label if at least 55px from the last one
-      if (x - lastLabelX >= 55) {
+      // Only show label if at least 55px from the last one (birth eventi uvijek)
+      if (ev.type === 'birth' || ev.isGrandchildBirth || x - lastLabelX >= 55) {
         const lbl2 = document.createElement('div');
-        const shortTitle = ev.title.length > 14 ? ev.title.slice(0, 13) + '…' : ev.title;
+        let shortTitle;
+        if (ev.type === 'birth' || ev.isGrandchildBirth) {
+          // Za birth evente prikaži ime člana
+          const birthMember = MEMBERS.find(mb => mb.id === (ev.members && ev.members[0]));
+          shortTitle = birthMember ? birthMember.name.split(' ')[0] : ev.title.slice(0, 13);
+        } else {
+          shortTitle = ev.title.length > 14 ? ev.title.slice(0, 13) + '…' : ev.title;
+        }
         lbl2.className = 'pg-event-label ' + (labelAbove ? 'above' : 'below');
         lbl2.textContent = shortTitle;
         lbl2.style.left = x + 'px';
@@ -1347,7 +1342,7 @@ function buildTimeline() {
         jobLabel.style.left = ((x1 + x2) / 2) + 'px';
         jobLabel.style.color = GORANKA_JOB_COLOR;
         let companyName = 'Stomatolog';
-        if (job.id === 'goranka-job-sarajevo') companyName = 'Opsada';
+        if (job.id === 'goranka-busic-metkovic') companyName = 'Ord. Dr. Bušić';
         jobLabel.textContent = companyName;
         gorankaJobRow.appendChild(jobLabel);
       });
