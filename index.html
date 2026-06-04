@@ -655,9 +655,7 @@
 </div>
 
 <!-- NOTE -->
-<div class="note-banner">
-  <strong>⚠️ Napomena:</strong>&nbsp;Datum vjenčanja Drage i Vere još nije unesen (označen kao ~1955). Dodaj pravi datum i ostale događaje kad budu poznati.
-</div>
+
 
 <!-- PARALLEL TIMELINE -->
 <div class="scroll-outer" id="scrollOuter">
@@ -709,8 +707,8 @@ const YEAR_END   = 2026;
 let   COL_W      = 18;   // px per year — controlled by zoom
 
 const MEMBERS = [
-  { id:'drago',   name:'Drago Milošević',   role:'Otac',             born:1929, bornDate:'29. 4. 1929.', died:2013, diedDate:'Veljača 2013.', place:'Derventa, BiH', color:'#5b3a8c', initials:'DM' },
-  { id:'vera',    name:'Vera Milošević',    role:'Majka',            born:1933, bornDate:'28. 5. 1933.', died:2023, diedDate:'Kolovoz 2023.', place:'Derventa, BiH', color:'#b84c6e', initials:'VM' },
+  { id:'drago',   name:'Drago Milošević',   role:'Otac',             born:1929, bornDate:'29. 4. 1929.', died:2013, diedDate:'Veljača 2013.', place:'Hoto naselje, Zagreb', color:'#5b3a8c', initials:'DM' },
+  { id:'vera',    name:'Vera Milošević',    role:'Majka',            born:1933, bornDate:'28. 5. 1933.', died:2023, diedDate:'Kolovoz 2023.', place:'Hoto naselje, Zagreb', color:'#b84c6e', initials:'VM' },
   { id:'goranka', name:'Goranka Milošević', role:'Kći (prvorođena)', born:1961, bornDate:'29. 9. 1961.', died:null, place:'Slavonski Brod', color:'#2a8c5b', initials:'GM' },
   { id:'boris',   name:'Boris Milošević',   role:'Sin',              born:1966, bornDate:'5. 1. 1966.',  died:null, place:'Bosanski Brod', color:'#2563a8', initials:'BM' },
   { id:'andrea',  name:'Andrea Gavrić',     role:'Unuka',            born:1990, bornDate:'25. 1. 1990.', died:null, place:'Tuzla, BiH', color:'#d4745f', initials:'AG' },
@@ -781,9 +779,9 @@ const EVENTS = [
     desc:'Yugoslavija se obnavlja kao federacija. Derventa postaje dio SR Bosne i Hercegovine.' },
 
   // ── VJENČANJE (oboje)
-  { id:'vjencanje', year:1955, frac:.5, type:'marriage', members:['drago','vera'],
-    title:'Vjenčanje Drage i Vere  •  Drago: 26 god. | Vera: 23 god.', date:'~1955. (datum nepoznat)', loc:'Derventa, BiH',
-    desc:'Drago i Vera vjenčaju se u Derventi. Točan datum još nije unesen — dodati kad bude poznat.' },
+  { id:'vjencanje', year:1959, frac:.79, type:'marriage', members:['drago','vera'],
+    title:'Vjenčanje Drage i Vere  •  Drago: 30 god. | Vera: 26 god.', date:'Listopad 1959.', loc:'Osijek, HR',
+    desc:'Drago i Vera vjenčaju se u Osijeku u listopadu 1959. Vjenčanje je organizirao Verin brat Boris.' },
 
   // ── GORANKA
   { id:'goranka-birth', year:1961, frac:.75, type:'birth', members:['goranka','drago','vera'],
@@ -983,6 +981,9 @@ const EVENTS = [
 
 
   // ── SMRT DRAGE
+    { id:'drago-vera-hoto', year:2007, frac:.21, type:'move', members:['drago','vera'],
+    title:'Kupuju stan u Hoto naselju  •  Drago: 77 god. | Vera: 74 god.', date:'21. 3. 2007.', loc:'Hoto naselje, Zagreb',
+    desc:'Drago i Vera kupuju stan u Hoto naselju pored Zagreba. Od tog dana žive u Zagrebu sve do kraja života. Drago umire u veljači 2013., a Vera u kolovozu 2023.' },
   { id:'drago-smrt', year:2013, frac:.12, type:'death', members:['drago','vera','goranka','boris','andrea','davor'],
     title:'Drago Milošević umire  •  Drago: 84 god. | Vera: 81 god. | Goranka: 52 god. | Andrea: 23 god. | Davor: 17 god.', date:'Veljača 2013.', loc:'Sarajevo, BiH',
     desc:'Drago Milošević umire u veljači 2013. u 84 od karcinoma zeludac u hospiciju pored Zagreba. godini života. Rođen u Derventi 1929., proživio je rat, izgradnju zemlje, sarajevsku opsadu i raspad Jugoslavije. Ostavio je Veru, djecu Goranku i Borisa.' },
@@ -2561,3 +2562,4 @@ requestAnimationFrame(() => {
 })();
   </script></body>
 </html>
+
