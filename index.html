@@ -709,7 +709,7 @@ let   COL_W      = 18;   // px per year — controlled by zoom
 const MEMBERS = [
   { id:'drago',   name:'Drago Milošević',   role:'Otac',             born:1929, bornDate:'29. 4. 1929.', died:2013, diedDate:'Veljača 2013.', place:'Hoto naselje, Zagreb', color:'#5b3a8c', initials:'DM' },
   { id:'vera',    name:'Vera Milošević',    role:'Majka',            born:1933, bornDate:'28. 5. 1933.', died:2023, diedDate:'Kolovoz 2023.', place:'Hoto naselje, Zagreb', color:'#b84c6e', initials:'VM' },
-  { id:'goranka', name:'Goranka Milošević', role:'Kći (prvorođena)', born:1961, bornDate:'29. 9. 1961.', died:null, place:'Slavonski Brod', color:'#2a8c5b', initials:'GM' },
+  { id:'goranka', name:'Goranka Milošević', role:'Kći (prvorođena)', born:1960, bornDate:'29. 9. 1960.', died:null, place:'Slavonski Brod', color:'#2a8c5b', initials:'GM' },
   { id:'boris',   name:'Boris Milošević',   role:'Sin',              born:1966, bornDate:'5. 1. 1966.',  died:null, place:'Bosanski Brod', color:'#2563a8', initials:'BM' },
   { id:'andrea',  name:'Andrea Gavrić',     role:'Unuka',            born:1990, bornDate:'25. 1. 1990.', died:null, place:'Tuzla, BiH', color:'#d4745f', initials:'AG' },
   { id:'davor',   name:'Davor Korać',        role:'Unuk',             born:1996, bornDate:'4. 3. 1996.',   died:null, place:'Dubrovnik, HR', color:'#2563a8', initials:'DK' },
@@ -729,6 +729,8 @@ const TYPE_COLORS = {
   milestone: '#7c3e99',
   general:   '#2563a8',
   world:     '#8c3a2a',
+  tooth:     '#0891b2',  // teal — Dom zdravlja Živinice
+  dental:    '#e07b20',  // narančasta — Dom zdravlja Tuzla
   job:       '#1a6e3c',  // tamno zelena — posao
   rocket:    '#0d47a1',  // duboko plava — raketa/startup
 };
@@ -753,6 +755,8 @@ const TYPE_LABELS = {
   milestone: 'Prekretnica',
   general:   'Događaj',
   world:     'Svjetski događaj',
+  tooth:     'Dom zdravlja Živinice',
+  dental:    'Dom zdravlja Tuzla',
   job:       'Zaposlenje',
   rocket:    'Vlastiti posao / Startup',
 };
@@ -784,8 +788,8 @@ const EVENTS = [
     desc:'Drago i Vera vjenčaju se u Osijeku u listopadu 1959. Vjenčanje je organizirao Verin brat Boris.' },
 
   // ── GORANKA
-  { id:'goranka-birth', year:1961, frac:.75, type:'birth', members:['goranka','drago','vera'],
-    title:'Rođena Goranka  •  Goranka: 0 god. | Drago: 32 god. | Vera: 29 god.', date:'29. 9. 1961.', loc:'Slavonski Brod, HR',
+  { id:'goranka-birth', year:1960, frac:.75, type:'birth', members:['goranka','drago','vera'],
+    title:'Rođena Goranka  •  Goranka: 0 god. | Drago: 31 god. | Vera: 27 god.', date:'29. 9. 1960.', loc:'Slavonski Brod, HR',
     desc:'Prvorođena kći Goranka rađa se u Slavonskom Brodu. Obitelj živi na granici Bosne i Slavonije.' },
 
   // ── BORIS
@@ -821,16 +825,26 @@ const EVENTS = [
   // ── GORANKA VJENČANJE
   { id:'goranka-vjencanje', year:1989, frac:.75, type:'marriage', members:['goranka'],
     title:'Goranka se vjenčava sa Zoranom Gavricem  •  28 god.', date:'Rujan 1989.', loc:'Tuzla, BiH',
-
     desc:'Goranka se vjenčava sa Zoranom Gavricem u Tuzli gdje radi kao stomatolog.' },
+
+  { id:'goranka-vjencanje-ratko', year:1995, frac:.95, type:'marriage', members:['goranka'],
+    title:'Goranka se udaje za Ratka  •  35 god.', date:'15. 12. 1995.', loc:'Dubrovnik, HR',
+    desc:'Goranka se udaje za Ratka 15. prosinca 1995. u Dubrovniku.' },
   // ── GORANKA DIPLOMA
-  { id:'goranka-diploma', year:1987, frac:.38, type:'education', members:['goranka'],
-    title:'Diplomirala — Stomatologija Sarajevo  •  26 god.', date:'Svibanj 1987.', loc:'Sarajevo, BiH',
-    desc:'Goranka diplomira na Stomatološkom fakultetu u Sarajevu u svibnju 1987.' },
+  { id:'goranka-razvod', year:1995, frac:.44, type:'milestone', members:['goranka'],
+    title:'Razvod od Zorana Gavrića  •  Goranka: 34 god.', date:'8. 6. 1995.', loc:'Dubrovnik, HR',
+    desc:'Goranka se razvodi od Zorana Gavrića u Dubrovniku 8. lipnja 1995.' },
+  { id:'goranka-diploma', year:1986, frac:.35, type:'education', members:['goranka'],
+    title:'Diplomirala — Stomatologija Sarajevo  •  25 god.', date:'6. 5. 1986.', loc:'Sarajevo, BiH',
+    desc:'Goranka diplomira na Stomatološkom fakultetu u Sarajevu 6. svibnja 1986.' },
   // ── GORANKA STAŽ
-  { id:'goranka-staz-zivinice', year:1987, frac:.42, yearEnd:1988, yearEndFrac:.42, type:'tooth', members:['goranka'],
-    title:'Staž — Dom zdravlja Živinice  •  26–27 god.', date:'Svibanj 1987. – 1988.', loc:'Živinice, pored Tuzle, BiH',
-    desc:'Goranka odlazi na liječnički staž u Dom zdravlja Živinice kod Tuzle, neposredno nakon diplomiranja na Stomatološkom fakultetu u Sarajevu.' },
+  { id:'goranka-staz-zivinice', year:1987, frac:.38, yearEnd:1988, yearEndFrac:.77, type:'tooth', members:['goranka'],
+    title:'Dom zdravlja Živinice  •  Goranka: 26–28 god.', date:'25. 5. 1987. – 10. 10. 1988.', loc:'Živinice, BiH',
+    desc:'Goranka radi u Domu zdravlja Živinice od 25. svibnja 1987. do 10. listopada 1988., neposredno nakon diplomiranja stomatologije u Sarajevu.' },
+
+  { id:'goranka-dz-tuzla', year:1988, frac:.77, yearEnd:1992, yearEndFrac:.37, type:'dental', members:['goranka'],
+    title:'Dom zdravlja Tuzla  •  Goranka: 28–31 god.', date:'10. 10. 1988. – 15. 5. 1992.', loc:'Tuzla, BiH',
+    desc:'Goranka prelazi u Dom zdravlja Tuzla 10. listopada 1988. gdje radi kao stomatolog do 15. svibnja 1992.' },
   // ── GORANKA BIJEG IZ TUZLE
   { id:'goranka-bijeg-tuzla', year:1992, frac:.38, type:'escape', members:['goranka','andrea'],
     title:'Goranka bježi iz Tuzle — Zagreb  •  Goranka: 31 god. | Andrea: 2 god.', date:'Svibanj 1992.', loc:'Tuzla → Beograd → Zagreb',
@@ -847,10 +861,29 @@ const EVENTS = [
     title:'Stomatolog — Dr. Bušić, Metković  •  31–42 god.', date:'Studeni 1992. – 2003.', loc:'Metković, HR',
     desc:'Goranka počinje raditi kao stomatolog kod dr. Bušića u Metkoviću u studenom 1992. U početku svakodnevno vozi iz Neuma u Metković, a kasnije se preseljava bliže poslu.' },
 
+  { id:'goranka-ordinacija-metkovic', year:1997, frac:.18, type:'rocket', members:['goranka'],
+    title:'Otvara vlastitu ordinaciju — Metković  •  Goranka: 36 god.', date:'4. 3. 1997.', loc:'Metković, HR',
+    desc:'Goranka otvara svoju prvu privatnu stomatološku ordinaciju u Metkoviću, odmah do stana gdje je živjela na periferiji grada. Prvi samostalni i privatni pothvat u obitelji Milošević!' },
+
 
 
 
   // ── GORANKA VJENČANJE S RATKOM
+  { id:'goranka-selidba-porec', year:2003, frac:.58, type:'move', members:['goranka','drago'],
+    title:'Selidba u Poreč — stan na Dragino ime  •  Goranka: 42 god.', date:'29. 7. 2003.', loc:'Poreč, HR',
+    desc:'Goranka se seli iz Metkovića u Poreč gdje je 29. srpnja 2003. kupljen stan na ime Drage Miloševića — kao dar obitelji za njezinu budućnost.' },
+
+  { id:'goranka-saskin-porec', year:2003, frac:.58, yearEnd:2011, yearEndFrac:.29, type:'saskin', members:['goranka'],
+    title:'Ordinacija dr. Mire Šaškin — Poreč  •  Goranka: 42–50 god.', date:'29. 7. 2003. – Travanj 2011.', loc:'Poreč, HR',
+    desc:'Goranka radi u stomatološkoj ordinaciji dr. Mire Šaškin u Poreču od 29. srpnja 2003. do travnja 2011. kada otvara vlastitu ambulantu.' },
+
+  { id:'goranka-ambulanta-porec', year:2011, frac:.29, type:'rocket', members:['goranka'],
+    title:'Otvara vlastitu Ambulantu — Poreč  •  Goranka: 50 god.', date:'Travanj 2011.', loc:'Poreč, HR',
+    desc:'Goranka službeno otvara vlastitu stomatološku ambulantu u Poreču u travnju 2011. Odlazi od dr. Mire Šaškin i kreće samostalno.' },
+
+  { id:'goranka-ambulanta-rad', year:2011, frac:.29, yearEnd:2026, yearEndFrac:.99, type:'ambulanta', skipDot:true, members:['goranka','andrea'],
+    title:'Ord. Milošević Poreč  •  Goranka: 50–65 god.', date:'Travanj 2011. – danas', loc:'Poreč, HR',
+    desc:'Goranka vodi vlastitu ordinaciju Milošević u Poreču. Andrea povremeno dolazi pomagati. Radi i danas.' },
   { id:'goranka-vjencanje-ratko', year:1995, frac:.92, type:'marriage', members:['goranka'],
     title:'Goranka se vjenčava s Ratkom  •  34 god.', date:'Prosinac 1995.', loc:'Sarajevo / HR',
     desc:'Goranka se vjenčava s Ratkom u prosincu 1995., nakon završetka rata u BiH.' },
@@ -966,7 +999,7 @@ const EVENTS = [
   // ── BORIS FREELANCE MAĐARSKA (RAKETA)
   { id:'boris-freelance', year:2004, frac:.38, yearEnd:2015, yearEndFrac:.14, type:'rocket', members:['boris'],
     title:'Vlastiti freelance projekt — Mađarska  •  38–49 god.', date:'Svibanj 2004. – Veljača 2015.', loc:'Mađarska / Europa',
-    desc:'Boris provaća v prvi freelance projekt u Mađarskoj za HP. Kraj redovnog zaposlenja, početak samostalnog poduzetničkog puta. Radi kao SAP Solution Manager Consultant  diljem Europe do otvaranja vlastite tvrtke 2015.' },
+    desc:'Boris pokreće vlastiti freelance projekt u Mađarskoj. Kraj redovnog zaposlenja, početak samostalnog poduzetničkog puta. Radi kao SAP Basis consultant diljem Europe do otvaranja vlastite tvrtke 2015.' },
 
   // ── BORIS VJENČANJE
   { id:'boris-vjencanje', year:2004, frac:.85, type:'marriage', members:['boris'],
@@ -1001,7 +1034,7 @@ const EVENTS = [
   // ── BORIS ZDRAVLJE
   { id:'boris-asd-otkriven', year:2019, frac:.47, type:'hospital', members:['boris'],
     title:'Otkriven ASD — srčana mana  •  53 god.', date:'2019.', loc:'Hrvatska',
-    desc:'Borisu je otkrivena urođena srčana mana, za koju je znao od djetistva,  ASD (Atrial Septal Defect) — rupa na atrijskom septumu. Mana nije pokazivala nikakve zdravstvene probleme dok na redovno pregledu nije otkriveno uvečanje desne strane srca. Počinje tražiti opcije gdje napraviti operaciju.' },
+    desc:'Borisu je otkrivena urođena srčana mana ASD (Atrial Septal Defect) — rupa na atrijskom septumu. Počinje tražiti opcije gdje napraviti operaciju.' },
   { id:'boris-operacija-asd', year:2021, frac:.48, type:'hospital', members:['boris'],
     title:'Operacija ASD — KBC Rebro  •  55 god.', date:'25. 6. 2021.', loc:'KBC Rebro, Zagreb',
     desc:'Boris odlazi u KBC Rebro gdje kirurg dr. Anić uspješno zatvara rupu na atrijskom septumu (ASD). Operacija prolazi bez komplikacija. Boris ostaje 4 dana u bolnici i izlazi u odličnom stanju.' },
@@ -1245,6 +1278,7 @@ function buildTimeline() {
     memberEvents.forEach((ev) => {
       // Skip showing dot icons for Gisdata Sarajevo branch events
       if (['boris-gisdata-bih', 'boris-gisdata-return'].includes(ev.id)) return;
+      if (ev.skipDot) return;
       
       const color = TYPE_COLORS[ev.type] || TYPE_COLORS.general;
       addDot(row, ev, ev.year, ev.frac || 0, color);
@@ -1272,7 +1306,7 @@ function buildTimeline() {
     });
 
     // Span events (like job periods) — but NOT job/rocket events (those go on separate job timeline)
-    EVENTS.filter(e => !e.world && e.yearEnd && e.members && e.members.includes(m.id) && !(e.type === 'job' || e.type === 'tooth' || e.type === 'physio' || e.type === 'rocket')).forEach(ev => {
+    EVENTS.filter(e => !e.world && e.yearEnd && e.members && e.members.includes(m.id) && !(e.type === 'job' || e.type === 'physio' || e.type === 'rocket')).forEach(ev => {
       const barH  = 4;
       const barOp = '.35';
       const x1 = xOfYear(ev.year, ev.frac || 0);
@@ -1317,18 +1351,20 @@ function buildTimeline() {
       gorankaJobRow.appendChild(gorankaJobSvgStart);
 
       // Gorankini job eventi
-      const gorankaJobs = EVENTS.filter(e => !e.world && e.yearEnd && e.members && e.members.includes('goranka') && (e.type === 'job' || e.type === 'tooth'));
+      const gorankaJobs = EVENTS.filter(e => !e.world && e.yearEnd && e.members && e.members.includes('goranka') && (e.type === 'job' || e.type === 'tooth' || e.type === 'dental' || e.type === 'saskin' || e.type === 'ambulanta'));
 
-      // Boje za Gorankine poslove (zelena nijansa)
-      const GORANKA_JOB_COLOR = '#2a8c5b';
+      // Boje per tip
+      const GORANKA_JOB_COLORS = { 'tooth': '#0891b2', 'dental': '#e07b20', 'saskin': '#9333ea', 'ambulanta': '#b45309', 'job': '#2a8c5b' };
+      const GORANKA_JOB_LABELS = { 'tooth': 'Dom Živinice', 'dental': 'Dom Tuzla', 'saskin': 'Ord. Šaškin', 'ambulanta': 'Ord. Milošević', 'job': 'Posao' };
 
       gorankaJobs.forEach(job => {
         const x1 = xOfYear(job.year, job.frac || 0);
         const x2 = xOfYear(job.yearEnd, job.yearEndFrac !== undefined ? job.yearEndFrac : .99);
+        const jobColor = GORANKA_JOB_COLORS[job.type] || '#2a8c5b';
 
         const jobBar = document.createElement('div');
         jobBar.className = 'pg-job-bar';
-        jobBar.style.background = GORANKA_JOB_COLOR;
+        jobBar.style.background = jobColor;
         jobBar.style.left = x1 + 'px';
         jobBar.style.width = (x2 - x1) + 'px';
         jobBar.style.top = '50%';
@@ -1341,8 +1377,8 @@ function buildTimeline() {
         const jobLabel = document.createElement('div');
         jobLabel.className = 'pg-job-label';
         jobLabel.style.left = ((x1 + x2) / 2) + 'px';
-        jobLabel.style.color = GORANKA_JOB_COLOR;
-        let companyName = 'Stomatolog';
+        jobLabel.style.color = jobColor;
+        let companyName = GORANKA_JOB_LABELS[job.type] || 'Stomatolog';
         if (job.id === 'goranka-busic-metkovic') companyName = 'Ord. Dr. Bušić';
         jobLabel.textContent = companyName;
         gorankaJobRow.appendChild(jobLabel);
@@ -1640,14 +1676,18 @@ function buildTimeline() {
   // ── WAR SPAN OVERLAYS — samo po jedna linija na pocetku i na kraju
   const warSpans = EVENTS.filter(e => e.world && e.warSpan && e.yearEnd);
   warSpans.forEach(ev => {
-    const x1 = xOfYear(ev.year, ev.frac || 0);
-    const x2 = xOfYear(ev.yearEnd, ev.yearEndFrac || .99);
+    const x1 = xOfYear(ev.year, 0);
+    const x2 = xOfYear(ev.yearEnd, .99);
 
-    [x1, x2].forEach(x => {
-      const line = document.createElement('div');
-      line.className = 'war-vline';
-      line.style.left = x + 'px';
-      wrap.appendChild(line);
+    // Dodaj vline na SVE rowove (worldRow + member rowovi) da budu poravnate
+    const allRows = wrap.querySelectorAll('.pg-world-row, .pg-member-row, .pg-job-row');
+    allRows.forEach(row => {
+      [x1, x2].forEach(x => {
+        const line = document.createElement('div');
+        line.className = 'war-vline';
+        line.style.left = x + 'px';
+        row.appendChild(line);
+      });
     });
   });
 }
@@ -1752,6 +1792,10 @@ const TYPE_ICONS = {
     <circle cx="12" cy="12" r="8"/>
   </svg>`,
 };
+// Aliasi za zub ikonu
+TYPE_ICONS.saskin   = TYPE_ICONS.tooth;
+TYPE_ICONS.dental   = TYPE_ICONS.tooth;
+TYPE_ICONS.ambulanta = TYPE_ICONS.tooth;
 
 function getIcon(type, color) {
   const fn = TYPE_ICONS[type] || TYPE_ICONS.general;
